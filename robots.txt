@@ -1,0 +1,39 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://dreaminterpretation.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Block access to admin or sensitive areas (if any exist in future)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/
+Disallow: /.kiro/
+
+# Allow access to assets
+Allow: /assets/
+
+# Preferred domain and sitemap
+Host: dreaminterpretation.com

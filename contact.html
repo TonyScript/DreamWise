@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NVT75WW9');</script>
+    <!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-4K73RJPLKS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Contact Us - Send Us a Message | DreamWise</title>
+    <meta name="description" content="Contact our dream interpretation team. Send us a message with your questions, feedback, or suggestions. We're here to help you understand your dreams better.">
+    <meta name="keywords" content="contact dream team, dream interpretation feedback, dream questions, spiritual guidance contact">
+    <meta name="author" content="Dream Interpretation Platform">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#8B5CF6">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/main.min.css">
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVT75WW9"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Skip to Content Link for Accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card mx-4 mt-4 rounded-2xl">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-moon text-white text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">DreamWise</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Home</a>
+                    <a href="browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Browse A-Z</a>
+                    <a href="categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Categories</a>
+                    <a href="insights.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Daily Insights</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden mobile-menu-toggle text-white hover:text-purple-300 transition-colors duration-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="pt-24">
+        <!-- Hero Section -->
+        <section class="py-20 relative overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        <span class="gradient-text">Contact</span> Us
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed max-w-4xl mx-auto">
+                        Have questions about your dreams? Want to share feedback? We'd love to hear from you.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="glass-card p-8">
+                        <h2 class="text-3xl font-bold mb-8 text-center">
+                            Send Us a Message
+                        </h2>
+                        
+                        <!-- Success Message (Hidden by default) -->
+                        <div id="success-message" class="hidden bg-green-500/20 border border-green-500/30 text-green-300 p-4 rounded-lg mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-xl mr-3"></i>
+                                <p>Your message has been sent successfully! We'll get back to you soon.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Error Message (Hidden by default) -->
+                        <div id="error-message" class="hidden bg-red-500/20 border border-red-500/30 text-red-300 p-4 rounded-lg mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-exclamation-circle text-xl mr-3"></i>
+                                <p>There was an error sending your message. Please try again later.</p>
+                            </div>
+                        </div>
+                        
+                        <form id="contact-form" class="space-y-6" method="POST" action="https://formsubmit.co/03d026349fcfeb02ccf522f7547fe0bb"></form>
+                            <!-- Hidden fields for FormSubmit configuration -->
+                            <input type="hidden" name="_subject" value="New DreamWise Contact Form Submission">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_next" value="/contact.html?success=true">
+                            
+                            <!-- Name and Email -->
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
+                                    <input type="text" name="name" required class="w-full glass-card p-3 rounded-lg text-white bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none transition-colors duration-300">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
+                                    <input type="email" name="email" required class="w-full glass-card p-3 rounded-lg text-white bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none transition-colors duration-300">
+                                </div>
+                            </div>
+
+                            <!-- Subject -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Subject *</label>
+                                <select name="subject" required class="w-full glass-card p-3 rounded-lg text-white bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none transition-colors duration-300">
+                                    <option value="">Select a topic...</option>
+                                    <option value="Dream Interpretation Question">Dream Interpretation Question</option>
+                                    <option value="Technical Support">Technical Support</option>
+                                    <option value="Feedback & Suggestions">Feedback & Suggestions</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Message *</label>
+                                <textarea name="message" rows="6" required placeholder="Please describe your question or feedback in detail..." class="w-full glass-card p-3 rounded-lg text-white bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none transition-colors duration-300 resize-none"></textarea>
+                            </div>
+
+                            <!-- Newsletter Signup -->
+                            <div>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="checkbox" name="newsletter" value="yes" class="rounded border-gray-600 text-purple-500 focus:ring-purple-500">
+                                    <span class="text-sm text-gray-400">Subscribe to our newsletter for daily dream insights and spiritual guidance</span>
+                                </label>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="glass-card hover-scale px-8 py-4 rounded-full text-white font-semibold text-lg transition-all duration-300 bg-gradient-to-r from-purple-500 to-pink-500">
+                                    <i class="fas fa-paper-plane mr-2"></i>
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                        Frequently Asked <span class="gradient-text">Questions</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                        Quick answers to common questions about our dream interpretation resources
+                    </p>
+                </div>
+
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <!-- FAQ Item 1 -->
+                    <div class="glass-card p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold">How accurate are dream interpretations?</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-400">
+                            <p>Dream interpretations are based on established psychological principles, religious texts, and spiritual traditions. While dream meanings can be highly personal, our resources provide insights from multiple perspectives to help you understand your subconscious messages. The most meaningful interpretations often come from combining these perspectives with your own personal associations.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="glass-card p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold">How long will it take to get a response to my message?</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-400">
+                            <p>We strive to respond to all messages within 3-5 business days. However, response times may vary depending on the volume of inquiries we receive. We appreciate your patience and will get back to you as soon as possible.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="glass-card p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold">Do you offer interpretations for all religious backgrounds?</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-400">
+                            <p>Yes! Our resources cover multi-faith dream interpretation, including Christianity, Islam, Buddhism, Hinduism, Judaism, and universal spiritual perspectives. Our content provides interpretations that span multiple traditions to give you a comprehensive understanding of your dreams.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="glass-card p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold">Is my personal information kept confidential?</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-400">
+                            <p>Absolutely. We take privacy very seriously. All messages and personal information are kept strictly confidential. We never share your dreams or personal details with third parties without your explicit consent. For more information, please review our Privacy Policy.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="glass-card p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold">Can you help with recurring nightmares?</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-400">
+                            <p>Our resources include information about nightmare analysis and techniques for addressing recurring dreams. While we provide educational content on this topic, for persistent nightmares that cause significant distress, we recommend consulting with a qualified mental health professional who specializes in dream work or sleep disorders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Container - Loaded dynamically -->
+    <div id="footer-container"></div>
+    
+    <!-- JavaScript -->
+    <script src="assets/js/main.min.js"></script>
+    <script src="assets/js/components.js"></script>
+    <script>
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        // Check for success parameter in URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                document.getElementById('success-message').classList.remove('hidden');
+                // Scroll to success message
+                document.getElementById('success-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Remove success parameter from URL without refreshing page
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+</body>
+</html>

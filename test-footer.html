@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NVT75WW9');</script>
+    <!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-4K73RJPLKS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Component Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 text-white min-h-screen">
+    
+    <main class="container mx-auto px-6 py-20">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold mb-8 gradient-text">Footer Component Test</h1>
+            <p class="text-xl text-gray-300 mb-12">Testing the dynamic footer loading system</p>
+            
+            <div class="glass-card p-8 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold mb-4">Component System Benefits</h2>
+                <ul class="text-left space-y-2 text-gray-300">
+                    <li>✅ Single source of truth for footer content</li>
+                    <li>✅ Easy maintenance and updates</li>
+                    <li>✅ Consistent styling across all pages</li>
+                    <li>✅ Reduced code duplication</li>
+                    <li>✅ Better performance with caching</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Container - Loaded dynamically -->
+    <div id="footer-container"></div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/components.js"></script>
+</body>
+</html>

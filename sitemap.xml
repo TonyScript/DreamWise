@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://dreamwise.charitydoing.com/</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/og-image.jpg</image:loc>
+            <image:title>Dream Interpretation Platform - Multi-Faith Dream Analysis</image:title>
+            <image:caption>Comprehensive dream dictionary with multi-faith perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Main Navigation Pages -->
+    <url>
+        <loc>https://dreamwise.charitydoing.com/browse.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/og-browse.jpg</image:loc>
+            <image:title>A-Z Dream Dictionary - Browse Dream Symbols Alphabetically</image:title>
+            <image:caption>Comprehensive alphabetical listing of dream symbols and meanings</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/categories.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/og-categories.jpg</image:loc>
+            <image:title>Dream Categories - Browse Dreams by Theme</image:title>
+            <image:caption>Dream symbols organized by thematic categories</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/insights.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/insights-og.jpg</image:loc>
+            <image:title>Daily Dream Insights &amp; Spiritual Wisdom</image:title>
+            <image:caption>Daily spiritual guidance and dream wisdom from multiple faith traditions</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Dream Blog Pages -->
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream-blog.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/og-dream-blog.jpg</image:loc>
+            <image:title>Dream Blog - Latest Insights and Dream Analysis</image:title>
+            <image:caption>Articles and insights about dream interpretation and spiritual meanings</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream-guides.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/og-dream-guides.jpg</image:loc>
+            <image:title>Dream Guides - Comprehensive Dream Tutorials</image:title>
+            <image:caption>Detailed guides for understanding and interpreting your dreams</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Support Pages -->
+    <url>
+        <loc>https://dreamwise.charitydoing.com/contact.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/og-contact.jpg</image:loc>
+            <image:title>Contact Us - Send Us a Message</image:title>
+            <image:caption>Get in touch with our dream interpretation team</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/faq.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/og-faq.jpg</image:loc>
+            <image:title>Frequently Asked Questions - Dream Interpretation FAQ</image:title>
+            <image:caption>Answers to common questions about dream interpretation and our services</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Dream Interpretation Pages -->
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream/snake.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/symbols/snake-dream.jpg</image:loc>
+            <image:title>Snake Dream Meaning - Multi-Faith Interpretation</image:title>
+            <image:caption>Spiritual meaning of snake dreams from multiple religious perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream/water.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/symbols/water-dream.jpg</image:loc>
+            <image:title>Water Dream Meaning - Multi-Faith Interpretation</image:title>
+            <image:caption>Spiritual meaning of water dreams from multiple religious perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream/flying.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/symbols/flying-dream.jpg</image:loc>
+            <image:title>Flying Dream Meaning - Multi-Faith Interpretation</image:title>
+            <image:caption>Spiritual meaning of flying dreams from multiple religious perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream/fire.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/symbols/fire-dream.jpg</image:loc>
+            <image:title>Fire Dream Meaning - Multi-Faith Interpretation</image:title>
+            <image:caption>Spiritual meaning of fire dreams from multiple religious perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream/house.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/symbols/house-dream.jpg</image:loc>
+            <image:title>House Dream Meaning - Multi-Faith Interpretation</image:title>
+            <image:caption>Spiritual meaning of house dreams from multiple religious perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream/death.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/symbols/death-dream.jpg</image:loc>
+            <image:title>Death Dream Meaning - Multi-Faith Interpretation</image:title>
+            <image:caption>Spiritual meaning of death dreams from multiple religious perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream/baby.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/symbols/baby-dream.jpg</image:loc>
+            <image:title>Baby Dream Meaning - Multi-Faith Interpretation</image:title>
+            <image:caption>Spiritual meaning of baby dreams from multiple religious perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/dream/car.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/symbols/car-dream.jpg</image:loc>
+            <image:title>Car Dream Meaning - Multi-Faith Interpretation</image:title>
+            <image:caption>Spiritual meaning of car dreams from multiple religious perspectives</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Blog Articles -->
+    <url>
+        <loc>https://dreamwise.charitydoing.com/blog-recurring-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/blog/recurring-dreams.jpg</image:loc>
+            <image:title>Understanding Recurring Dreams: What They Mean</image:title>
+            <image:caption>Explore the psychological and spiritual significance of recurring dreams</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/blog-water-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/blog/water-dreams.jpg</image:loc>
+            <image:title>Water Dreams Across Different Cultures</image:title>
+            <image:caption>Explore how water symbols in dreams are interpreted across various cultural traditions</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/blog-prophetic-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/blog/prophetic-dreams.jpg</image:loc>
+            <image:title>Prophetic Dreams: Separating Truth from Fantasy</image:title>
+            <image:caption>Learn how to identify truly prophetic dreams and understand their spiritual significance</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/blog-new-year-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/blog/new-year-dreams.jpg</image:loc>
+            <image:title>New Year and Transformation Dreams</image:title>
+            <image:caption>Explore how dreams around the New Year reflect themes of transformation and renewal</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- New Pages from Updated Navigation -->
+    <url>
+        <loc>https://dreamwise.charitydoing.com/christian-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/christian-dreams.jpg</image:loc>
+            <image:title>Christian Dream Interpretation</image:title>
+            <image:caption>Biblical perspective on dream interpretation and spiritual guidance</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/islamic-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/islamic-dreams.jpg</image:loc>
+            <image:title>Islamic Dream Interpretation</image:title>
+            <image:caption>Dreams in Islamic tradition and spiritual guidance</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/buddhist-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/buddhist-dreams.jpg</image:loc>
+            <image:title>Buddhist Dream Interpretation</image:title>
+            <image:caption>Dreams in Buddhist philosophy and spiritual guidance</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/hindu-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/hindu-dreams.jpg</image:loc>
+            <image:title>Hindu Dream Interpretation</image:title>
+            <image:caption>Dreams in Hindu tradition and spiritual guidance</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/jewish-dreams.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/jewish-dreams.jpg</image:loc>
+            <image:title>Jewish Dream Interpretation</image:title>
+            <image:caption>Dreams in Jewish tradition and spiritual guidance</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/personalized.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/personalized-analysis.jpg</image:loc>
+            <image:title>Personalized Dream Analysis</image:title>
+            <image:caption>Get custom dream interpretations tailored to your unique circumstances</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/about.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/about-us.jpg</image:loc>
+            <image:title>About DreamWise</image:title>
+            <image:caption>Learn about our mission and team of dream interpretation experts</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://dreamwise.charitydoing.com/experts.html</loc>
+        <lastmod>2025-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://dreamwise.charitydoing.com/assets/images/dream-experts.jpg</image:loc>
+            <image:title>Our Dream Experts</image:title>
+            <image:caption>Meet our team of dream interpretation specialists and spiritual counselors</image:caption>
+        </image:image>
+    </url>
+    
+</urlset>
