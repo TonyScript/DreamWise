@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <!-- 第三方资源预连接 -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
 <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -173,7 +176,8 @@
     <script defer data-domain="dreamwise.charitydoing.com" src="https://vince.charitydoing.com/js/script.js"></script>
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
     <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -182,6 +186,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="preload" href="assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="assets/css/image-optimization.css"></noscript>
 </head>
 
 <body>
@@ -1186,9 +1192,9 @@
                     Connect with our team of dream specialists, spiritual counselors, and psychology experts for deeper insights into complex dreams.
                 </p>
                 <div class="feature-experts">
-                    <div class="feature-expert-avatar" style="background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face&auto=format&q=80')"></div>
-                    <div class="feature-expert-avatar" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face&auto=format&q=80')"></div>
-                    <div class="feature-expert-avatar" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face&auto=format&q=80')"></div>
+                    <div class="feature-expert-avatar" style="will-change: transform; background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face&auto=format&q=80')"></div>
+                    <div class="feature-expert-avatar" style="will-change: transform; background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face&auto=format&q=80')"></div>
+                    <div class="feature-expert-avatar" style="will-change: transform; background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face&auto=format&q=80')"></div>
                     <div class="feature-expert-count">+12</div>
                 </div>
                 <a href="experts.html" class="feature-link">
@@ -1656,8 +1662,8 @@
     <div id="footer-container"></div>
 
     <!-- JavaScript -->
-    <script src="assets/js/main.min.js"></script>
-    <script src="assets/js/components.js"></script>
+    <script src="assets/js/main.min.js" defer></script>
+    <script src="assets/js/components.js" defer></script>
 </body>
 
 </html>

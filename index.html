@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <!-- 第三方资源预连接 -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -179,7 +182,8 @@
     <script defer data-domain="dreamwise.charitydoing.com" src="https://vince.charitydoing.com/js/script.js"></script>
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
     <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -189,7 +193,73 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/main.min.css">
 
-    </head>
+        <link rel="preload" href="assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="assets/css/image-optimization.css"></noscript>
+
+    <style>
+        /* 关键CSS内联 */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); 
+            color: #ffffff; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh;
+        }
+        
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gradient-text { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+        }
+        
+        nav { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            z-index: 50; 
+        }
+        
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 1.5rem; 
+        }
+        
+        .hidden { display: none; }
+        
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            .md\:hidden { display: none; }
+            .md\:flex { display: flex; }
+            .container { padding: 0 1rem; }
+        }
+        
+        /* 防止布局偏移 */
+        img { max-width: 100%; height: auto; }
+        
+        /* 优化渲染性能 */
+        * { box-sizing: border-box; }
+        
+        /* 减少重绘 */
+        .hover-scale { 
+            transition: transform 0.3s ease; 
+            will-change: transform; 
+        }
+    </style>
+</head>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -205,13 +275,13 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
-                <div class="flex items-center space-x-3">
+                <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300 cursor-pointer">
                     <div
                         class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
                         <i class="fas fa-moon text-white text-lg"></i>
                     </div>
                     <span class="text-xl font-bold gradient-text">DreamWise</span>
-                </div>
+                </a>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
@@ -357,7 +427,7 @@
                             <div class="glass-card hover-scale p-6 text-center h-full">
                                 <div
                                     class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-1">
-                                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
+                                    <img decoding="async" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
                                         alt="Dr. Sarah Johnson" class="w-full h-full rounded-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2 text-white">Dr. Sarah Johnson</h3>
@@ -377,7 +447,7 @@
                             <div class="glass-card hover-scale p-6 text-center h-full">
                                 <div
                                     class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-teal-500 p-1">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
+                                    <img decoding="async" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
                                         alt="Rabbi David Cohen" class="w-full h-full rounded-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2 text-white">Rabbi David Cohen</h3>
@@ -397,7 +467,7 @@
                             <div class="glass-card hover-scale p-6 text-center h-full">
                                 <div
                                     class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 p-1">
-                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
+                                    <img decoding="async" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
                                         alt="Dr. Priya Sharma" class="w-full h-full rounded-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2 text-white">Dr. Priya Sharma</h3>
@@ -418,7 +488,7 @@
                             <div class="glass-card hover-scale p-6 text-center h-full">
                                 <div
                                     class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-orange-500 to-red-500 p-1">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
+                                    <img decoding="async" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
                                         alt="Rev. Michael Thompson" class="w-full h-full rounded-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2 text-white">Rev. Michael Thompson</h3>
@@ -438,7 +508,7 @@
                             <div class="glass-card hover-scale p-6 text-center h-full">
                                 <div
                                     class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 p-1">
-                                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
+                                    <img decoding="async" src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
                                         alt="Imam Hassan Ali" class="w-full h-full rounded-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2 text-white">Imam Hassan Ali</h3>
@@ -458,7 +528,7 @@
                             <div class="glass-card hover-scale p-6 text-center h-full">
                                 <div
                                     class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 p-1">
-                                    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
+                                    <img decoding="async" src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&h=200&fit=crop&crop=face&auto=format&q=80"
                                         alt="Dr. Elena Vasquez" class="w-full h-full rounded-full object-cover">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2 text-white">Dr. Elena Vasquez</h3>
@@ -664,8 +734,8 @@
     <div id="footer-container"></div>
 
     <!-- JavaScript -->
-    <script src="assets/js/main.min.js"></script>
-    <script src="assets/js/components.js"></script>
+    <script src="assets/js/main.min.js" defer></script>
+    <script src="assets/js/components.js" defer></script>
 </body>
 
 </html>
