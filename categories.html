@@ -1,9 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- 第三方资源预连接 -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+<!DOCTYPE html><html lang="en"><head><style>
+/* 关键渲染路径CSS - 防止布局闪烁 */
+body {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-family: 'Inter', sans-serif; 
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); 
+  color: #ffffff; 
+  line-height: 1.6; 
+  margin: 0; 
+  padding: 0; 
+  min-height: 100vh;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+.glass-card { 
+  background: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  border-radius: 20px; 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+nav { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 50; 
+}
+
+.container { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 1.5rem; 
+}
+
+.hidden { display: none; }
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .md\:hidden { display: none; }
+  .md\:flex { display: flex; }
+  .container { padding: 0 1rem; }
+}
+</style>
     
 <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -13,7 +57,7 @@
     })(window,document,'script','dataLayer','GTM-NVT75WW9');</script>
     <!-- End Google Tag Manager -->
 <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -158,24 +202,20 @@
     </script>
     
     <!-- Font Awesome Icons -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" as="style">
     
     <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="preload" onload="this.onload=null;this.rel='stylesheet'" as="style">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="preload" href="assets/css/main.min.css" onload="this.onload=null;this.rel='stylesheet'" as="style">
 
-        <link rel="preload" href="assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="assets/css/image-optimization.css"></noscript>
-</head>
+    </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVT75WW9"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVT75WW9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navigation Header -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-card mx-4 mt-4 rounded-2xl">
@@ -239,17 +279,9 @@
             <div class="max-w-2xl mx-auto mb-12">
                 <div class="glass-card p-6">
                     <div class="relative">
-                        <input 
-                            type="text" 
-                            id="category-search" 
-                            placeholder="Search within categories..." 
-                            class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 pl-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-                        >
+                        <input type="text" id="category-search" placeholder="Search within categories..." class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 pl-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300">
                         <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <button 
-                            id="clear-search" 
-                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-300 hidden"
-                        >
+                        <button id="clear-search" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-300 hidden">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -281,11 +313,7 @@
                     <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
                         <!-- Category Search -->
                         <div class="mb-4">
-                            <input 
-                                type="text" 
-                                class="category-search-input w-full bg-white/5 border border-pink-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all duration-300"
-                                placeholder="Search emotional dreams..."
-                            >
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-pink-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all duration-300" placeholder="Search emotional dreams...">
                         </div>
                         
                         <!-- Symbol Tags -->
@@ -344,11 +372,7 @@
                     <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
                         <!-- Category Search -->
                         <div class="mb-4">
-                            <input 
-                                type="text" 
-                                class="category-search-input w-full bg-white/5 border border-green-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition-all duration-300"
-                                placeholder="Search animal dreams..."
-                            >
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-green-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition-all duration-300" placeholder="Search animal dreams...">
                         </div>
                         
                         <!-- Symbol Tags -->
@@ -415,11 +439,7 @@
                     <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
                         <!-- Category Search -->
                         <div class="mb-4">
-                            <input 
-                                type="text" 
-                                class="category-search-input w-full bg-white/5 border border-blue-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-                                placeholder="Search nature dreams..."
-                            >
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-blue-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300" placeholder="Search nature dreams...">
                         </div>
                         
                         <!-- Symbol Tags -->
@@ -482,11 +502,7 @@
                     <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
                         <!-- Category Search -->
                         <div class="mb-4">
-                            <input 
-                                type="text" 
-                                class="category-search-input w-full bg-white/5 border border-orange-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
-                                placeholder="Search body dreams..."
-                            >
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-orange-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300" placeholder="Search body dreams...">
                         </div>
                         
                         <!-- Symbol Tags -->
@@ -540,11 +556,7 @@
                     <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
                         <!-- Category Search -->
                         <div class="mb-4">
-                            <input 
-                                type="text" 
-                                class="category-search-input w-full bg-white/5 border border-purple-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300"
-                                placeholder="Search object dreams..."
-                            >
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-purple-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300" placeholder="Search object dreams...">
                         </div>
                         
                         <!-- Symbol Tags -->
@@ -614,11 +626,7 @@
                     <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
                         <!-- Category Search -->
                         <div class="mb-4">
-                            <input 
-                                type="text" 
-                                class="category-search-input w-full bg-white/5 border border-yellow-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 transition-all duration-300"
-                                placeholder="Search religious dreams..."
-                            >
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-yellow-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 transition-all duration-300" placeholder="Search religious dreams...">
                         </div>
                         
                         <!-- Symbol Tags -->
@@ -669,8 +677,8 @@
     <div id="footer-container"></div>
 
     <!-- JavaScript -->
-    <script src="assets/js/main.min.js" defer></script>
-    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/main.min.js"></script>
+    <script src="assets/js/components.js"></script>
     <script>
         // Category functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -945,5 +953,13 @@
             }
         });
     </script>
-</body>
-</html>
+
+<script>
+// 页面加载完成后移除初始隐藏
+document.addEventListener('DOMContentLoaded', function() {
+  // 确保所有关键资源已加载
+  setTimeout(function() {
+    document.body.classList.add('loaded');
+  }, 100);
+});
+</script></body></html>

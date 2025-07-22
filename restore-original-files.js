@@ -1,175 +1,169 @@
 /**
- * 恢复网站文件到优化前的状态
+ * 恢复原始文件
+ * 
+ * 此脚本用于在需要时恢复原始文件，撤销自动化脚本所做的更改
+ * 它会从备份目录中恢复文件，或者从Git历史中恢复
  */
 
 const fs = require('fs');
 const path = require('path');
-const { promisify } = require('util');
-const readFileAsync = promisify(fs.readFile);
-const writeFileAsync = promisify(fs.writeFile);
+const { execSync } = require('child_process');
+const chalk = require('chalk');
 
-// 需要恢复的文件列表
-const filesToRestore = [
-  'index.html',
-  'insights.html',
-  'browse.html',
-  'categories.html'
-];
+// 配置
+const config = {
+  backupDir: './.backups', // 备份目录
+  useGit: true, // 是否使用Git恢复
+  filesToRestore: [
+    'index.html',
+    'index-new.html'
+  ],
+  gitCommitHash: '8f7cfab' // 最新提交的哈希值，用于恢复
+};
 
-// 删除创建的优化文件
-const filesToDelete = [
-  'service-worker.js',
-  'assets/js/sw-register.js',
-  'optimize-images.sh',
-  'optimize-js.js'
-];
+// 结果统计
+const stats = {
+  filesRestored: 0,
+  restoreFailed: 0
+};
 
-// 恢复 HTML 文件
-async function restoreHtmlFiles() {
-  console.log('开始恢复 HTML 文件...');
+/**
+ * 从备份目录恢复文件
+ */
+function restoreFromBackup(filePath) {
+  const backupPath = path.join(config.backupDir, filePath);
   
-  for (const file of filesToRestore) {
+  if (fs.existsSync(backupPath)) {
     try {
-      console.log(`处理文件: ${file}`);
-      const filePath = path.join(process.cwd(), file);
-      
-      if (!fs.existsSync(filePath)) {
-        console.log(`文件不存在: ${filePath}`);
-        continue;
-      }
-      
-      let content = await readFileAsync(filePath, 'utf8');
-      
-      // 1. 恢复 CSS 加载
-      content = content.replace(
-        /<link rel="preload" href="(assets\/css\/main\.min\.css)" as="style" onload="this\.onload=null;this\.rel='stylesheet'">\s*<noscript><link rel="stylesheet" href="[^"]*"><\/noscript>/g,
-        '<link rel="stylesheet" href="$1">'
-      );
-      
-      // 2. 恢复 Font Awesome 加载
-      content = content.replace(
-        /<link rel="stylesheet" href="(https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome\/.*?\/css\/all\.min\.css)" media="print" onload="this\.media='all'">\s*<noscript><link rel="stylesheet" href="[^"]*"><\/noscript>/g,
-        '<link rel="stylesheet" href="$1">'
-      );
-      
-      // 3. 恢复 Google Fonts 加载
-      content = content.replace(
-        /<link href="(https:\/\/fonts\.googleapis\.com\/css2\?.*?)&display=swap" rel="stylesheet">/g,
-        '<link href="$1" rel="stylesheet">'
-      );
-      
-      // 4. 移除添加的字体样式
-      content = content.replace(
-        /<style>\s*\/\* 优化字体加载 \*\/[\s\S]*?<\/style>\s*<\/head>/,
-        '</head>'
-      );
-      
-      // 5. 移除资源提示
-      content = content.replace(
-        /<!-- 资源提示 -->\s*<link rel="preconnect" href="https:\/\/cdn\.tailwindcss\.com">\s*<link rel="dns-prefetch" href="https:\/\/cdn\.tailwindcss\.com">\s*<link rel="preconnect" href="https:\/\/cdnjs\.cloudflare\.com">\s*<link rel="dns-prefetch" href="https:\/\/cdnjs\.cloudflare\.com">/g,
-        ''
-      );
-      
-      // 6. 恢复 JavaScript 加载
-      content = content.replace(
-        /<script src="(assets\/js\/main\.min\.js)" defer><\/script>/g,
-        '<script src="$1"></script>'
-      );
-      
-      content = content.replace(
-        /<script src="(assets\/js\/components\.js)" defer><\/script>/g,
-        '<script src="$1"></script>'
-      );
-      
-      // 7. 移除 Service Worker 注册
-      content = content.replace(
-        /\s*<!-- Service Worker Registration -->\s*<script src="assets\/js\/sw-register\.js"><\/script>/g,
-        ''
-      );
-      
-      // 8. 恢复 Tailwind 加载
-      content = content.replace(
-        /<script src="https:\/\/cdn\.tailwindcss\.com" defer><\/script>/g,
-        '<script src="https://cdn.tailwindcss.com"></script>'
-      );
-      
-      // 保存恢复后的文件
-      await writeFileAsync(filePath, content, 'utf8');
-      console.log(`文件已恢复: ${file}`);
+      fs.copyFileSync(backupPath, filePath);
+      console.log(chalk.green(`✓ 从备份恢复文件: ${filePath}`));
+      stats.filesRestored++;
+      return true;
     } catch (error) {
-      console.error(`处理文件 ${file} 时出错:`, error);
+      console.error(chalk.red(`从备份恢复文件 ${filePath} 失败: ${error.message}`));
+      stats.restoreFailed++;
+      return false;
     }
+  } else {
+    console.log(chalk.yellow(`⚠️ 备份文件不存在: ${backupPath}`));
+    return false;
   }
-  
-  console.log('HTML 文件恢复完成');
 }
 
-// 恢复 CSS 文件
-async function restoreCssFile() {
-  console.log('开始恢复 CSS 文件...');
+/**
+ * 从Git恢复文件
+ */
+function restoreFromGit(filePath) {
+  try {
+    execSync(`git checkout ${config.gitCommitHash} -- ${filePath}`, { stdio: 'inherit' });
+    console.log(chalk.green(`✓ 从Git恢复文件: ${filePath}`));
+    stats.filesRestored++;
+    return true;
+  } catch (error) {
+    console.error(chalk.red(`从Git恢复文件 ${filePath} 失败: ${error.message}`));
+    stats.restoreFailed++;
+    return false;
+  }
+}
+
+/**
+ * 恢复文件
+ */
+function restoreFile(filePath) {
+  console.log(chalk.blue(`尝试恢复文件: ${filePath}`));
+  
+  // 检查文件是否存在
+  if (!fs.existsSync(filePath)) {
+    console.log(chalk.yellow(`⚠️ 文件不存在，无需恢复: ${filePath}`));
+    return;
+  }
+  
+  // 首先尝试从备份恢复
+  let restored = false;
+  
+  if (fs.existsSync(config.backupDir)) {
+    restored = restoreFromBackup(filePath);
+  }
+  
+  // 如果从备份恢复失败且配置了使用Git，则尝试从Git恢复
+  if (!restored && config.useGit) {
+    restored = restoreFromGit(filePath);
+  }
+  
+  // 如果所有恢复方法都失败
+  if (!restored) {
+    console.log(chalk.red(`✗ 无法恢复文件: ${filePath}`));
+    stats.restoreFailed++;
+  }
+}
+
+/**
+ * 创建备份
+ */
+function createBackup(filePath) {
+  // 确保备份目录存在
+  if (!fs.existsSync(config.backupDir)) {
+    fs.mkdirSync(config.backupDir, { recursive: true });
+  }
+  
+  const backupPath = path.join(config.backupDir, filePath);
+  
+  // 确保备份文件的目录存在
+  const backupDir = path.dirname(backupPath);
+  if (!fs.existsSync(backupDir)) {
+    fs.mkdirSync(backupDir, { recursive: true });
+  }
   
   try {
-    const cssDir = path.join(process.cwd(), 'assets', 'css');
-    const mainCssPath = path.join(cssDir, 'main.min.css');
-    
-    if (fs.existsSync(mainCssPath)) {
-      let content = await readFileAsync(mainCssPath, 'utf8');
-      
-      // 移除添加的性能优化 CSS
-      content = content.replace(
-        /\/\* 性能优化 CSS \*\/\s*\/\* 减少布局偏移 \*\/[\s\S]*?\/\* 优化滚动性能 \*\/\s*html \{\s*scroll-behavior: smooth;\s*\}\s*/,
-        ''
-      );
-      
-      await writeFileAsync(mainCssPath, content, 'utf8');
-      console.log('CSS 文件已恢复');
-    } else {
-      console.log('CSS 文件不存在，无需恢复');
-    }
+    fs.copyFileSync(filePath, backupPath);
+    console.log(chalk.green(`✓ 已创建备份: ${backupPath}`));
+    return true;
   } catch (error) {
-    console.error('恢复 CSS 文件时出错:', error);
+    console.error(chalk.red(`创建备份失败 ${filePath}: ${error.message}`));
+    return false;
   }
 }
 
-// 删除创建的优化文件
-async function deleteOptimizationFiles() {
-  console.log('开始删除优化文件...');
+/**
+ * 主函数
+ */
+function main() {
+  console.log(chalk.green('开始恢复原始文件...'));
   
-  for (const file of filesToDelete) {
-    try {
-      const filePath = path.join(process.cwd(), file);
+  // 检查是否有备份目录
+  if (!fs.existsSync(config.backupDir) && !config.useGit) {
+    console.log(chalk.yellow('⚠️ 备份目录不存在，且未配置使用Git恢复'));
+    
+    // 询问是否创建备份
+    console.log(chalk.blue('是否要为当前文件创建备份？(y/n)'));
+    const createBackups = true; // 在实际实现中，这里应该是用户输入
+    
+    if (createBackups) {
+      console.log(chalk.green('创建当前文件的备份...'));
       
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-        console.log(`已删除文件: ${file}`);
-      } else {
-        console.log(`文件不存在，无需删除: ${file}`);
+      for (const filePath of config.filesToRestore) {
+        if (fs.existsSync(filePath)) {
+          createBackup(filePath);
+        }
       }
-    } catch (error) {
-      console.error(`删除文件 ${file} 时出错:`, error);
     }
   }
   
-  console.log('优化文件删除完成');
-}
-
-// 主函数
-async function main() {
-  console.log('开始恢复 DreamWise 网站到优化前的状态...');
+  // 恢复文件
+  for (const filePath of config.filesToRestore) {
+    restoreFile(filePath);
+  }
   
-  try {
-    // 1. 恢复 HTML 文件
-    await restoreHtmlFiles();
-    
-    // 2. 恢复 CSS 文件
-    await restoreCssFile();
-    
-    // 3. 删除创建的优化文件
-    await deleteOptimizationFiles();
-    
-    console.log('网站已成功恢复到优化前的状态！');
-  } catch (error) {
-    console.error('恢复过程中出错:', error);
+  // 输出结果
+  console.log('\n' + chalk.green('===== 文件恢复完成 ====='));
+  console.log(chalk.blue(`成功恢复: ${stats.filesRestored} 个文件`));
+  console.log(chalk.red(`恢复失败: ${stats.restoreFailed} 个文件`));
+  
+  // 输出总结
+  if (stats.restoreFailed === 0) {
+    console.log(chalk.green('✓ 所有文件恢复成功！'));
+  } else {
+    console.log(chalk.red(`✗ ${stats.restoreFailed} 个文件恢复失败，请手动检查。`));
   }
 }
 

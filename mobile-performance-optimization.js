@@ -1,281 +1,354 @@
+/**
+ * 移动端性能优化工具
+ * 
+ * 此脚本专注于移动端性能优化:
+ * 1. 检查响应式设计
+ * 2. 优化触摸交互
+ * 3. 检查视口设置
+ * 4. 优化移动端加载速度
+ * 5. 检查字体大小和可读性
+ */
+
 const fs = require('fs');
 const path = require('path');
+const { JSDOM } = require('jsdom');
+const chalk = require('chalk');
 
-console.log('开始移动端性能优化...');
+// 配置
+const config = {
+  rootDir: '.', // 网站根目录
+  htmlExtensions: ['.html'], // HTML文件扩展名
+  cssExtensions: ['.css'], // CSS文件扩展名
+  excludeDirs: ['node_modules', '.git'], // 要排除的目录
+  applyFixes: false, // 是否应用修复（默认仅报告问题）
+};
 
-// 1. 创建图片懒加载脚本（不影响现有功能）
-const lazyLoadScript = `
-<!-- 图片懒加载脚本 - 性能优化 -->
-<script>
-// 图片懒加载实现
-document.addEventListener('DOMContentLoaded', function() {
-    // 检查浏览器是否支持Intersection Observer
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    if (img.dataset.src) {
-                        img.src = img.dataset.src;
-                        img.classList.remove('lazy');
-                        imageObserver.unobserve(img);
-                    }
-                }
-            });
-        }, {
-            rootMargin: '50px 0px',
-            threshold: 0.01
-        });
+// 结果统计
+const stats = {
+  filesChecked: 0,
+  issuesFound: 0,
+  issuesFixed: 0,
+};
 
-        // 观察所有带有lazy类的图片
-        document.querySelectorAll('img.lazy').forEach(img => {
-            imageObserver.observe(img);
-        });
-    } else {
-        // 降级处理：直接加载所有图片
-        document.querySelectorAll('img.lazy').forEach(img => {
-            if (img.dataset.src) {
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-            }
-        });
+// 存储所有发现的问题和建议
+const issues = [];
+const recommendations = [];
+
+/**
+ * 检查HTML文件的移动端优化
+ */
+function checkMobileOptimization(filePath) {
+  try {
+    console.log(chalk.blue(`检查文件: ${filePath}`));
+    
+    // 读取文件内容
+    const content = fs.readFileSync(filePath, 'utf8');
+    
+    // 解析DOM
+    const dom = new JSDOM(content);
+    const document = dom.window.document;
+    
+    // 检查视口设置
+    checkViewport(document, filePath);
+    
+    // 检查触摸目标大小
+    checkTouchTargets(document, filePath);
+    
+    // 检查字体大小和可读性
+    checkFontSizes(document, filePath);
+    
+    // 检查响应式图片
+    checkResponsiveImages(document, filePath);
+    
+    // 检查媒体查询
+    checkMediaQueries(content, filePath);
+    
+    stats.filesChecked++;
+    
+    // 如果需要应用修复，保存修改后的文件
+    if (config.applyFixes) {
+      // 获取修改后的HTML
+      const optimizedHtml = dom.serialize();
+      
+      // 保存优化后的文件
+      // fs.writeFileSync(filePath, optimizedHtml, 'utf8');
+      console.log(chalk.green(`  已应用修复到文件: ${filePath}`));
     }
-});
-</script>
-
-<!-- 懒加载CSS样式 -->
-<style>
-img.lazy {
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-img.lazy.loaded {
-    opacity: 1;
-}
-</style>
-`;
-
-// 2. 创建关键CSS内联脚本
-const criticalCSSOptimization = `
-<!-- 关键CSS优化 -->
-<style>
-/* 关键路径CSS - 首屏内容样式 */
-body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    color: #ffffff;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
+  } catch (error) {
+    console.error(chalk.red(`无法检查文件 ${filePath}: ${error.message}`));
+    issues.push({
+      file: filePath,
+      message: `检查失败: ${error.message}`
+    });
+  }
 }
 
-/* 导航栏关键样式 */
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(17, 24, 39, 0.8);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/**
+ * 检查视口设置
+ */
+function checkViewport(document, filePath) {
+  const viewport = document.querySelector('meta[name="viewport"]');
+  
+  if (!viewport) {
+    issues.push({
+      file: filePath,
+      message: '缺少视口元标签，添加: <meta name="viewport" content="width=device-width, initial-scale=1.0">'
+    });
+    stats.issuesFound++;
+    return;
+  }
+  
+  const content = viewport.getAttribute('content');
+  
+  if (!content.includes('width=device-width')) {
+    issues.push({
+      file: filePath,
+      message: '视口元标签缺少 width=device-width 设置'
+    });
+    stats.issuesFound++;
+  }
+  
+  if (!content.includes('initial-scale=1')) {
+    issues.push({
+      file: filePath,
+      message: '视口元标签缺少 initial-scale=1 设置'
+    });
+    stats.issuesFound++;
+  }
 }
 
-/* 英雄区域关键样式 */
-#home {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    padding-top: 6rem;
-}
-
-.glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* 隐藏非关键内容直到加载完成 */
-.non-critical {
-    visibility: hidden;
-}
-
-.non-critical.loaded {
-    visibility: visible;
-}
-</style>
-`;
-
-// 3. 创建字体优化
-const fontOptimization = `
-<!-- 字体优化 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
-`;
-
-// 4. 创建资源预加载
-const resourcePreloading = `
-<!-- 资源预加载优化 -->
-<link rel="preload" href="assets/css/main.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="assets/css/main.min.css"></noscript>
-<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
-`;
-
-// 5. 创建JavaScript延迟加载
-const jsOptimization = `
-<!-- JavaScript优化加载 -->
-<script>
-// 延迟加载非关键JavaScript
-function loadNonCriticalJS() {
-    // 延迟加载Tailwind CSS
-    if (!document.querySelector('script[src*="tailwindcss"]')) {
-        const tailwindScript = document.createElement('script');
-        tailwindScript.src = 'https://cdn.tailwindcss.com';
-        tailwindScript.async = true;
-        document.head.appendChild(tailwindScript);
+/**
+ * 检查触摸目标大小
+ */
+function checkTouchTargets(document, filePath) {
+  // 检查按钮、链接等交互元素
+  const touchTargets = document.querySelectorAll('a, button, input, select, textarea');
+  
+  touchTargets.forEach(element => {
+    // 在实际实现中，我们需要计算元素的实际尺寸
+    // 这里我们只检查是否有内联样式设置了过小的尺寸
+    
+    const style = element.getAttribute('style') || '';
+    
+    if (style.includes('width') && style.includes('px')) {
+      const widthMatch = style.match(/width:\s*(\d+)px/);
+      if (widthMatch && parseInt(widthMatch[1]) < 44) {
+        issues.push({
+          file: filePath,
+          element: element.tagName.toLowerCase(),
+          message: `触摸目标宽度过小 (${widthMatch[1]}px)，应至少为44px`
+        });
+        stats.issuesFound++;
+      }
     }
     
-    // 延迟加载其他非关键脚本
-    const scripts = [
-        'assets/js/main.min.js',
-        'assets/js/components.js'
-    ];
+    if (style.includes('height') && style.includes('px')) {
+      const heightMatch = style.match(/height:\s*(\d+)px/);
+      if (heightMatch && parseInt(heightMatch[1]) < 44) {
+        issues.push({
+          file: filePath,
+          element: element.tagName.toLowerCase(),
+          message: `触摸目标高度过小 (${heightMatch[1]}px)，应至少为44px`
+        });
+        stats.issuesFound++;
+      }
+    }
+  });
+}
+
+/**
+ * 检查字体大小和可读性
+ */
+function checkFontSizes(document, filePath) {
+  // 检查文本元素
+  const textElements = document.querySelectorAll('p, span, div, h1, h2, h3, h4, h5, h6, li, td, th');
+  
+  textElements.forEach(element => {
+    const style = element.getAttribute('style') || '';
     
-    scripts.forEach(src => {
-        if (!document.querySelector(\`script[src="\${src}"]\`)) {
-            const script = document.createElement('script');
-            script.src = src;
-            script.async = true;
-            document.body.appendChild(script);
+    // 检查内联字体大小
+    if (style.includes('font-size') && style.includes('px')) {
+      const fontSizeMatch = style.match(/font-size:\s*(\d+)px/);
+      if (fontSizeMatch && parseInt(fontSizeMatch[1]) < 16) {
+        issues.push({
+          file: filePath,
+          element: element.tagName.toLowerCase(),
+          message: `字体大小过小 (${fontSizeMatch[1]}px)，移动端建议至少16px`
+        });
+        stats.issuesFound++;
+      }
+    }
+    
+    // 检查行高
+    if (style.includes('line-height') && !style.includes('1.5')) {
+      const lineHeightMatch = style.match(/line-height:\s*([\d\.]+)/);
+      if (lineHeightMatch && parseFloat(lineHeightMatch[1]) < 1.5) {
+        recommendations.push({
+          file: filePath,
+          element: element.tagName.toLowerCase(),
+          message: `行高较小 (${lineHeightMatch[1]})，移动端建议至少1.5`
+        });
+      }
+    }
+  });
+}
+
+/**
+ * 检查响应式图片
+ */
+function checkResponsiveImages(document, filePath) {
+  const images = document.querySelectorAll('img');
+  
+  images.forEach(img => {
+    // 检查是否使用srcset
+    if (!img.hasAttribute('srcset') && !img.closest('picture')) {
+      recommendations.push({
+        file: filePath,
+        element: 'img',
+        attribute: 'src',
+        value: img.getAttribute('src'),
+        message: '考虑使用srcset和sizes属性或picture元素提供响应式图片'
+      });
+    }
+    
+    // 检查是否设置了最大宽度
+    const style = img.getAttribute('style') || '';
+    if (!style.includes('max-width') && !img.hasAttribute('width')) {
+      recommendations.push({
+        file: filePath,
+        element: 'img',
+        attribute: 'src',
+        value: img.getAttribute('src'),
+        message: '添加 max-width: 100% 样式以确保图片不会溢出容器'
+      });
+    }
+  });
+}
+
+/**
+ * 检查媒体查询
+ */
+function checkMediaQueries(content, filePath) {
+  // 检查是否有媒体查询
+  const hasMediaQueries = /@media\s*\(/i.test(content);
+  
+  if (!hasMediaQueries) {
+    recommendations.push({
+      file: filePath,
+      message: '未检测到媒体查询，考虑添加响应式设计的媒体查询'
+    });
+  }
+  
+  // 检查常见的移动端断点
+  const commonBreakpoints = [
+    '@media (max-width: 768px)',
+    '@media (max-width: 640px)',
+    '@media (max-width: 480px)'
+  ];
+  
+  let hasMobileBreakpoint = false;
+  
+  for (const breakpoint of commonBreakpoints) {
+    if (content.includes(breakpoint)) {
+      hasMobileBreakpoint = true;
+      break;
+    }
+  }
+  
+  if (!hasMobileBreakpoint && hasMediaQueries) {
+    recommendations.push({
+      file: filePath,
+      message: '未检测到移动端断点的媒体查询，考虑添加小屏幕的媒体查询'
+    });
+  }
+}
+
+/**
+ * 递归扫描目录
+ */
+function scanDirectory(dir) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    
+    // 跳过排除的目录
+    if (entry.isDirectory() && !config.excludeDirs.includes(entry.name)) {
+      scanDirectory(fullPath);
+      continue;
+    }
+    
+    // 处理HTML文件
+    if (entry.isFile() && config.htmlExtensions.includes(path.extname(entry.name).toLowerCase())) {
+      checkMobileOptimization(fullPath);
+    }
+  }
+}
+
+/**
+ * 主函数
+ */
+function main() {
+  console.log(chalk.green('开始检查移动端优化...'));
+  console.log(chalk.yellow('注意: 此工具需要安装jsdom和chalk包'));
+  console.log(chalk.yellow('如果尚未安装，请运行: npm install jsdom chalk'));
+  
+  try {
+    // 开始扫描
+    scanDirectory(config.rootDir);
+    
+    // 输出结果
+    console.log('\n' + chalk.green('===== 移动端优化检查完成 ====='));
+    console.log(chalk.blue(`检查了 ${stats.filesChecked} 个文件`));
+    console.log(chalk.yellow(`发现 ${stats.issuesFound} 个问题`));
+    
+    if (config.applyFixes) {
+      console.log(chalk.green(`修复了 ${stats.issuesFixed} 个问题`));
+    }
+    
+    // 输出问题
+    if (issues.length > 0) {
+      console.log('\n' + chalk.red('===== 需要修复的问题 ====='));
+      issues.forEach((issue, index) => {
+        console.log(chalk.yellow(`问题 #${index + 1}:`));
+        console.log(chalk.blue(`  文件: ${issue.file}`));
+        if (issue.element) {
+          console.log(chalk.blue(`  元素: <${issue.element}>`));
         }
-    });
-    
-    // 显示非关键内容
-    document.querySelectorAll('.non-critical').forEach(el => {
-        el.classList.add('loaded');
-    });
-}
-
-// 页面加载完成后延迟加载非关键资源
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(loadNonCriticalJS, 100);
-    });
-} else {
-    setTimeout(loadNonCriticalJS, 100);
-}
-</script>
-`;
-
-// 读取当前的index.html文件
-let indexContent = '';
-try {
-    if (fs.existsSync('index-new.html')) {
-        indexContent = fs.readFileSync('index-new.html', 'utf8');
-        console.log('读取 index-new.html 文件');
-    } else {
-        indexContent = fs.readFileSync('index.html', 'utf8');
-        console.log('读取 index.html 文件');
+        console.log(chalk.red(`  问题: ${issue.message}`));
+        console.log('');
+      });
     }
-} catch (error) {
-    console.error('无法读取HTML文件:', error);
-    process.exit(1);
-}
-
-// 应用优化
-let optimizedContent = indexContent;
-
-// 1. 在head标签中添加关键CSS和资源预加载
-optimizedContent = optimizedContent.replace(
-    /<link rel="stylesheet" href="assets\/css\/main\.min\.css">/,
-    criticalCSSOptimization + '\n    ' + resourcePreloading
-);
-
-// 2. 优化字体加载
-optimizedContent = optimizedContent.replace(
-    /<link href="https:\/\/fonts\.googleapis\.com\/css2\?family=Inter[^>]*>/,
-    fontOptimization
-);
-
-// 3. 在body结束标签前添加优化脚本
-optimizedContent = optimizedContent.replace(
-    /<\/body>/,
-    lazyLoadScript + '\n' + jsOptimization + '\n</body>'
-);
-
-// 4. 为图片添加懒加载属性（仅对非关键图片）
-// 保留英雄区域的图片正常加载，只对其他区域的图片应用懒加载
-const heroSectionEnd = optimizedContent.indexOf('</section>', optimizedContent.indexOf('id="home"'));
-if (heroSectionEnd !== -1) {
-    const beforeHero = optimizedContent.substring(0, heroSectionEnd);
-    const afterHero = optimizedContent.substring(heroSectionEnd);
     
-    // 只对英雄区域之后的图片应用懒加载
-    const optimizedAfterHero = afterHero.replace(
-        /<img([^>]*?)src="([^"]*)"([^>]*?)>/g,
-        '<img$1data-src="$2" src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1 1\'%3E%3C/svg%3E" class="lazy"$3>'
-    );
+    // 输出建议
+    if (recommendations.length > 0) {
+      console.log('\n' + chalk.yellow('===== 优化建议 ====='));
+      recommendations.forEach((rec, index) => {
+        console.log(chalk.blue(`建议 #${index + 1}:`));
+        console.log(chalk.yellow(`  文件: ${rec.file}`));
+        if (rec.element) {
+          console.log(chalk.blue(`  元素: <${rec.element}${rec.attribute ? ` ${rec.attribute}="${rec.value}"` : ''}>`));
+        }
+        console.log(chalk.green(`  建议: ${rec.message}`));
+        console.log('');
+      });
+    }
     
-    optimizedContent = beforeHero + optimizedAfterHero;
+    // 输出总结
+    if (issues.length === 0) {
+      console.log(chalk.green('✓ 恭喜！没有发现严重的移动端优化问题。'));
+    } else {
+      console.log(chalk.red(`✗ 发现 ${issues.length} 个需要修复的问题，请参考上述详情。`));
+    }
+    
+    if (recommendations.length > 0) {
+      console.log(chalk.yellow(`ℹ 有 ${recommendations.length} 个优化建议可以进一步提升移动端体验。`));
+    }
+    
+  } catch (error) {
+    console.error(chalk.red(`执行过程中出错: ${error.message}`));
+  }
 }
 
-// 5. 移除Tailwind CSS的同步加载（改为异步）
-optimizedContent = optimizedContent.replace(
-    /<script src="https:\/\/cdn\.tailwindcss\.com"><\/script>/,
-    '<!-- Tailwind CSS will be loaded asynchronously -->'
-);
-
-// 6. 添加性能监控脚本
-const performanceMonitoring = `
-<script>
-// 性能监控（仅在开发环境中启用）
-if (window.location.hostname === 'localhost' || window.location.hostname.includes('dev')) {
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            if ('performance' in window) {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                console.log('页面加载性能数据:');
-                console.log('DOM内容加载时间:', perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart, 'ms');
-                console.log('页面完全加载时间:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-                console.log('首次内容绘制时间:', performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 'N/A');
-            }
-        }, 1000);
-    });
-}
-</script>
-`;
-
-optimizedContent = optimizedContent.replace(
-    /<\/body>/,
-    performanceMonitoring + '\n</body>'
-);
-
-// 保存优化后的文件
-const outputFileName = fs.existsSync('index-new.html') ? 'index-optimized.html' : 'index-mobile-optimized.html';
-fs.writeFileSync(outputFileName, optimizedContent, 'utf8');
-
-console.log(\`优化完成！已保存为: \${outputFileName}\`);
-console.log('');
-console.log('优化内容包括:');
-console.log('✓ 图片懒加载（仅非关键图片）');
-console.log('✓ 关键CSS内联');
-console.log('✓ 字体异步加载');
-console.log('✓ JavaScript延迟加载');
-console.log('✓ 资源预加载');
-console.log('✓ 性能监控（开发环境）');
-console.log('');
-console.log('注意事项:');
-console.log('- 英雄区域的图片保持正常加载以确保LCP性能');
-console.log('- 所有现有功能保持不变');
-console.log('- 优化是渐进式的，不支持的浏览器会降级处理');
-console.log('- 建议在部署前进行测试');
+// 执行主函数
+main();

@@ -1,0 +1,372 @@
+{
+  "timestamp": "2025-07-22T15:39:45.747Z",
+  "summary": {
+    "passed": 54,
+    "failed": 1,
+    "warnings": 5,
+    "total": 60,
+    "successRate": "90.0%"
+  },
+  "details": [
+    {
+      "type": "passed",
+      "message": "页面文件存在: index.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.737Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: browse.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: categories.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: popular-symbols.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: personalized.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: about.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: christian-dreams.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: islamic-dreams.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: buddhist-dreams.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: hindu-dreams.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: jewish-dreams.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: insights.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: dream-guides.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: dream-blog.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: contact.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "页面文件存在: faq.html",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.742Z"
+    },
+    {
+      "type": "passed",
+      "message": "资源文件存在: assets/css/main.min.css",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.743Z"
+    },
+    {
+      "type": "passed",
+      "message": "资源文件存在: assets/js/main.min.js",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.743Z"
+    },
+    {
+      "type": "passed",
+      "message": "资源文件存在: assets/js/components.js",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.743Z"
+    },
+    {
+      "type": "failed",
+      "message": "无法读取首页文件",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.743Z"
+    },
+    {
+      "type": "passed",
+      "message": "christian-dreams.html 文件可读取",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.743Z"
+    },
+    {
+      "type": "warnings",
+      "message": "christian-dreams.html 可能缺失: 主标题",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "christian-dreams.html 包含: 样式类",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "christian-dreams.html 包含: 导航元素",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "christian-dreams.html 包含: 梦境内容",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "islamic-dreams.html 文件可读取",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "warnings",
+      "message": "islamic-dreams.html 可能缺失: 主标题",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "islamic-dreams.html 包含: 样式类",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "islamic-dreams.html 包含: 导航元素",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "islamic-dreams.html 包含: 梦境内容",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "buddhist-dreams.html 文件可读取",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "warnings",
+      "message": "buddhist-dreams.html 可能缺失: 主标题",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "buddhist-dreams.html 包含: 样式类",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "buddhist-dreams.html 包含: 导航元素",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "buddhist-dreams.html 包含: 梦境内容",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.744Z"
+    },
+    {
+      "type": "passed",
+      "message": "hindu-dreams.html 文件可读取",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "warnings",
+      "message": "hindu-dreams.html 可能缺失: 主标题",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "passed",
+      "message": "hindu-dreams.html 包含: 样式类",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "passed",
+      "message": "hindu-dreams.html 包含: 导航元素",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "passed",
+      "message": "hindu-dreams.html 包含: 梦境内容",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "passed",
+      "message": "jewish-dreams.html 文件可读取",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "warnings",
+      "message": "jewish-dreams.html 可能缺失: 主标题",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "passed",
+      "message": "jewish-dreams.html 包含: 样式类",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "passed",
+      "message": "jewish-dreams.html 包含: 导航元素",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "passed",
+      "message": "jewish-dreams.html 包含: 梦境内容",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.745Z"
+    },
+    {
+      "type": "passed",
+      "message": "personalized.html 文件可读取",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "个性化页面包含: 表单元素",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "个性化页面包含: 步骤指示",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "个性化页面包含: 文本输入区域",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "个性化页面包含: 按钮元素",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "popular-symbols.html 文件可读取",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "热门符号页面包含: 搜索功能",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "热门符号页面包含: 网格布局",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "热门符号页面包含: 符号内容",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "热门符号页面包含: 筛选功能",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.746Z"
+    },
+    {
+      "type": "passed",
+      "message": "about.html 文件可读取",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.747Z"
+    },
+    {
+      "type": "passed",
+      "message": "关于页面包含: 使命介绍",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.747Z"
+    },
+    {
+      "type": "passed",
+      "message": "关于页面包含: 信仰视角",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.747Z"
+    },
+    {
+      "type": "passed",
+      "message": "关于页面包含: 联系信息",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.747Z"
+    },
+    {
+      "type": "passed",
+      "message": "关于页面包含: 团队介绍",
+      "details": "",
+      "timestamp": "2025-07-22T15:39:45.747Z"
+    }
+  ]
+}

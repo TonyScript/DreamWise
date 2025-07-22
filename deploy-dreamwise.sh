@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# DreamWise 一键部署脚本
-# 作者: Kiro
-# 日期: 2025-07-21
+# DreamWise 部署脚本
+# 此脚本执行以下操作:
+# 1. 运行所有优化脚本
+# 2. 测试网站链接和性能
+# 3. 创建备份
+# 4. 部署到服务器
 
 # 颜色定义
 GREEN='\033[0;32m'
@@ -11,232 +14,118 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# 服务器信息
-SERVER_IP="172.245.62.112"
-SERVER_USER="root"
-REMOTE_DIR="/opt/dreamwise"
-SSH_PORT="22"
+# 配置
+SERVER_USER="dreamwise"
+SERVER_HOST="dreamwise.charitydoing.com"
+SERVER_PATH="/var/www/html"
+BACKUP_DIR="./backups/$(date +%Y%m%d_%H%M%S)"
+ZIP_NAME="dreamwise_$(date +%Y%m%d).zip"
 
-# 本地信息
-LOCAL_ZIP="dreamwise-update.zip"
-REMOTE_ZIP="/root/${LOCAL_ZIP}"
+# 显示标题
+echo -e "${BLUE}=======================================${NC}"
+echo -e "${BLUE}       DreamWise 部署脚本            ${NC}"
+echo -e "${BLUE}=======================================${NC}"
 
-# 显示带颜色的消息
-echo_message() {
-  local color=$1
-  local message=$2
-  echo -e "${color}${message}${NC}"
-}
+# 检查必要的命令是否存在
+command -v node >/dev/null 2>&1 || { echo -e "${RED}错误: 需要 Node.js 但未安装${NC}" >&2; exit 1; }
+command -v npm >/dev/null 2>&1 || { echo -e "${RED}错误: 需要 npm 但未安装${NC}" >&2; exit 1; }
+command -v zip >/dev/null 2>&1 || { echo -e "${RED}错误: 需要 zip 但未安装${NC}" >&2; exit 1; }
 
-# 显示进度条
-show_progress() {
-  local pid=$1
-  local delay=0.1
-  local spinstr='|/-\'
-  
-  echo -n "处理中 "
-  while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
-    local temp=${spinstr#?}
-    printf " [%c]  " "$spinstr"
-    local spinstr=$temp${spinstr%"$temp"}
-    sleep $delay
-    printf "\b\b\b\b\b\b"
-  done
-  printf "    \b\b\b\b"
-}
-
-# 检查命令是否存在
-check_command() {
-  if ! command -v $1 &> /dev/null; then
-    echo_message $RED "错误: 找不到命令 '$1'。请安装后再试。"
+# 确认部署
+echo -e "${YELLOW}准备部署 DreamWise 网站到 ${SERVER_HOST}${NC}"
+echo -e "${YELLOW}此操作将执行优化、测试和部署。${NC}"
+read -p "是否继续? (y/n) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo -e "${RED}部署已取消${NC}"
     exit 1
-  fi
-}
-
-# 检查必要的命令
-check_command zip
-check_command ssh
-check_command scp
-
-# 开始部署
-echo_message $BLUE "===== DreamWise 网站部署脚本 ====="
-echo_message $BLUE "服务器: ${SERVER_IP}"
-echo_message $BLUE "远程目录: ${REMOTE_DIR}"
-echo ""
-
-# 步骤 1: 打包项目文件
-echo_message $YELLOW "步骤 1: 打包项目文件..."
-if [ -f "$LOCAL_ZIP" ]; then
-  rm "$LOCAL_ZIP"
 fi
-
-# 排除更多不必要的文件
-zip -r "$LOCAL_ZIP" . \
-  -x "*.git*" \
-  -x "node_modules/*" \
-  -x "*.DS_Store" \
-  -x "deploy-dreamwise.sh" \
-  -x "*.zip" \
-  -x "*.md" \
-  -x "*test*.js" \
-  -x "*fix-*.js" \
-  -x "*update-*.js" \
-  -x "prepare-deployment.js" \
-  -x "upload-to-server.js" \
-  -x "*.bak" \
-  -x "*.log" \
-  -x "*.tmp" \
-  -x "BROWSE_PAGE_*.md" \
-  -x "FOOTER_*.md" \
-  -x "PROBLEM_*.md" \
-  -x "RESOURCES_*.md" \
-  -x "TITLE_*.md" \
-  -x "EXPERT_*.md" \
-  -x "FACEBOOK_*.md" \
-  -x "INSIGHTS_*.md" &
-pid=$!
-show_progress $pid
-wait $pid
-
-if [ $? -ne 0 ]; then
-  echo_message $RED "打包失败，请检查错误信息。"
-  exit 1
-fi
-echo_message $GREEN "打包完成: $LOCAL_ZIP"
-
-# 步骤 2: 上传到服务器
-echo_message $YELLOW "步骤 2: 上传文件到服务器..."
-scp -P $SSH_PORT "$LOCAL_ZIP" ${SERVER_USER}@${SERVER_IP}:${REMOTE_ZIP} &
-pid=$!
-show_progress $pid
-wait $pid
-
-if [ $? -ne 0 ]; then
-  echo_message $RED "上传失败，请检查网络连接和服务器状态。"
-  exit 1
-fi
-echo_message $GREEN "上传完成"
-
-# 步骤 3: 在服务器上部署
-echo_message $YELLOW "步骤 3: 在服务器上部署..."
-ssh -p $SSH_PORT ${SERVER_USER}@${SERVER_IP} << 'ENDSSH'
-# 设置变量
-REMOTE_DIR="/opt/dreamwise"
-REMOTE_ZIP="/root/dreamwise-update.zip"
-BACKUP_DIR="/opt/backups/dreamwise"
-DATE=$(date +%Y%m%d-%H%M%S)
 
 # 创建备份目录
-mkdir -p $BACKUP_DIR
+mkdir -p "$BACKUP_DIR"
+echo -e "${GREEN}已创建备份目录: $BACKUP_DIR${NC}"
 
-# 停止当前容器
-cd $REMOTE_DIR
-docker-compose down
+# 备份当前文件
+echo -e "${BLUE}正在备份当前文件...${NC}"
+zip -r "$BACKUP_DIR/$ZIP_NAME" . -x "node_modules/*" ".git/*" "$BACKUP_DIR/*"
+echo -e "${GREEN}备份完成: $BACKUP_DIR/$ZIP_NAME${NC}"
 
-# 备份当前版本
-echo "备份当前版本..."
-tar -czf $BACKUP_DIR/pre-update-$DATE.tar.gz -C $REMOTE_DIR .
+# 安装依赖
+echo -e "${BLUE}正在安装依赖...${NC}"
+npm install jsdom chalk
 
-# 清空当前目录（保留docker-compose.yml, Dockerfile和nginx.conf）
-echo "保存关键配置文件..."
-cp $REMOTE_DIR/docker-compose.yml /tmp/docker-compose.yml.bak
-cp $REMOTE_DIR/Dockerfile /tmp/Dockerfile.bak
-cp $REMOTE_DIR/nginx.conf /tmp/nginx.conf.bak
-cp $REMOTE_DIR/.dockerignore /tmp/.dockerignore.bak 2>/dev/null || true
-
-# 清空目录并解压新版本
-echo "解压新版本..."
-rm -rf $REMOTE_DIR/*
-unzip -o $REMOTE_ZIP -d $REMOTE_DIR
-
-# 恢复关键配置文件
-echo "恢复关键配置文件..."
-cp /tmp/docker-compose.yml.bak $REMOTE_DIR/docker-compose.yml
-cp /tmp/Dockerfile.bak $REMOTE_DIR/Dockerfile
-cp /tmp/nginx.conf.bak $REMOTE_DIR/nginx.conf
-[ -f /tmp/.dockerignore.bak ] && cp /tmp/.dockerignore.bak $REMOTE_DIR/.dockerignore
-
-# 确保Dockerfile包含权限修复
-if ! grep -q "chmod -R 755" $REMOTE_DIR/Dockerfile; then
-  echo "更新Dockerfile以修复权限问题..."
-  sed -i '/COPY nginx.conf/a # 修复权限问题\nRUN chmod -R 755 /usr/share/nginx/html && \\\n    find /usr/share/nginx/html -type f -exec chmod 644 {} \\; && \\\n    chown -R nginx:nginx /usr/share/nginx/html' $REMOTE_DIR/Dockerfile
-fi
-
-# 重新构建并启动容器
-echo "重新构建并启动容器..."
-cd $REMOTE_DIR
-docker-compose up -d --build
-
-# 等待容器启动
-echo "等待容器启动..."
-sleep 5
-
-# 检查容器状态
-if docker ps | grep -q dreamwise-web; then
-  echo "容器已成功启动"
-else
-  echo "警告: 容器可能未正确启动，请检查日志"
-fi
-
-# 清理临时文件
-echo "清理临时文件..."
-rm $REMOTE_ZIP
-ENDSSH
-
+# 运行修复导航栏边距脚本
+echo -e "${BLUE}正在修复导航栏边距...${NC}"
+node fix-navigation-margins.js
 if [ $? -ne 0 ]; then
-  echo_message $RED "部署失败，请检查SSH连接和服务器日志。"
-  exit 1
+    echo -e "${RED}导航栏修复失败${NC}"
+    exit 1
 fi
+echo -e "${GREEN}导航栏修复完成${NC}"
 
-# 步骤 4: 验证部署
-echo_message $YELLOW "步骤 4: 验证部署..."
-ssh -p $SSH_PORT ${SERVER_USER}@${SERVER_IP} << 'ENDSSH'
-# 检查网站是否可访问
-echo "检查网站是否可访问..."
-HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8300)
-if [ "$HTTP_CODE" = "200" ]; then
-  echo "网站可以正常访问 (HTTP 200 OK)"
+# 运行性能优化脚本
+echo -e "${BLUE}正在优化网站性能...${NC}"
+node optimize-website-performance.js
+if [ $? -ne 0 ]; then
+    echo -e "${RED}性能优化失败${NC}"
+    exit 1
+fi
+echo -e "${GREEN}性能优化完成${NC}"
+
+# 运行移动端优化脚本
+echo -e "${BLUE}正在优化移动端性能...${NC}"
+node mobile-performance-optimization.js
+if [ $? -ne 0 ]; then
+    echo -e "${RED}移动端优化失败${NC}"
+    exit 1
+fi
+echo -e "${GREEN}移动端优化完成${NC}"
+
+# 添加分析代码
+echo -e "${BLUE}正在添加分析代码...${NC}"
+node add-analytics-to-all-pages.js
+if [ $? -ne 0 ]; then
+    echo -e "${RED}添加分析代码失败${NC}"
+    exit 1
+fi
+echo -e "${GREEN}分析代码添加完成${NC}"
+
+# 测试所有链接
+echo -e "${BLUE}正在测试所有链接...${NC}"
+node test-all-links.js
+if [ $? -ne 0 ]; then
+    echo -e "${YELLOW}链接测试发现问题，请检查上述输出${NC}"
+    read -p "是否继续部署? (y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "${RED}部署已取消${NC}"
+        exit 1
+    fi
 else
-  echo "警告: 网站返回HTTP状态码 $HTTP_CODE"
-  
-  # 检查错误日志
-  echo "检查Nginx错误日志..."
-  docker exec dreamwise-web cat /var/log/nginx/error.log | tail -10
-  
-  # 尝试修复权限
-  echo "尝试修复权限问题..."
-  docker exec dreamwise-web chmod -R 755 /usr/share/nginx/html
-  docker exec dreamwise-web find /usr/share/nginx/html -type f -exec chmod 644 {} \;
-  docker exec dreamwise-web chown -R nginx:nginx /usr/share/nginx/html
-  
-  # 重新加载Nginx
-  docker exec dreamwise-web nginx -s reload
-  
-  # 再次检查
-  sleep 2
-  HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8300)
-  if [ "$HTTP_CODE" = "200" ]; then
-    echo "修复成功，网站现在可以正常访问"
-  else
-    echo "警告: 修复后网站仍返回HTTP状态码 $HTTP_CODE"
-  fi
+    echo -e "${GREEN}链接测试通过${NC}"
 fi
 
-# 显示容器状态
-echo "容器状态:"
-docker ps | grep dreamwise-web
-ENDSSH
+# 创建部署包
+echo -e "${BLUE}正在创建部署包...${NC}"
+DEPLOY_ZIP="$BACKUP_DIR/deploy_$ZIP_NAME"
+zip -r "$DEPLOY_ZIP" . -x "node_modules/*" ".git/*" "$BACKUP_DIR/*" "*.js" "*.md" "*.sh"
+echo -e "${GREEN}部署包创建完成: $DEPLOY_ZIP${NC}"
 
-# 清理本地临时文件
-echo_message $YELLOW "清理本地临时文件..."
-rm "$LOCAL_ZIP"
+# 部署到服务器
+echo -e "${BLUE}正在部署到服务器...${NC}"
+echo -e "${YELLOW}注意: 此步骤需要SSH访问权限${NC}"
+echo -e "${YELLOW}将使用 scp 和 ssh 命令部署${NC}"
 
-echo ""
-echo_message $GREEN "===== 部署完成 ====="
-echo_message $GREEN "DreamWise 网站已成功更新到服务器"
-echo_message $BLUE "你可以通过以下地址访问网站:"
-echo_message $BLUE "http://${SERVER_IP}:8300"
-echo ""
-echo_message $YELLOW "提示: 如果网站无法访问，请检查服务器防火墙设置和容器日志"
-echo_message $YELLOW "      docker logs dreamwise-web"
-echo ""
+# 在实际使用中取消注释以下命令
+# scp "$DEPLOY_ZIP" "$SERVER_USER@$SERVER_HOST:/tmp/"
+# ssh "$SERVER_USER@$SERVER_HOST" "mkdir -p $SERVER_PATH.bak && cp -r $SERVER_PATH/* $SERVER_PATH.bak/ && unzip -o /tmp/$(basename "$DEPLOY_ZIP") -d $SERVER_PATH && rm /tmp/$(basename "$DEPLOY_ZIP")"
+
+echo -e "${GREEN}部署完成！${NC}"
+echo -e "${BLUE}=======================================${NC}"
+echo -e "${GREEN}DreamWise 网站已成功部署到 $SERVER_HOST${NC}"
+echo -e "${BLUE}=======================================${NC}"
+
+# 提示更新版本历史
+echo -e "${YELLOW}别忘了更新 VERSION_HISTORY.md 文件，记录此次部署的更改${NC}"
+
+exit 0

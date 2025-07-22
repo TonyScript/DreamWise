@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <!-- 第三方资源预连接 -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
@@ -15,7 +12,7 @@
     <!-- End Google Tag Manager -->
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -65,23 +62,72 @@
     </script>
 
     <!-- Vince -->
-    <script defer data-domain="dreamwise.charitydoing.com" src="https://vince.charitydoing.com/js/script.js"></script>
+    <script defer="" data-domain="dreamwise.charitydoing.com" src="https://vince.charitydoing.com/js/script.js"></script>
 
     <!-- Font Awesome Icons -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+    <noscript><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" as="style"></noscript>
 
     <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="preload" onload="this.onload=null;this.rel='stylesheet'" as="style">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="preload" href="assets/css/main.min.css" onload="this.onload=null;this.rel='stylesheet'" as="style">
     <link rel="preload" href="assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="assets/css/image-optimization.css"></noscript>
+    <noscript><link rel="preload" href="assets/css/image-optimization.css" onload="this.onload=null;this.rel='stylesheet'" as="style"></noscript>
 
     <style>
+/* 关键渲染路径CSS - 防止布局闪烁 */
+body {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-family: 'Inter', sans-serif; 
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); 
+  color: #ffffff; 
+  line-height: 1.6; 
+  margin: 0; 
+  padding: 0; 
+  min-height: 100vh;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+.glass-card { 
+  background: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  border-radius: 20px; 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+nav { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 50; 
+}
+
+.container { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 1.5rem; 
+}
+
+.hidden { display: none; }
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .md\:hidden { display: none; }
+  .md\:flex { display: flex; }
+  .container { padding: 0 1rem; }
+}
+
         /* 关键CSS内联 */
         body { 
             font-family: 'Inter', sans-serif; 
@@ -166,8 +212,7 @@
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVT75WW9"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVT75WW9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Skip to Content Link for Accessibility -->
@@ -257,7 +302,7 @@
                             <i class="fas fa-water text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Water</h3>
-                        <p class="text-sm text-gray-400">Emotions & purification</p>
+                        <p class="text-sm text-gray-400">Emotions &amp; purification</p>
                     </a>
 
                     <!-- Snake - #2 Most Popular -->
@@ -267,7 +312,7 @@
                             <i class="fas fa-dna text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Snake</h3>
-                        <p class="text-sm text-gray-400">Transformation & healing</p>
+                        <p class="text-sm text-gray-400">Transformation &amp; healing</p>
                     </a>
 
                     <!-- Flying - #3 Most Popular -->
@@ -277,7 +322,7 @@
                             <i class="fas fa-dove text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Flying</h3>
-                        <p class="text-sm text-gray-400">Freedom & transcendence</p>
+                        <p class="text-sm text-gray-400">Freedom &amp; transcendence</p>
                     </a>
 
                     <!-- Death - #4 Most Popular -->
@@ -287,7 +332,7 @@
                             <i class="fas fa-skull text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Death</h3>
-                        <p class="text-sm text-gray-400">Endings & new beginnings</p>
+                        <p class="text-sm text-gray-400">Endings &amp; new beginnings</p>
                     </a>
 
                     <!-- Fire - #5 Most Popular -->
@@ -297,7 +342,7 @@
                             <i class="fas fa-fire text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Fire</h3>
-                        <p class="text-sm text-gray-400">Passion & destruction</p>
+                        <p class="text-sm text-gray-400">Passion &amp; destruction</p>
                     </a>
 
                     <!-- House - #6 Most Popular -->
@@ -307,7 +352,7 @@
                             <i class="fas fa-home text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">House</h3>
-                        <p class="text-sm text-gray-400">Self & security</p>
+                        <p class="text-sm text-gray-400">Self &amp; security</p>
                     </a>
 
                     <!-- Car - #7 Most Popular -->
@@ -317,7 +362,7 @@
                             <i class="fas fa-car text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Car</h3>
-                        <p class="text-sm text-gray-400">Direction & control</p>
+                        <p class="text-sm text-gray-400">Direction &amp; control</p>
                     </a>
 
                     <!-- Baby - #8 Most Popular -->
@@ -327,7 +372,7 @@
                             <i class="fas fa-baby text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Baby</h3>
-                        <p class="text-sm text-gray-400">New beginnings & innocence</p>
+                        <p class="text-sm text-gray-400">New beginnings &amp; innocence</p>
                     </a>
 
                     <!-- Dog - #9 Most Popular -->
@@ -337,7 +382,7 @@
                             <i class="fas fa-dog text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Dog</h3>
-                        <p class="text-sm text-gray-400">Loyalty & friendship</p>
+                        <p class="text-sm text-gray-400">Loyalty &amp; friendship</p>
                     </a>
 
                     <!-- Cat - #10 Most Popular -->
@@ -347,7 +392,7 @@
                             <i class="fas fa-cat text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Cat</h3>
-                        <p class="text-sm text-gray-400">Independence & mystery</p>
+                        <p class="text-sm text-gray-400">Independence &amp; mystery</p>
                     </a>
 
                     <!-- Money - #11 Most Popular -->
@@ -357,7 +402,7 @@
                             <i class="fas fa-dollar-sign text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Money</h3>
-                        <p class="text-sm text-gray-400">Value & self-worth</p>
+                        <p class="text-sm text-gray-400">Value &amp; self-worth</p>
                     </a>
 
                     <!-- Teeth - #12 Most Popular -->
@@ -367,7 +412,7 @@
                             <i class="fas fa-tooth text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Teeth</h3>
-                        <p class="text-sm text-gray-400">Anxiety & loss of control</p>
+                        <p class="text-sm text-gray-400">Anxiety &amp; loss of control</p>
                     </a>
 
                     <!-- Wedding - #13 Most Popular -->
@@ -377,7 +422,7 @@
                             <i class="fas fa-ring text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Wedding</h3>
-                        <p class="text-sm text-gray-400">Union & commitment</p>
+                        <p class="text-sm text-gray-400">Union &amp; commitment</p>
                     </a>
 
                     <!-- Blood - #14 Most Popular -->
@@ -387,7 +432,7 @@
                             <i class="fas fa-tint text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Blood</h3>
-                        <p class="text-sm text-gray-400">Life force & sacrifice</p>
+                        <p class="text-sm text-gray-400">Life force &amp; sacrifice</p>
                     </a>
 
                     <!-- Spider - #15 Most Popular -->
@@ -397,7 +442,7 @@
                             <i class="fas fa-spider text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Spider</h3>
-                        <p class="text-sm text-gray-400">Creativity & patience</p>
+                        <p class="text-sm text-gray-400">Creativity &amp; patience</p>
                     </a>
 
                     <!-- Ocean - #16 Most Popular -->
@@ -407,7 +452,7 @@
                             <i class="fas fa-waves text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Ocean</h3>
-                        <p class="text-sm text-gray-400">Unconscious & emotions</p>
+                        <p class="text-sm text-gray-400">Unconscious &amp; emotions</p>
                     </a>
 
                     <!-- Bird - #17 Most Popular -->
@@ -417,7 +462,7 @@
                             <i class="fas fa-dove text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Bird</h3>
-                        <p class="text-sm text-gray-400">Freedom & spirituality</p>
+                        <p class="text-sm text-gray-400">Freedom &amp; spirituality</p>
                     </a>
 
                     <!-- Fear - #18 Most Popular -->
@@ -427,7 +472,7 @@
                             <i class="fas fa-exclamation-triangle text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Fear</h3>
-                        <p class="text-sm text-gray-400">Anxiety & inner conflict</p>
+                        <p class="text-sm text-gray-400">Anxiety &amp; inner conflict</p>
                     </a>
 
                     <!-- Love - #19 Most Popular -->
@@ -437,7 +482,7 @@
                             <i class="fas fa-heart text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Love</h3>
-                        <p class="text-sm text-gray-400">Connection & compassion</p>
+                        <p class="text-sm text-gray-400">Connection &amp; compassion</p>
                     </a>
 
                     <!-- Angel - #20 Most Popular -->
@@ -447,7 +492,7 @@
                             <i class="fas fa-feather-alt text-xl text-white"></i>
                         </div>
                         <h3 class="font-bold mb-2">Angel</h3>
-                        <p class="text-sm text-gray-400">Divine guidance & protection</p>
+                        <p class="text-sm text-gray-400">Divine guidance &amp; protection</p>
                     </a>
                 </div>
             </section>
@@ -478,8 +523,8 @@
     <div id="footer-container"></div>
 
     <!-- JavaScript -->
-    <script src="assets/js/main.min.js" defer></script>
-    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/main.min.js" defer=""></script>
+    <script src="assets/js/components.js" defer=""></script>
 
     <script>
         // Search and Filter functionality
@@ -527,6 +572,14 @@
             });
         });
     </script>
-</body>
 
-</html>
+
+<script>
+// 页面加载完成后移除初始隐藏
+document.addEventListener('DOMContentLoaded', function() {
+  // 确保所有关键资源已加载
+  setTimeout(function() {
+    document.body.classList.add('loaded');
+  }, 100);
+});
+</script></body></html>

@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <!-- 第三方资源预连接 -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
@@ -15,7 +12,7 @@
     <!-- End Google Tag Manager -->
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -65,23 +62,72 @@
     </script>
 
     <!-- Vince -->
-    <script defer data-domain="dreamwise.charitydoing.com" src="https://vince.charitydoing.com/js/script.js"></script>
+    <script defer="" data-domain="dreamwise.charitydoing.com" src="https://vince.charitydoing.com/js/script.js"></script>
 
     <!-- Font Awesome Icons -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+    <noscript><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" as="style"></noscript>
 
     <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="preload" onload="this.onload=null;this.rel='stylesheet'" as="style">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="preload" href="assets/css/main.min.css" onload="this.onload=null;this.rel='stylesheet'" as="style">
     <link rel="preload" href="assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="assets/css/image-optimization.css"></noscript>
+    <noscript><link rel="preload" href="assets/css/image-optimization.css" onload="this.onload=null;this.rel='stylesheet'" as="style"></noscript>
 
     <style>
+/* 关键渲染路径CSS - 防止布局闪烁 */
+body {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-family: 'Inter', sans-serif; 
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); 
+  color: #ffffff; 
+  line-height: 1.6; 
+  margin: 0; 
+  padding: 0; 
+  min-height: 100vh;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+.glass-card { 
+  background: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  border-radius: 20px; 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+nav { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 50; 
+}
+
+.container { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 1.5rem; 
+}
+
+.hidden { display: none; }
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .md\:hidden { display: none; }
+  .md\:flex { display: flex; }
+  .container { padding: 0 1rem; }
+}
+
         /* 关键CSS内联 */
         body { 
             font-family: 'Inter', sans-serif; 
@@ -208,8 +254,7 @@
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVT75WW9"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVT75WW9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Skip to Content Link for Accessibility -->
@@ -302,20 +347,17 @@
                             <div class="space-y-6">
                                 <div>
                                     <label for="dreamDescription" class="block text-lg font-semibold mb-3">Dream Description</label>
-                                    <textarea id="dreamDescription" name="dreamDescription" rows="6" 
-                                        class="form-input resize-none" 
-                                        placeholder="Describe your dream in as much detail as possible. Include people, places, emotions, colors, and any significant events or symbols you remember..."
-                                        required></textarea>
+                                    <textarea id="dreamDescription" name="dreamDescription" rows="6" class="form-input resize-none" placeholder="Describe your dream in as much detail as possible. Include people, places, emotions, colors, and any significant events or symbols you remember..." required=""></textarea>
                                 </div>
 
                                 <div class="grid md:grid-cols-2 gap-6">
                                     <div>
                                         <label for="dreamDate" class="block text-lg font-semibold mb-3">When did you have this dream?</label>
-                                        <input type="date" id="dreamDate" name="dreamDate" class="form-input" required>
+                                        <input type="date" id="dreamDate" name="dreamDate" class="form-input" required="">
                                     </div>
                                     <div>
                                         <label for="dreamTime" class="block text-lg font-semibold mb-3">Approximate time</label>
-                                        <select id="dreamTime" name="dreamTime" class="form-select" required>
+                                        <select id="dreamTime" name="dreamTime" class="form-select" required="">
                                             <option value="">Select time period</option>
                                             <option value="early-night">Early night (9 PM - 12 AM)</option>
                                             <option value="midnight">Midnight (12 AM - 3 AM)</option>
@@ -366,7 +408,7 @@
 
                                 <div>
                                     <label for="dreamRecurring" class="block text-lg font-semibold mb-3">Is this a recurring dream or similar to previous dreams?</label>
-                                    <select id="dreamRecurring" name="dreamRecurring" class="form-select" required>
+                                    <select id="dreamRecurring" name="dreamRecurring" class="form-select" required="">
                                         <option value="">Select option</option>
                                         <option value="first-time">First time having this dream</option>
                                         <option value="recurring">This dream recurs regularly</option>
@@ -390,7 +432,7 @@
                             <div class="space-y-6">
                                 <div>
                                     <label for="spiritualBackground" class="block text-lg font-semibold mb-3">Spiritual/Religious Background</label>
-                                    <select id="spiritualBackground" name="spiritualBackground" class="form-select" required>
+                                    <select id="spiritualBackground" name="spiritualBackground" class="form-select" required="">
                                         <option value="">Select your background</option>
                                         <option value="christian">Christian</option>
                                         <option value="islamic">Islamic</option>
@@ -406,7 +448,7 @@
 
                                 <div>
                                     <label for="lifeStage" class="block text-lg font-semibold mb-3">Current Life Stage</label>
-                                    <select id="lifeStage" name="lifeStage" class="form-select" required>
+                                    <select id="lifeStage" name="lifeStage" class="form-select" required="">
                                         <option value="">Select life stage</option>
                                         <option value="student">Student</option>
                                         <option value="young-adult">Young Adult (20s-30s)</option>
@@ -487,9 +529,7 @@
 
                                 <div>
                                     <label for="additionalContext" class="block text-lg font-semibold mb-3">Additional Context (Optional)</label>
-                                    <textarea id="additionalContext" name="additionalContext" rows="4" 
-                                        class="form-input resize-none" 
-                                        placeholder="Any additional information that might help with interpretation, such as recent life events, spiritual practices, or personal concerns..."></textarea>
+                                    <textarea id="additionalContext" name="additionalContext" rows="4" class="form-input resize-none" placeholder="Any additional information that might help with interpretation, such as recent life events, spiritual practices, or personal concerns..."></textarea>
                                 </div>
                             </div>
 
@@ -563,8 +603,8 @@
     <div id="footer-container"></div>
 
     <!-- JavaScript -->
-    <script src="assets/js/main.min.js" defer></script>
-    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/main.min.js" defer=""></script>
+    <script src="assets/js/components.js" defer=""></script>
 
     <script>
         // Form navigation functions
@@ -790,6 +830,14 @@
             document.getElementById('dreamDate').value = today;
         });
     </script>
-</body>
 
-</html>
+
+<script>
+// 页面加载完成后移除初始隐藏
+document.addEventListener('DOMContentLoaded', function() {
+  // 确保所有关键资源已加载
+  setTimeout(function() {
+    document.body.classList.add('loaded');
+  }, 100);
+});
+</script></body></html>
