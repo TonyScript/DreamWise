@@ -1,0 +1,965 @@
+<!DOCTYPE html><html lang="en"><head><style>
+/* 关键渲染路径CSS - 防止布局闪烁 */
+body {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-family: 'Inter', sans-serif; 
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); 
+  color: #ffffff; 
+  line-height: 1.6; 
+  margin: 0; 
+  padding: 0; 
+  min-height: 100vh;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+.glass-card { 
+  background: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  border-radius: 20px; 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+nav { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 50; 
+}
+
+.container { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 1.5rem; 
+}
+
+.hidden { display: none; }
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .md\:hidden { display: none; }
+  .md\:flex { display: flex; }
+  .container { padding: 0 1rem; }
+}
+</style>
+    
+<!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NVT75WW9');</script>
+    <!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4K73RJPLKS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-4K73RJPLKS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Dream Categories - Browse Dreams by Theme | Multi-Faith Dream Interpretation</title>
+    <meta name="description" content="Explore dream symbols organized by categories: Emotional, Animals, Nature, Body, Objects, and Religious dreams. Find spiritual meanings through thematic browsing.">
+    <meta name="keywords" content="dream categories, dream themes, emotional dreams, animal dreams, nature dreams, religious dreams, dream interpretation categories, spiritual dream analysis, dream moods, body dreams, object dreams, thematic dream guide">
+    <meta name="author" content="Dream Interpretation Platform">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    <meta name="theme-color" content="#8B5CF6">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Dream Categories - Browse Dreams by Theme">
+    <meta property="og:description" content="Discover dream meanings organized by categories. Explore emotional, animal, nature, body, object, and religious dream interpretations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dreamwise.charitydoing.com/categories.html">
+    <meta property="og:image" content="/assets/images/og-categories.jpg">
+    <meta property="og:site_name" content="Dream Interpretation Platform">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dream Categories - Browse Dreams by Theme">
+    <meta name="twitter:description" content="Explore dream symbols organized by categories. Find spiritual meanings through thematic browsing.">
+    <meta name="twitter:image" content="/assets/images/twitter-categories.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dreamwise.charitydoing.com/categories.html">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Dream Categories",
+        "description": "Dream symbols organized by thematic categories for easy browsing",
+        "url": "https://dreamwise.charitydoing.com/categories.html",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Dream Interpretation Platform",
+            "url": "https://dreamwise.charitydoing.com"
+        },
+        "mainEntity": {
+            "@type": "ItemList",
+            "name": "Dream Categories",
+            "description": "Thematic categories of dream symbols and their meanings",
+            "numberOfItems": 6,
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Emotional Dreams",
+                    "description": "Dreams about feelings, relationships, love, fear, joy, and human emotions",
+                    "url": "https://dreamwise.charitydoing.com/categories.html#emotional"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Animal Dreams",
+                    "description": "Dreams of wild animals, pets, mythical creatures, and spiritual animal guides",
+                    "url": "https://dreamwise.charitydoing.com/categories.html#animals"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "Nature Dreams",
+                    "description": "Dreams of water, fire, earth, sky, plants, weather, and natural elements",
+                    "url": "https://dreamwise.charitydoing.com/categories.html#nature"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 4,
+                    "name": "Body Dreams",
+                    "description": "Dreams about body parts, health, physical sensations, and bodily functions",
+                    "url": "https://dreamwise.charitydoing.com/categories.html#body"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 5,
+                    "name": "Object Dreams",
+                    "description": "Dreams about everyday objects, tools, vehicles, and material possessions",
+                    "url": "https://dreamwise.charitydoing.com/categories.html#objects"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 6,
+                    "name": "Religious Dreams",
+                    "description": "Dreams with spiritual symbols, religious figures, and sacred elements",
+                    "url": "https://dreamwise.charitydoing.com/categories.html#religious"
+                }
+            ]
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://dreamwise.charitydoing.com"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Dream Categories",
+                    "item": "https://dreamwise.charitydoing.com/categories.html"
+                }
+            ]
+        }
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'glass': 'rgba(255, 255, 255, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" as="style">
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="preload" onload="this.onload=null;this.rel='stylesheet'" as="style">
+    
+    <!-- Custom CSS -->
+    <link rel="preload" href="assets/css/main.min.css" onload="this.onload=null;this.rel='stylesheet'" as="style">
+
+    </head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVT75WW9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card mx-4 mt-4 rounded-2xl">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-moon text-white text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">DreamWise</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Home</a>
+                    <a href="pages/browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Browse A-Z</a>
+                    <a href="pages/categories.html" class="text-purple-300 font-medium">Categories</a>
+                    <a href="pages/insights.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Daily Insights</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden mobile-menu-toggle text-white hover:text-purple-300 transition-colors duration-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div class="mobile-menu hidden md:hidden mt-4 pt-4 border-t border-white/20">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Home</a>
+                    <a href="pages/browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Browse A-Z</a>
+                    <a href="pages/categories.html" class="text-purple-300 font-medium py-2">Categories</a>
+                    <a href="pages/insights.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Daily Insights</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16 relative">
+        <div class="container mx-auto px-6 text-center">
+            <div class="glass-card max-w-4xl mx-auto p-8">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    Dream <span class="gradient-text">Categories</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-4">
+                    Explore dreams organized by meaningful themes
+                </p>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                    Discover the spiritual significance of your dreams through our carefully curated categories, each offering unique insights into different aspects of life and spirituality
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Grid -->
+    <main class="py-16">
+        <div class="container mx-auto px-6">
+            <!-- Search Section -->
+            <div class="max-w-2xl mx-auto mb-12">
+                <div class="glass-card p-6">
+                    <div class="relative">
+                        <input type="text" id="category-search" placeholder="Search within categories..." class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 pl-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <button id="clear-search" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-300 hidden">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-gray-400">
+                            Search across all categories or expand a category to search within it
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                
+                <!-- Emotional Dreams Category -->
+                <div class="category-card glass-card hover-scale p-8 text-center group cursor-pointer" data-category="emotional">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <i class="fas fa-heart text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 group-hover:text-pink-300 transition-colors duration-300">Emotional Dreams</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Explore dreams about feelings, relationships, love, fear, joy, and the full spectrum of human emotions
+                    </p>
+                    <div class="flex items-center justify-center space-x-2 text-pink-300 font-semibold group-hover:text-pink-200 transition-colors duration-300">
+                        <span class="symbol-count">24 symbols</span>
+                        <i class="fas fa-chevron-down expand-icon transition-transform duration-300"></i>
+                    </div>
+                    
+                    <!-- Expandable Content -->
+                    <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
+                        <!-- Category Search -->
+                        <div class="mb-4">
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-pink-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all duration-300" placeholder="Search emotional dreams...">
+                        </div>
+                        
+                        <!-- Symbol Tags -->
+                        <div class="symbol-tags-container">
+                            <div class="flex flex-wrap gap-2">
+                                <a href="dream/love.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="love">Love</a>
+                                <a href="dream/fear.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="fear">Fear</a>
+                                <a href="dream/anger.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="anger">Anger</a>
+                                <a href="dream/joy.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="joy">Joy</a>
+                                <a href="dream/sadness.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="sadness">Sadness</a>
+                                <a href="dream/anxiety.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="anxiety">Anxiety</a>
+                                <a href="dream/peace.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="peace">Peace</a>
+                                <a href="dream/guilt.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="guilt">Guilt</a>
+                                <a href="dream/happiness.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="happiness">Happiness</a>
+                                <a href="dream/jealousy.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="jealousy">Jealousy</a>
+                                <a href="dream/loneliness.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="loneliness">Loneliness</a>
+                                <a href="dream/betrayal.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="betrayal">Betrayal</a>
+                                <a href="dream/forgiveness.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="forgiveness">Forgiveness</a>
+                                <a href="dream/shame.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="shame">Shame</a>
+                                <a href="dream/hope.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="hope">Hope</a>
+                                <a href="dream/despair.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="despair">Despair</a>
+                                <a href="dream/compassion.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="compassion">Compassion</a>
+                                <a href="dream/empathy.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="empathy">Empathy</a>
+                                <a href="dream/gratitude.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="gratitude">Gratitude</a>
+                                <a href="dream/resentment.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="resentment">Resentment</a>
+                                <a href="dream/trust.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="trust">Trust</a>
+                                <a href="dream/doubt.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="doubt">Doubt</a>
+                                <a href="dream/confidence.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="confidence">Confidence</a>
+                                <a href="dream/vulnerability.html" class="category-symbol-tag bg-pink-500/20 hover:bg-pink-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="vulnerability">Vulnerability</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <p class="text-xs text-pink-300/70">
+                                <span class="symbol-count-display">24</span> emotional symbols available
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animals Dreams Category -->
+                <div class="category-card glass-card hover-scale p-8 text-center group cursor-pointer" data-category="animals">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <i class="fas fa-paw text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 group-hover:text-green-300 transition-colors duration-300">Animal Dreams</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Discover meanings behind dreams of wild animals, pets, mythical creatures, and spiritual animal guides
+                    </p>
+                    <div class="flex items-center justify-center space-x-2 text-green-300 font-semibold group-hover:text-green-200 transition-colors duration-300">
+                        <span class="symbol-count">32 symbols</span>
+                        <i class="fas fa-chevron-down expand-icon transition-transform duration-300"></i>
+                    </div>
+                    
+                    <!-- Expandable Content -->
+                    <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
+                        <!-- Category Search -->
+                        <div class="mb-4">
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-green-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 transition-all duration-300" placeholder="Search animal dreams...">
+                        </div>
+                        
+                        <!-- Symbol Tags -->
+                        <div class="symbol-tags-container">
+                            <div class="flex flex-wrap gap-2">
+                                <a href="dream/snake.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="snake">Snake</a>
+                                <a href="dream/dog.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="dog">Dog</a>
+                                <a href="dream/cat.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="cat">Cat</a>
+                                <a href="dream/eagle.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="eagle">Eagle</a>
+                                <a href="dream/lion.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="lion">Lion</a>
+                                <a href="dream/wolf.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="wolf">Wolf</a>
+                                <a href="dream/elephant.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="elephant">Elephant</a>
+                                <a href="dream/horse.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="horse">Horse</a>
+                                <a href="dream/bear.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bear">Bear</a>
+                                <a href="dream/tiger.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="tiger">Tiger</a>
+                                <a href="dream/rabbit.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="rabbit">Rabbit</a>
+                                <a href="dream/deer.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="deer">Deer</a>
+                                <a href="dream/fox.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="fox">Fox</a>
+                                <a href="dream/owl.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="owl">Owl</a>
+                                <a href="dream/crow.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="crow">Crow</a>
+                                <a href="dream/dove.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="dove">Dove</a>
+                                <a href="dream/butterfly.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="butterfly">Butterfly</a>
+                                <a href="dream/spider.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="spider">Spider</a>
+                                <a href="dream/fish.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="fish">Fish</a>
+                                <a href="dream/shark.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="shark">Shark</a>
+                                <a href="dream/dolphin.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="dolphin">Dolphin</a>
+                                <a href="dream/whale.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="whale">Whale</a>
+                                <a href="dream/turtle.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="turtle">Turtle</a>
+                                <a href="dream/frog.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="frog">Frog</a>
+                                <a href="dream/lizard.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="lizard">Lizard</a>
+                                <a href="dream/bee.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bee">Bee</a>
+                                <a href="dream/ant.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="ant">Ant</a>
+                                <a href="dream/mouse.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="mouse">Mouse</a>
+                                <a href="dream/rat.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="rat">Rat</a>
+                                <a href="dream/bat.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bat">Bat</a>
+                                <a href="dream/monkey.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="monkey">Monkey</a>
+                                <a href="dream/goat.html" class="category-symbol-tag bg-green-500/20 hover:bg-green-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="goat">Goat</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <p class="text-xs text-green-300/70">
+                                <span class="symbol-count-display">32</span> animal symbols available
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nature Dreams Category -->
+                <div class="category-card glass-card hover-scale p-8 text-center group cursor-pointer" data-category="nature">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <i class="fas fa-leaf text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 group-hover:text-blue-300 transition-colors duration-300">Nature Dreams</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Understand dreams of water, fire, earth, sky, plants, weather, and the natural elements around us
+                    </p>
+                    <div class="flex items-center justify-center space-x-2 text-blue-300 font-semibold group-hover:text-blue-200 transition-colors duration-300">
+                        <span class="symbol-count">28 symbols</span>
+                        <i class="fas fa-chevron-down expand-icon transition-transform duration-300"></i>
+                    </div>
+                    
+                    <!-- Expandable Content -->
+                    <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
+                        <!-- Category Search -->
+                        <div class="mb-4">
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-blue-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300" placeholder="Search nature dreams...">
+                        </div>
+                        
+                        <!-- Symbol Tags -->
+                        <div class="symbol-tags-container">
+                            <div class="flex flex-wrap gap-2">
+                                <a href="dream/water.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="water">Water</a>
+                                <a href="dream/fire.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="fire">Fire</a>
+                                <a href="dream/tree.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="tree">Tree</a>
+                                <a href="dream/ocean.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="ocean">Ocean</a>
+                                <a href="dream/mountain.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="mountain">Mountain</a>
+                                <a href="dream/rain.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="rain">Rain</a>
+                                <a href="dream/sun.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="sun">Sun</a>
+                                <a href="dream/moon.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="moon">Moon</a>
+                                <a href="dream/stars.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="stars">Stars</a>
+                                <a href="dream/wind.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="wind">Wind</a>
+                                <a href="dream/storm.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="storm">Storm</a>
+                                <a href="dream/snow.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="snow">Snow</a>
+                                <a href="dream/ice.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="ice">Ice</a>
+                                <a href="dream/earth.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="earth">Earth</a>
+                                <a href="dream/forest.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="forest">Forest</a>
+                                <a href="dream/desert.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="desert">Desert</a>
+                                <a href="dream/river.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="river">River</a>
+                                <a href="dream/lake.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="lake">Lake</a>
+                                <a href="dream/flowers.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="flowers">Flowers</a>
+                                <a href="dream/garden.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="garden">Garden</a>
+                                <a href="dream/grass.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="grass">Grass</a>
+                                <a href="dream/clouds.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="clouds">Clouds</a>
+                                <a href="dream/lightning.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="lightning">Lightning</a>
+                                <a href="dream/rainbow.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="rainbow">Rainbow</a>
+                                <a href="dream/volcano.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="volcano">Volcano</a>
+                                <a href="dream/cave.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="cave">Cave</a>
+                                <a href="dream/beach.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="beach">Beach</a>
+                                <a href="dream/island.html" class="category-symbol-tag bg-blue-500/20 hover:bg-blue-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="island">Island</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <p class="text-xs text-blue-300/70">
+                                <span class="symbol-count-display">28</span> nature symbols available
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Body Dreams Category -->
+                <div class="category-card glass-card hover-scale p-8 text-center group cursor-pointer" data-category="body">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <i class="fas fa-user text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 group-hover:text-orange-300 transition-colors duration-300">Body Dreams</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Interpret dreams about body parts, health, physical sensations, and bodily transformations
+                    </p>
+                    <div class="flex items-center justify-center space-x-2 text-orange-300 font-semibold group-hover:text-orange-200 transition-colors duration-300">
+                        <span class="symbol-count">19 symbols</span>
+                        <i class="fas fa-chevron-down expand-icon transition-transform duration-300"></i>
+                    </div>
+                    
+                    <!-- Expandable Content -->
+                    <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
+                        <!-- Category Search -->
+                        <div class="mb-4">
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-orange-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300" placeholder="Search body dreams...">
+                        </div>
+                        
+                        <!-- Symbol Tags -->
+                        <div class="symbol-tags-container">
+                            <div class="flex flex-wrap gap-2">
+                                <a href="dream/eyes.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="eyes">Eyes</a>
+                                <a href="dream/hands.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="hands">Hands</a>
+                                <a href="dream/hair.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="hair">Hair</a>
+                                <a href="dream/teeth.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="teeth">Teeth</a>
+                                <a href="dream/blood.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="blood">Blood</a>
+                                <a href="dream/heart.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="heart">Heart</a>
+                                <a href="dream/face.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="face">Face</a>
+                                <a href="dream/feet.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="feet">Feet</a>
+                                <a href="dream/skin.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="skin">Skin</a>
+                                <a href="dream/bones.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bones">Bones</a>
+                                <a href="dream/mouth.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="mouth">Mouth</a>
+                                <a href="dream/nose.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="nose">Nose</a>
+                                <a href="dream/ears.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="ears">Ears</a>
+                                <a href="dream/neck.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="neck">Neck</a>
+                                <a href="dream/arms.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="arms">Arms</a>
+                                <a href="dream/legs.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="legs">Legs</a>
+                                <a href="dream/stomach.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="stomach">Stomach</a>
+                                <a href="dream/back.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="back">Back</a>
+                                <a href="dream/chest.html" class="category-symbol-tag bg-orange-500/20 hover:bg-orange-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="chest">Chest</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <p class="text-xs text-orange-300/70">
+                                <span class="symbol-count-display">19</span> body symbols available
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Objects Dreams Category -->
+                <div class="category-card glass-card hover-scale p-8 text-center group cursor-pointer" data-category="objects">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <i class="fas fa-cube text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 group-hover:text-purple-300 transition-colors duration-300">Object Dreams</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Decode dreams featuring everyday objects, tools, vehicles, buildings, and material possessions
+                    </p>
+                    <div class="flex items-center justify-center space-x-2 text-purple-300 font-semibold group-hover:text-purple-200 transition-colors duration-300">
+                        <span class="symbol-count">35 symbols</span>
+                        <i class="fas fa-chevron-down expand-icon transition-transform duration-300"></i>
+                    </div>
+                    
+                    <!-- Expandable Content -->
+                    <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
+                        <!-- Category Search -->
+                        <div class="mb-4">
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-purple-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300" placeholder="Search object dreams...">
+                        </div>
+                        
+                        <!-- Symbol Tags -->
+                        <div class="symbol-tags-container">
+                            <div class="flex flex-wrap gap-2">
+                                <a href="dream/house.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="house">House</a>
+                                <a href="dream/car.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="car">Car</a>
+                                <a href="dream/door.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="door">Door</a>
+                                <a href="dream/key.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="key">Key</a>
+                                <a href="dream/mirror.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="mirror">Mirror</a>
+                                <a href="dream/book.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="book">Book</a>
+                                <a href="dream/phone.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="phone">Phone</a>
+                                <a href="dream/money.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="money">Money</a>
+                                <a href="dream/clothes.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="clothes">Clothes</a>
+                                <a href="dream/jewelry.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="jewelry">Jewelry</a>
+                                <a href="dream/watch.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="watch">Watch</a>
+                                <a href="dream/bag.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bag">Bag</a>
+                                <a href="dream/shoes.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="shoes">Shoes</a>
+                                <a href="dream/knife.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="knife">Knife</a>
+                                <a href="dream/gun.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="gun">Gun</a>
+                                <a href="dream/ladder.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="ladder">Ladder</a>
+                                <a href="dream/bridge.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bridge">Bridge</a>
+                                <a href="dream/window.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="window">Window</a>
+                                <a href="dream/bed.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bed">Bed</a>
+                                <a href="dream/chair.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="chair">Chair</a>
+                                <a href="dream/table.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="table">Table</a>
+                                <a href="dream/computer.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="computer">Computer</a>
+                                <a href="dream/television.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="television">Television</a>
+                                <a href="dream/camera.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="camera">Camera</a>
+                                <a href="dream/clock.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="clock">Clock</a>
+                                <a href="dream/candle.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="candle">Candle</a>
+                                <a href="dream/lamp.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="lamp">Lamp</a>
+                                <a href="dream/rope.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="rope">Rope</a>
+                                <a href="dream/chain.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="chain">Chain</a>
+                                <a href="dream/box.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="box">Box</a>
+                                <a href="dream/bottle.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bottle">Bottle</a>
+                                <a href="dream/cup.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="cup">Cup</a>
+                                <a href="dream/plate.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="plate">Plate</a>
+                                <a href="dream/food.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="food">Food</a>
+                                <a href="dream/bread.html" class="category-symbol-tag bg-purple-500/20 hover:bg-purple-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bread">Bread</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <p class="text-xs text-purple-300/70">
+                                <span class="symbol-count-display">35</span> object symbols available
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Religious Dreams Category -->
+                <div class="category-card glass-card hover-scale p-8 text-center group cursor-pointer" data-category="religious">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-yellow-500 to-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <i class="fas fa-pray text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 group-hover:text-yellow-300 transition-colors duration-300">Religious Dreams</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Explore sacred symbols, spiritual figures, religious ceremonies, and divine messages in dreams
+                    </p>
+                    <div class="flex items-center justify-center space-x-2 text-yellow-300 font-semibold group-hover:text-yellow-200 transition-colors duration-300">
+                        <span class="symbol-count">26 symbols</span>
+                        <i class="fas fa-chevron-down expand-icon transition-transform duration-300"></i>
+                    </div>
+                    
+                    <!-- Expandable Content -->
+                    <div class="category-content hidden mt-6 pt-6 border-t border-white/10">
+                        <!-- Category Search -->
+                        <div class="mb-4">
+                            <input type="text" class="category-search-input w-full bg-white/5 border border-yellow-500/30 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 transition-all duration-300" placeholder="Search religious dreams...">
+                        </div>
+                        
+                        <!-- Symbol Tags -->
+                        <div class="symbol-tags-container">
+                            <div class="flex flex-wrap gap-2">
+                                <a href="dream/angel.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="angel">Angel</a>
+                                <a href="dream/cross.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="cross">Cross</a>
+                                <a href="dream/church.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="church">Church</a>
+                                <a href="dream/prayer.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="prayer">Prayer</a>
+                                <a href="dream/temple.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="temple">Temple</a>
+                                <a href="dream/bible.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="bible">Bible</a>
+                                <a href="dream/light.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="light">Light</a>
+                                <a href="dream/heaven.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="heaven">Heaven</a>
+                                <a href="dream/prophet.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="prophet">Prophet</a>
+                                <a href="dream/miracle.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="miracle">Miracle</a>
+                                <a href="dream/meditation.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="meditation">Meditation</a>
+                                <a href="dream/altar.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="altar">Altar</a>
+                                <a href="dream/candle.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="candle">Candle</a>
+                                <a href="dream/incense.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="incense">Incense</a>
+                                <a href="dream/rosary.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="rosary">Rosary</a>
+                                <a href="dream/pilgrimage.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="pilgrimage">Pilgrimage</a>
+                                <a href="dream/baptism.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="baptism">Baptism</a>
+                                <a href="dream/communion.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="communion">Communion</a>
+                                <a href="dream/scripture.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="scripture">Scripture</a>
+                                <a href="dream/blessing.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="blessing">Blessing</a>
+                                <a href="dream/sacred.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="sacred">Sacred</a>
+                                <a href="dream/divine.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="divine">Divine</a>
+                                <a href="dream/spirit.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="spirit">Spirit</a>
+                                <a href="dream/soul.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="soul">Soul</a>
+                                <a href="dream/faith.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="faith">Faith</a>
+                                <a href="dream/worship.html" class="category-symbol-tag bg-yellow-500/20 hover:bg-yellow-500/30 px-3 py-2 rounded-full text-sm transition-colors duration-300" data-symbol="worship">Worship</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <p class="text-xs text-yellow-300/70">
+                                <span class="symbol-count-display">26</span> religious symbols available
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Container - Loaded dynamically -->
+    <div id="footer-container"></div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.min.js"></script>
+    <script src="assets/js/components.js"></script>
+    <script>
+        // Category functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCategoryFunctionality();
+            initializeGlobalSearch();
+            initializeCategorySearch();
+        });
+
+        /**
+         * Initialize category expansion and interaction functionality
+         */
+        function initializeCategoryFunctionality() {
+            const categoryCards = document.querySelectorAll('.category-card');
+            
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Don't expand if clicking on search input or tags
+                    if (e.target.closest('.category-search-input') || e.target.closest('.category-symbol-tag')) {
+                        return;
+                    }
+                    
+                    const content = this.querySelector('.category-content');
+                    const icon = this.querySelector('.expand-icon');
+                    
+                    if (content.classList.contains('hidden')) {
+                        // Close all other categories
+                        categoryCards.forEach(otherCard => {
+                            if (otherCard !== this) {
+                                const otherContent = otherCard.querySelector('.category-content');
+                                const otherIcon = otherCard.querySelector('.expand-icon');
+                                otherContent.classList.add('hidden');
+                                otherIcon.style.transform = 'rotate(0deg)';
+                            }
+                        });
+                        
+                        // Open this category
+                        content.classList.remove('hidden');
+                        icon.style.transform = 'rotate(180deg)';
+                        
+                        // Add smooth animation
+                        content.style.opacity = '0';
+                        content.style.transform = 'translateY(-10px)';
+                        setTimeout(() => {
+                            content.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                            content.style.opacity = '1';
+                            content.style.transform = 'translateY(0)';
+                        }, 10);
+                        
+                        // Focus on category search input
+                        setTimeout(() => {
+                            const searchInput = content.querySelector('.category-search-input');
+                            if (searchInput) {
+                                searchInput.focus();
+                            }
+                        }, 300);
+                        
+                    } else {
+                        // Close this category
+                        content.classList.add('hidden');
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        }
+
+        /**
+         * Initialize global search functionality
+         */
+        function initializeGlobalSearch() {
+            const globalSearchInput = document.getElementById('category-search');
+            const clearSearchButton = document.getElementById('clear-search');
+            const categoryCards = document.querySelectorAll('.category-card');
+            
+            if (!globalSearchInput) return;
+            
+            globalSearchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                // Show/hide clear button
+                if (searchTerm) {
+                    clearSearchButton.classList.remove('hidden');
+                } else {
+                    clearSearchButton.classList.add('hidden');
+                }
+                
+                // Search across all categories
+                categoryCards.forEach(card => {
+                    const categoryMatches = searchInCategory(card, searchTerm);
+                    
+                    if (categoryMatches || searchTerm === '') {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                    } else {
+                        card.style.display = 'none';
+                        card.style.opacity = '0';
+                    }
+                });
+                
+                // Update results message
+                updateSearchResults(searchTerm);
+            });
+            
+            // Clear search functionality
+            clearSearchButton.addEventListener('click', function() {
+                globalSearchInput.value = '';
+                globalSearchInput.dispatchEvent(new Event('input'));
+                globalSearchInput.focus();
+            });
+        }
+
+        /**
+         * Search within a specific category
+         */
+        function searchInCategory(categoryCard, searchTerm) {
+            const categoryName = categoryCard.querySelector('h2').textContent.toLowerCase();
+            const categoryDescription = categoryCard.querySelector('p').textContent.toLowerCase();
+            const symbolTags = categoryCard.querySelectorAll('.category-symbol-tag');
+            
+            // Check category name and description
+            if (categoryName.includes(searchTerm) || categoryDescription.includes(searchTerm)) {
+                return true;
+            }
+            
+            // Check symbol tags
+            let hasMatchingSymbols = false;
+            symbolTags.forEach(tag => {
+                const symbolName = tag.textContent.toLowerCase();
+                const symbolData = tag.getAttribute('data-symbol') || '';
+                
+                if (symbolName.includes(searchTerm) || symbolData.includes(searchTerm)) {
+                    tag.style.display = 'inline-block';
+                    tag.style.opacity = '1';
+                    hasMatchingSymbols = true;
+                } else if (searchTerm !== '') {
+                    tag.style.display = 'none';
+                    tag.style.opacity = '0';
+                } else {
+                    tag.style.display = 'inline-block';
+                    tag.style.opacity = '1';
+                }
+            });
+            
+            // Update symbol count for this category
+            updateCategorySymbolCount(categoryCard, searchTerm);
+            
+            return hasMatchingSymbols;
+        }
+
+        /**
+         * Initialize individual category search functionality
+         */
+        function initializeCategorySearch() {
+            const categorySearchInputs = document.querySelectorAll('.category-search-input');
+            
+            categorySearchInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    const categoryCard = this.closest('.category-card');
+                    const symbolTags = categoryCard.querySelectorAll('.category-symbol-tag');
+                    
+                    // Filter symbols within this category
+                    let visibleCount = 0;
+                    symbolTags.forEach(tag => {
+                        const symbolName = tag.textContent.toLowerCase();
+                        const symbolData = tag.getAttribute('data-symbol') || '';
+                        
+                        if (symbolName.includes(searchTerm) || symbolData.includes(searchTerm) || searchTerm === '') {
+                            tag.style.display = 'inline-block';
+                            tag.style.opacity = '1';
+                            visibleCount++;
+                        } else {
+                            tag.style.display = 'none';
+                            tag.style.opacity = '0';
+                        }
+                    });
+                    
+                    // Update symbol count display
+                    const countDisplay = categoryCard.querySelector('.symbol-count-display');
+                    if (countDisplay) {
+                        if (searchTerm === '') {
+                            // Show original count
+                            const originalCount = categoryCard.querySelector('.symbol-count').textContent.match(/\d+/)[0];
+                            countDisplay.textContent = originalCount;
+                        } else {
+                            countDisplay.textContent = visibleCount;
+                        }
+                    }
+                    
+                    // Show "no results" message if needed
+                    showNoResultsMessage(categoryCard, visibleCount, searchTerm);
+                });
+                
+                // Prevent category collapse when typing in search
+                input.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        }
+
+        /**
+         * Update category symbol count based on search
+         */
+        function updateCategorySymbolCount(categoryCard, searchTerm) {
+            const symbolTags = categoryCard.querySelectorAll('.category-symbol-tag');
+            const countDisplay = categoryCard.querySelector('.symbol-count-display');
+            
+            if (!countDisplay) return;
+            
+            if (searchTerm === '') {
+                // Show original count
+                const originalCount = categoryCard.querySelector('.symbol-count').textContent.match(/\d+/)[0];
+                countDisplay.textContent = originalCount;
+            } else {
+                // Count visible symbols
+                const visibleSymbols = Array.from(symbolTags).filter(tag => 
+                    tag.style.display !== 'none' && tag.style.opacity !== '0'
+                );
+                countDisplay.textContent = visibleSymbols.length;
+            }
+        }
+
+        /**
+         * Show no results message when needed
+         */
+        function showNoResultsMessage(categoryCard, visibleCount, searchTerm) {
+            let noResultsMsg = categoryCard.querySelector('.no-results-message');
+            
+            if (visibleCount === 0 && searchTerm !== '') {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.className = 'no-results-message text-center py-4 text-gray-400 text-sm';
+                    noResultsMsg.innerHTML = '<i class="fas fa-search-minus mb-2"></i><br>No symbols found matching your search';
+                    
+                    const symbolContainer = categoryCard.querySelector('.symbol-tags-container');
+                    symbolContainer.appendChild(noResultsMsg);
+                }
+                noResultsMsg.style.display = 'block';
+            } else {
+                if (noResultsMsg) {
+                    noResultsMsg.style.display = 'none';
+                }
+            }
+        }
+
+        /**
+         * Update global search results message
+         */
+        function updateSearchResults(searchTerm) {
+            const categoryCards = document.querySelectorAll('.category-card');
+            const visibleCategories = Array.from(categoryCards).filter(card => 
+                card.style.display !== 'none'
+            );
+            
+            // You could add a results summary here if needed
+            console.log(`Search "${searchTerm}" found ${visibleCategories.length} matching categories`);
+        }
+
+        /**
+         * Add keyboard navigation support
+         */
+        document.addEventListener('keydown', function(e) {
+            // ESC key to close expanded categories
+            if (e.key === 'Escape') {
+                const expandedCategories = document.querySelectorAll('.category-content:not(.hidden)');
+                expandedCategories.forEach(content => {
+                    content.classList.add('hidden');
+                    const icon = content.closest('.category-card').querySelector('.expand-icon');
+                    if (icon) {
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+            }
+        });
+    </script>
+
+<script>
+// 页面加载完成后移除初始隐藏
+document.addEventListener('DOMContentLoaded', function() {
+  // 确保所有关键资源已加载
+  setTimeout(function() {
+    document.body.classList.add('loaded');
+  }, 100);
+});
+</script></body></html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Blog - Articles & Insights | DreamWise</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: translateY(-5px);
+        }
+        
+        .blog-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .blog-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .blog-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .category-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+            display: inline-block;
+        }
+        
+        .filter-button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-button:hover, .filter-button.active {
+            background: rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card mx-4 mt-4 rounded-2xl">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="../../index.html" class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-moon text-white text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">DreamWise</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../../index.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Home</a>
+                    <a href="../browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Browse A-Z</a>
+                    <a href="../categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Categories</a>
+                    <a href="../insights.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Daily Insights</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden mobile-menu-toggle text-white hover:text-purple-300 transition-colors duration-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="container mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Dream <span class="gradient-text">Blog</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed max-w-4xl mx-auto">
+                    Explore our collection of articles on dream interpretation, spiritual insights, and the science of dreaming
+                </p>
+            </div>
+            
+            <!-- Filters -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button class="filter-button active" data-filter="all">All Articles</button>
+                <button class="filter-button" data-filter="interpretation">Dream Interpretation</button>
+                <button class="filter-button" data-filter="science">Dream Science</button>
+                <button class="filter-button" data-filter="spiritual">Spiritual Insights</button>
+                <button class="filter-button" data-filter="lucid">Lucid Dreaming</button>
+                <button class="filter-button" data-filter="psychology">Dream Psychology</button>
+            </div>
+            
+            <!-- Blog Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Card -->
+                <a href="blog-lucid-dreaming-research.html" class="blog-card" data-category="lucid science">
+                    <div class="blog-image" style="background-image: url('../../assets/images/blog/lucid-dreaming.jpg')"></div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="category-tag">Lucid Dreaming</span>
+                            <span class="category-tag">Research</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Latest Research in Lucid Dreaming Techniques</h3>
+                        <p class="text-gray-300 mb-4">
+                            Explore the cutting-edge scientific research on lucid dreaming and how it's changing our understanding of consciousness.
+                        </p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-400">June 15, 2024</span>
+                            <span class="text-purple-400">Read more <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Blog Card -->
+                <a href="blog-spiritual-guidance.html" class="blog-card" data-category="spiritual interpretation">
+                    <div class="blog-image" style="background-image: url('../../assets/images/blog/spiritual-guidance.jpg')"></div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="category-tag">Spiritual</span>
+                            <span class="category-tag">Guidance</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Finding Spiritual Guidance Through Dreams</h3>
+                        <p class="text-gray-300 mb-4">
+                            How dreams have been used as a source of spiritual guidance across different faith traditions throughout history.
+                        </p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-400">June 10, 2024</span>
+                            <span class="text-purple-400">Read more <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Blog Card -->
+                <a href="blog-neuroscience-dreaming.html" class="blog-card" data-category="science psychology">
+                    <div class="blog-image" style="background-image: url('../../assets/images/blog/neuroscience.jpg')"></div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="category-tag">Neuroscience</span>
+                            <span class="category-tag">Research</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">The Neuroscience of Dreaming: What Happens in Your Brain</h3>
+                        <p class="text-gray-300 mb-4">
+                            A deep dive into what modern neuroscience tells us about what happens in your brain during different dream states.
+                        </p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-400">June 5, 2024</span>
+                            <span class="text-purple-400">Read more <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Blog Card -->
+                <a href="blog-water-dreams.html" class="blog-card" data-category="interpretation psychology">
+                    <div class="blog-image" style="background-image: url('../../assets/images/blog/water-dreams.jpg')"></div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="category-tag">Symbols</span>
+                            <span class="category-tag">Interpretation</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">The Meaning of Water in Dreams: Emotions and Subconscious</h3>
+                        <p class="text-gray-300 mb-4">
+                            Understanding what water symbolizes in dreams and how different water states reflect your emotional landscape.
+                        </p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-400">May 28, 2024</span>
+                            <span class="text-purple-400">Read more <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Blog Card -->
+                <a href="blog-recurring-dreams.html" class="blog-card" data-category="psychology interpretation">
+                    <div class="blog-image" style="background-image: url('../../assets/images/blog/recurring-dreams.jpg')"></div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="category-tag">Psychology</span>
+                            <span class="category-tag">Recurring Dreams</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Why Do We Have Recurring Dreams? Psychological Insights</h3>
+                        <p class="text-gray-300 mb-4">
+                            Exploring the psychological reasons behind recurring dreams and what they might be trying to tell you.
+                        </p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-400">May 20, 2024</span>
+                            <span class="text-purple-400">Read more <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Blog Card -->
+                <a href="blog-cultural-variations.html" class="blog-card" data-category="spiritual interpretation">
+                    <div class="blog-image" style="background-image: url('../../assets/images/blog/cultural-variations.jpg')"></div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="category-tag">Cultural</span>
+                            <span class="category-tag">Multi-Faith</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Cultural Variations in Dream Interpretation Across the World</h3>
+                        <p class="text-gray-300 mb-4">
+                            How different cultures and faith traditions interpret common dream symbols and experiences.
+                        </p>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-400">May 15, 2024</span>
+                            <span class="text-purple-400">Read more <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="flex justify-center mt-12">
+                <div class="flex space-x-2">
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors">1</a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors">2</a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors">3</a>
+                    <span class="w-10 h-10 flex items-center justify-center text-gray-400">...</span>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors">8</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Simple Footer -->
+    <footer class="py-8 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">© 2025 DreamWise - Multi-Faith Dream Interpretation Platform</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="../about.html" class="text-gray-400 hover:text-white">About</a>
+                <a href="../contact.html" class="text-gray-400 hover:text-white">Contact</a>
+                <a href="../privacy-policy.html" class="text-gray-400 hover:text-white">Privacy</a>
+                <a href="../terms-of-service.html" class="text-gray-400 hover:text-white">Terms</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function() {
+            // Add mobile menu functionality if needed
+        });
+        
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const blogCards = document.querySelectorAll('.blog-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    blogCards.forEach(card => {
+                        const categories = card.getAttribute('data-category').split(' ');
+                        
+                        if (filter === 'all' || categories.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

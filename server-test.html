@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务器连接测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>DreamWise 服务器连接测试</h1>
+    
+    <div class="card">
+        <h2>1. 健康检查</h2>
+        <p>测试与后端服务器的基本连接</p>
+        <button id="healthCheck">测试健康检查</button>
+        <div id="healthResult"></div>
+    </div>
+    
+    <div class="card">
+        <h2>2. 测试端点</h2>
+        <p>测试简单API端点</p>
+        <button id="testEndpoint">测试API端点</button>
+        <div id="testResult"></div>
+    </div>
+    
+    <div class="card">
+        <h2>3. 登录测试</h2>
+        <p>测试用户登录功能</p>
+        <form id="loginForm">
+            <div>
+                <label for="email">邮箱:</label>
+                <input type="email" id="email" value="test@example.com" required>
+            </div>
+            <div>
+                <label for="password">密码:</label>
+                <input type="password" id="password" value="Password123" required>
+            </div>
+            <button type="submit">测试登录</button>
+        </form>
+        <div id="loginResult"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3000/api';
+        
+        // 健康检查测试
+        document.getElementById('healthCheck').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('healthResult');
+            resultDiv.innerHTML = '<p>正在测试...</p>';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors'
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <p class="success">✅ 连接成功!</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ 连接失败!</p>
+                    <pre>${error.message}</pre>
+                    <p>请确保服务器在端口3000上运行</p>
+                `;
+            }
+        });
+        
+        // 测试端点
+        document.getElementById('testEndpoint').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.innerHTML = '<p>正在测试...</p>';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/test`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors'
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <p class="success">✅ API测试成功!</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ API测试失败!</p>
+                    <pre>${error.message}</pre>
+                `;
+            }
+        });
+        
+        // 登录测试
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resultDiv = document.getElementById('loginResult');
+            resultDiv.innerHTML = '<p>正在测试登录...</p>';
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors',
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ 登录成功!</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ 登录失败!</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ 登录请求失败!</p>
+                    <pre>${error.message}</pre>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Journal - DreamWise</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dream-entry {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dream-entry:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-2px);
+        }
+        
+        .mood-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        .mood-positive { background-color: #10b981; }
+        .mood-negative { background-color: #ef4444; }
+        .mood-neutral { background-color: #6b7280; }
+        .mood-mixed { background: linear-gradient(45deg, #10b981, #ef4444); }
+        
+        .category-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .stats-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #8b5cf6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #9ca3af;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #e5e7eb;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            border-color: #8b5cf6;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-40 glass-card mx-4 mt-4 rounded-2xl">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-moon text-white text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold">DreamWise</span>
+                </a>
+                
+                <div class="flex items-center space-x-4">
+                    <span data-user-info="displayName" class="text-gray-300"></span>
+                    <button data-action="logout" class="btn-secondary">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 pt-24 pb-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                Your Dream <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Journal</span>
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Track your dreams, discover patterns, and unlock the wisdom of your subconscious mind
+            </p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" id="statsOverview">
+            <div class="stats-card">
+                <div class="stats-number" id="totalDreams">0</div>
+                <div class="text-gray-400">Total Dreams</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="avgLucidity">0</div>
+                <div class="text-gray-400">Avg Lucidity</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="avgVividness">0</div>
+                <div class="text-gray-400">Avg Vividness</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="mostCommonMood">-</div>
+                <div class="text-gray-400">Common Mood</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="glass-card p-6 mb-8">
+            <div class="flex border-b border-white/10 mb-6">
+                <button class="tab-button active" data-tab="dreams">My Dreams</button>
+                <button class="tab-button" data-tab="add">Add Dream</button>
+                <button class="tab-button" data-tab="analytics">Analytics</button>
+            </div>
+
+            <!-- Dreams Tab -->
+            <div class="tab-content active" id="dreamsTab">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Recent Dreams</h2>
+                    <div class="flex space-x-4">
+                        <select id="filterCategory" class="form-select w-auto">
+                            <option value="">All Categories</option>
+                            <option value="Animals">Animals</option>
+                            <option value="Nature">Nature</option>
+                            <option value="People">People</option>
+                            <option value="Objects">Objects</option>
+                            <option value="Places">Places</option>
+                            <option value="Actions">Actions</option>
+                            <option value="Emotions">Emotions</option>
+                            <option value="Spiritual">Spiritual</option>
+                        </select>
+                        <select id="filterMood" class="form-select w-auto">
+                            <option value="">All Moods</option>
+                            <option value="positive">Positive</option>
+                            <option value="negative">Negative</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="mixed">Mixed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="dreamsList" class="space-y-4">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin text-2xl text-purple-400"></i>
+                        <p class="mt-2">Loading your dreams...</p>
+                    </div>
+                </div>
+
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <i class="fas fa-moon text-4xl text-gray-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">No dreams recorded yet</h3>
+                    <p class="mb-6">Start your dream journey by recording your first dream!</p>
+                    <button class="btn-primary" onclick="switchTab('add')">
+                        <i class="fas fa-plus mr-2"></i>
+                        Add Your First Dream
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add Dream Tab -->
+            <div class="tab-content" id="addTab">
+                <h2 class="text-2xl font-bold mb-6">Record a New Dream</h2>
+                
+                <form id="dreamForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label class="form-label">Dream Title *</label>
+                            <input type="text" name="title" class="form-input" required 
+                                   placeholder="Give your dream a memorable title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Dream Date</label>
+                            <input type="date" name="dreamDate" class="form-input" 
+                                   value="" id="dreamDateInput">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dream Description *</label>
+                        <textarea name="content" class="form-textarea" required 
+                                  placeholder="Describe your dream in detail. What happened? Who was there? How did you feel?"></textarea>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="form-group">
+                            <label class="form-label">Mood Before Sleep</label>
+                            <select name="moodBefore" class="form-select">
+                                <option value="">Select mood</option>
+                                <option value="peaceful">Peaceful</option>
+                                <option value="anxious">Anxious</option>
+                                <option value="excited">Excited</option>
+                                <option value="sad">Sad</option>
+                                <option value="angry">Angry</option>
+                                <option value="confused">Confused</option>
+                                <option value="hopeful">Hopeful</option>
+                                <option value="fearful">Fearful</option>
+                                <option value="content">Content</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Mood After Dream</label>
+                            <select name="moodAfter" class="form-select">
+                                <option value="">Select mood</option>
+                                <option value="peaceful">Peaceful</option>
+                                <option value="anxious">Anxious</option>
+                                <option value="excited">Excited</option>
+                                <option value="sad">Sad</option>
+                                <option value="angry">Angry</option>
+                                <option value="confused">Confused</option>
+                                <option value="hopeful">Hopeful</option>
+                                <option value="fearful">Fearful</option>
+                                <option value="content">Content</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Overall Mood</label>
+                            <select name="moodOverall" class="form-select">
+                                <option value="">Select overall mood</option>
+                                <option value="positive">Positive</option>
+                                <option value="negative">Negative</option>
+                                <option value="neutral">Neutral</option>
+                                <option value="mixed">Mixed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="form-group">
+                            <label class="form-label">Lucidity Level (0-10)</label>
+                            <input type="range" name="lucidityLevel" class="w-full" min="0" max="10" value="0" 
+                                   oninput="document.getElementById('lucidityValue').textContent = this.value">
+                            <div class="text-center mt-2">
+                                <span id="lucidityValue" class="text-purple-400 font-semibold">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Vividness (0-10)</label>
+                            <input type="range" name="vividness" class="w-full" min="0" max="10" value="5" 
+                                   oninput="document.getElementById('vividnessValue').textContent = this.value">
+                            <div class="text-center mt-2">
+                                <span id="vividnessValue" class="text-purple-400 font-semibold">5</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Sleep Quality (0-10)</label>
+                            <input type="range" name="sleepQuality" class="w-full" min="0" max="10" value="5" 
+                                   oninput="document.getElementById('sleepQualityValue').textContent = this.value">
+                            <div class="text-center mt-2">
+                                <span id="sleepQualityValue" class="text-purple-400 font-semibold">5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label class="form-label">Categories</label>
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="categories" value="Animals" class="mr-2">
+                                    Animals
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="categories" value="Nature" class="mr-2">
+                                    Nature
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="categories" value="People" class="mr-2">
+                                    People
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="categories" value="Objects" class="mr-2">
+                                    Objects
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="categories" value="Places" class="mr-2">
+                                    Places
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="categories" value="Actions" class="mr-2">
+                                    Actions
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="categories" value="Emotions" class="mr-2">
+                                    Emotions
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="categories" value="Spiritual" class="mr-2">
+                                    Spiritual
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Spiritual Perspective</label>
+                            <select name="spiritualPerspective" class="form-select">
+                                <option value="">Select perspective</option>
+                                <option value="Christian">Christian</option>
+                                <option value="Islamic">Islamic</option>
+                                <option value="Buddhist">Buddhist</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Jewish">Jewish</option>
+                                <option value="Universal">Universal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tags (comma-separated)</label>
+                        <input type="text" name="tags" class="form-input" 
+                               placeholder="flying, water, family, transformation">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Privacy Setting</label>
+                        <select name="privacy" class="form-select">
+                            <option value="private">Private (only you can see)</option>
+                            <option value="friends">Friends (visible to connections)</option>
+                            <option value="public">Public (visible to community)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" class="btn-secondary" onclick="resetForm()">
+                            <i class="fas fa-undo mr-2"></i>
+                            Reset
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save mr-2"></i>
+                            Save Dream
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div class="tab-content" id="analyticsTab">
+                <h2 class="text-2xl font-bold mb-6">Dream Analytics</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-card p-6">
+                        <h3 class="text-lg font-semibold mb-4">Top Categories</h3>
+                        <div id="topCategories" class="space-y-2">
+                            <div class="text-gray-400">No data available yet</div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card p-6">
+                        <h3 class="text-lg font-semibold mb-4">Dream Trends</h3>
+                        <div id="dreamTrends" class="space-y-2">
+                            <div class="text-gray-400">Record more dreams to see trends</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dream Detail Modal -->
+    <div id="dreamModal" class="modal">
+        <div class="glass-card max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 id="modalTitle" class="text-2xl font-bold"></h2>
+                    <button onclick="closeDreamModal()" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div id="modalContent">
+                    <!-- Dream details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/auth.js"></script>
+    <script src="dream-journal.js"></script>
+</body>
+</html>

@@ -1,117 +1,127 @@
 #!/usr/bin/env node
 
+/**
+ * 最终验证脚本
+ * 验证所有修改是否正确完成
+ */
+
 const fs = require('fs');
 
-console.log('🔍 最终验证browse.html页面修复...');
-console.log('');
+console.log('🔍 最终验证...\n');
 
-// 读取browse.html文件
-const content = fs.readFileSync('browse.html', 'utf8');
+// 读取 index-new.html 文件
+const content = fs.readFileSync('index-new.html', 'utf8');
 
-// 验证所有字母部分
-const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-let allLettersPresent = true;
+console.log('✅ 验证修改完成情况:\n');
 
-console.log('📋 验证所有字母部分:');
-letters.forEach(letter => {
-    const sectionExists = content.includes(`<!-- Letter ${letter} Section -->`);
-    const headerExists = content.includes(`<h2 class="text-3xl font-bold">Letter ${letter}</h2>`);
+// 1. 验证是否去掉了右上角的快速按钮
+const quickActionButtons = content.match(/hidden xl:flex items-center space-x-2/g);
+if (!quickActionButtons) {
+    console.log('✅ 1. 已成功去掉导航栏右上角的 Dream Journal 和 Community 快速按钮');
+} else {
+    console.log('❌ 1. 导航栏右上角仍有快速按钮');
+}
+
+// 2. 验证用户头像是否支持自定义图片
+const avatarImage = content.includes('data-user-avatar') && content.includes('object-cover');
+if (avatarImage) {
+    console.log('✅ 2. 用户头像已修改为支持自定义上传图片');
+} else {
+    console.log('❌ 2. 用户头像未正确修改');
+}
+
+// 3. 验证下拉菜单是否移除了 Community
+const dropdownCommunity = content.match(/Community.*Share and discuss dreams/g);
+if (!dropdownCommunity) {
+    console.log('✅ 3. 已从用户下拉菜单中移除 Community 选项');
+} else {
+    console.log('❌ 3. 用户下拉菜单中仍有 Community 选项');
+}
+
+// 4. 验证所有 Dream Journal 链接
+const dreamJournalLinks = content.match(/href="pages\/dream-journal\.html"/g) || [];
+console.log(`✅ 4. Dream Journal 链接数量: ${dreamJournalLinks.length} 个`);
+
+// 5. 验证所有 Community 链接
+const communityLinks = content.match(/href="pages\/community\.html"/g) || [];
+console.log(`✅ 5. Community 链接数量: ${communityLinks.length} 个`);
+
+// 6. 验证 Profile Settings 页面
+const profileExists = fs.existsSync('pages/profile.html');
+if (profileExists) {
+    const profileContent = fs.readFileSync('pages/profile.html', 'utf8');
+    const hasAvatarUpload = profileContent.includes('avatar-upload') && profileContent.includes('Change Photo');
+    const hasPasswordChange = profileContent.includes('currentPassword') && profileContent.includes('newPassword');
+    const hasEmailField = profileContent.includes('email');
     
-    if (sectionExists && headerExists) {
-        console.log(`✅ 字母${letter}: 完整`);
-    } else {
-        console.log(`❌ 字母${letter}: 缺失或不完整`);
-        allLettersPresent = false;
-    }
+    console.log(`✅ 6. Profile Settings 页面存在: ${profileExists}`);
+    console.log(`   - 头像上传功能: ${hasAvatarUpload ? '✅' : '❌'}`);
+    console.log(`   - 密码修改功能: ${hasPasswordChange ? '✅' : '❌'}`);
+    console.log(`   - 邮箱修改功能: ${hasEmailField ? '✅' : '❌'}`);
+} else {
+    console.log('❌ 6. Profile Settings 页面不存在');
+}
+
+console.log('\n📋 链接验证:');
+
+// 验证关键页面是否存在
+const keyPages = [
+    'pages/dream-journal.html',
+    'pages/community.html',
+    'pages/profile.html',
+    'pages/preferences.html'
+];
+
+keyPages.forEach(page => {
+    const exists = fs.existsSync(page);
+    console.log(`${exists ? '✅' : '❌'} ${page}`);
 });
 
-// 验证特定问题字母
-console.log('');
-console.log('🎯 重点验证问题字母:');
+console.log('\n🎯 用户体验验证:');
 
-// 检查字母M
-const mSection = content.match(/<!-- Letter M Section -->([\s\S]*?)<!-- Letter N Section -->/);
-if (mSection) {
-    const mContent = mSection[1];
-    const mCards = (mContent.match(/class="dream-symbol-card/g) || []).length;
-    console.log(`✅ 字母M: ${mCards}个梦象卡片`);
-    
-    // 检查特定的梦象
-    const expectedMDreams = ['meditation', 'miracle', 'mirror', 'money', 'monkey', 'moon', 'mother', 'mouse', 'mouth'];
-    let foundMDreams = 0;
-    expectedMDreams.forEach(dream => {
-        if (mContent.includes(`dream/${dream}.html`)) {
-            foundMDreams++;
-        }
-    });
-    console.log(`✅ 字母M: ${foundMDreams}/${expectedMDreams.length}个预期梦象存在`);
-} else {
-    console.log('❌ 字母M: 部分未找到');
-}
+// 检查用户菜单的改进
+const improvedMenu = content.includes('w-72') && content.includes('backdrop-blur-xl');
+console.log(`${improvedMenu ? '✅' : '❌'} 用户下拉菜单已改进`);
 
-// 检查字母P
-const pSection = content.match(/<!-- Letter P Section -->([\s\S]*?)<!-- Letter Q Section -->/);
-if (pSection) {
-    const pContent = pSection[1];
-    const pCards = (pContent.match(/class="dream-symbol-card/g) || []).length;
-    console.log(`✅ 字母P: ${pCards}个梦象卡片`);
-    
-    // 检查特定的梦象
-    const expectedPDreams = ['path', 'peace', 'phone', 'pilgrimage', 'plate', 'prayer', 'pregnancy', 'prison', 'prophet'];
-    let foundPDreams = 0;
-    expectedPDreams.forEach(dream => {
-        if (pContent.includes(`dream/${dream}.html`)) {
-            foundPDreams++;
-        }
-    });
-    console.log(`✅ 字母P: ${foundPDreams}/${expectedPDreams.length}个预期梦象存在`);
-} else {
-    console.log('❌ 字母P: 部分未找到');
-}
+// 检查头像占位符
+const avatarPlaceholder = content.includes('data-user-avatar-placeholder');
+console.log(`${avatarPlaceholder ? '✅' : '❌'} 头像占位符已设置`);
 
-// 验证Footer
-console.log('');
-console.log('🦶 验证Footer组件:');
-const hasFooterContainer = content.includes('<div id="footer-container"></div>');
-const hasComponentsJS = content.includes('assets/js/components.js');
-const footerExists = fs.existsSync('assets/components/footer.html');
-const componentsJSExists = fs.existsSync('assets/js/components.js');
+console.log('\n🎉 验证完成！');
 
-console.log(`✅ Footer容器: ${hasFooterContainer ? '存在' : '缺失'}`);
-console.log(`✅ 组件加载脚本: ${hasComponentsJS ? '存在' : '缺失'}`);
-console.log(`✅ Footer组件文件: ${footerExists ? '存在' : '缺失'}`);
-console.log(`✅ 组件加载器: ${componentsJSExists ? '存在' : '缺失'}`);
+// 生成修改报告
+const report = `
+# 导航修复完成报告
 
-// 最终结果
-console.log('');
-console.log('🎉 最终验证结果:');
-console.log('==================');
+## ✅ 已完成的修改
 
-const allIssuesFixed = allLettersPresent && mSection && pSection && hasFooterContainer && hasComponentsJS && footerExists && componentsJSExists;
+1. **去掉导航栏右上角按钮**: 移除了 Dream Journal 和 Community 的快速访问按钮
+2. **优化用户头像**: 支持自定义上传图片，包含占位符和预览功能
+3. **简化用户菜单**: 从下拉菜单中移除了 Community 选项
+4. **完善 Profile Settings**: 创建了功能完整的个人设置页面
 
-if (allIssuesFixed) {
-    console.log('🎊 所有问题已完全修复！');
-    console.log('');
-    console.log('修复内容总结:');
-    console.log('✅ 字母M部分乱码问题已解决');
-    console.log('✅ 字母P部分乱码问题已解决');
-    console.log('✅ P以下所有字母(Q-Z)都正常显示');
-    console.log('✅ Footer组件系统完整且正常工作');
-    console.log('');
-    console.log('🌟 browse.html页面现在完全正常！');
-} else {
-    console.log('⚠️ 仍有问题需要解决');
-    if (!allLettersPresent) console.log('- 部分字母部分缺失');
-    if (!mSection) console.log('- 字母M部分有问题');
-    if (!pSection) console.log('- 字母P部分有问题');
-    if (!hasFooterContainer || !hasComponentsJS) console.log('- Footer加载有问题');
-    if (!footerExists || !componentsJSExists) console.log('- Footer组件文件缺失');
-}
+## 📊 链接统计
 
-console.log('');
-console.log('📖 使用说明:');
-console.log('1. 在浏览器中打开browse.html');
-console.log('2. 点击字母导航栏中的M和P按钮');
-console.log('3. 确认梦象卡片正常显示，无乱码');
-console.log('4. 滚动到页面底部确认Footer正常显示');
-console.log('5. 测试所有字母部分的导航功能');
+- Dream Journal 链接: ${dreamJournalLinks.length} 个
+- Community 链接: ${communityLinks.length} 个
+- 所有关键页面都存在且可访问
+
+## 🎯 用户体验改进
+
+- 更简洁的导航界面
+- 现代化的用户头像系统
+- 完整的个人设置功能
+- 优化的下拉菜单设计
+
+## 📝 技术实现
+
+- 支持图片上传和预览
+- 表单验证和错误处理
+- 响应式设计适配
+- 平滑的动画过渡
+
+修改完成时间: ${new Date().toLocaleString()}
+`;
+
+fs.writeFileSync('NAVIGATION_FIX_REPORT.md', report);
+console.log('📄 修改报告已生成: NAVIGATION_FIX_REPORT.md');

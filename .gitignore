@@ -1,0 +1,94 @@
+# DreamWise .gitignore file
+
+# 规划和文档文件
+*.md
+!README.md
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# 开发工具和脚本
+*-optimization.js
+fix-*.js
+test-*.js
+final-site-test.js
+update-*.js
+create-*.js
+verify-*.js
+batch-*.sh
+optimize-*.sh
+optimize-*.js
+
+# 测试文件
+test-*.html
+test-*.js
+*-test.js
+
+# 部署相关
+DEPLOYMENT_GUIDE.txt
+server-config-examples.txt
+deploy-*.sh
+*.zip
+
+# 临时或测试HTML文件
+*-new.html
+*-fixed.html
+new-*.html
+
+# Docker相关
+.dockerignore
+Dockerfile
+docker-compose.yml
+nginx.conf
+
+# 日志和报告
+*.log
+*_REPORT.md
+*_FIXED.md
+*_COMPLETE.md
+*_READY.md
+*_SUMMARY.md
+*_PLAN.md
+*_REDESIGNED.md
+test-report.json
+
+# 保留所有实际网站页面
+!index.html
+!about.html
+!browse.html
+!categories.html
+!contact.html
+!dream-blog.html
+!dream-guides.html
+!faq.html
+!insights.html
+!personalized.html
+!popular-symbols.html
+!*-dreams.html
+!community.html
+!expert-interpretations.html
+!faith-perspectives.html
+!guide-*.html
+!help-center.html
+!multi-faith-analysis.html
+!privacy-policy.html
+!spiritual-meanings.html
+!symbol-library.html
+!terms-of-service.html
+!dream-journal.html
+
+# 保留所有博客文章
+!blog-*.html
+
+# 保留资产文件夹中的所有文件
+!assets/**/*
+
+# 保留必要的JavaScript文件
+!service-worker.js
+!tailwind.config.js
