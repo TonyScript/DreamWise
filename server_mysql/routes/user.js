@@ -41,6 +41,49 @@ const upload = multer({
 
 const router = express.Router();
 
+// 获取当前用户的完整资料
+router.get('/profile', authenticateToken, async (req, res) => {
+  try {
+    const user = req.user;
+    
+    // 获取用户的梦境数量
+    const totalDreams = await DreamEntry.count({
+      where: {
+        userId: user.id
+      }
+    });
+    
+    // 获取用户的帖子数量
+    const totalPosts = await CommunityPost.count({
+      where: {
+        authorId: user.id,
+        status: 'active'
+      }
+    });
+    
+    // 更新统计数据
+    const stats = user.stats || {};
+    stats.totalDreams = totalDreams;
+    stats.totalPosts = totalPosts;
+    stats.lastActive = new Date();
+    
+    user.stats = stats;
+    user.changed('stats', true);
+    await user.save();
+    
+    // 返回完整的用户资料
+    const userProfile = user.getSafeProfile();
+    userProfile.stats = stats;
+    
+    res.json(userProfile);
+  } catch (error) {
+    console.error('获取用户资料错误:', error);
+    res.status(500).json({
+      error: '获取用户资料失败'
+    });
+  }
+});
+
 // 获取用户公开资料
 router.get('/:id', async (req, res) => {
   try {
@@ -130,7 +173,7 @@ router.put('/profile', authenticateToken, validateProfileUpdate, async (req, res
 });
 
 // 上传头像
-router.post('/avatar', authenticateToken, upload.single('avatar'), async (req, res) => {
+router.post('/upload-avatar', authenticateToken, upload.single('avatar'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
