@@ -1,6 +1,7 @@
 const User = require('./User');
 const DreamEntry = require('./DreamEntry');
 const CommunityPost = require('./CommunityPost');
+const VerificationCode = require('./VerificationCode');
 const { sequelize } = require('../config/database');
 
 // 定义模型关联
@@ -34,6 +35,7 @@ module.exports = {
   User,
   DreamEntry,
   CommunityPost,
+  VerificationCode,
   sequelize,
   syncDatabase
 };

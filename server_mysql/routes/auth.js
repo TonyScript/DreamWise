@@ -1,8 +1,9 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const { User, VerificationCode } = require('../models');
 const { authenticateToken, sensitiveOperationLimit } = require('../middleware/auth');
 const { validateUserRegistration, validateUserLogin } = require('../middleware/validation');
+const emailService = require('../services/emailService');
 
 const router = express.Router();
 
@@ -15,15 +16,75 @@ const generateToken = (userId) => {
   );
 };
 
-// 注册新用户
-router.post('/register', sensitiveOperationLimit(3), validateUserRegistration, async (req, res) => {
+// 发送注册验证码
+router.post('/send-registration-code', sensitiveOperationLimit(3), async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { email, username } = req.body;
+
+    if (!email || !username) {
+      return res.status(400).json({
+        error: '邮箱和用户名是必需的'
+      });
+    }
 
     // 检查用户是否已存在
     const existingUser = await User.findOne({
       where: {
-        [sequelize.Op.or]: [
+        [User.sequelize.Op.or]: [
+          { email: email },
+          { username: username }
+        ]
+      }
+    });
+
+    if (existingUser) {
+      return res.status(400).json({
+        error: existingUser.email === email ? '电子邮件已注册' : '用户名已被使用'
+      });
+    }
+
+    // 创建验证码
+    const verificationCode = await VerificationCode.createCode(email, 'registration');
+    
+    // 发送邮件
+    await emailService.sendRegistrationVerification(email, username, verificationCode.code);
+
+    res.json({
+      message: '验证码已发送到您的邮箱，请查收'
+    });
+
+  } catch (error) {
+    console.error('发送注册验证码错误:', error);
+    res.status(500).json({
+      error: '发送验证码失败'
+    });
+  }
+});
+
+// 注册新用户（需要验证码）
+router.post('/register', sensitiveOperationLimit(3), validateUserRegistration, async (req, res) => {
+  try {
+    const { username, email, password, verificationCode } = req.body;
+
+    if (!verificationCode) {
+      return res.status(400).json({
+        error: '验证码是必需的'
+      });
+    }
+
+    // 验证验证码
+    const codeVerification = await VerificationCode.verifyCode(email, verificationCode, 'registration');
+    
+    if (!codeVerification.success) {
+      return res.status(400).json({
+        error: codeVerification.error
+      });
+    }
+
+    // 再次检查用户是否已存在（防止竞态条件）
+    const existingUser = await User.findOne({
+      where: {
+        [User.sequelize.Op.or]: [
           { email: email },
           { username: username }
         ]
@@ -40,7 +101,8 @@ router.post('/register', sensitiveOperationLimit(3), validateUserRegistration, a
     const user = await User.create({
       username,
       email,
-      password
+      password,
+      isEmailVerified: true // 通过邮件验证注册的用户标记为已验证
     });
 
     // 生成令牌
@@ -172,14 +234,37 @@ router.post('/logout', authenticateToken, async (req, res) => {
   }
 });
 
-// 修改密码
+// 发送密码修改验证码
+router.post('/send-change-password-code', authenticateToken, sensitiveOperationLimit(3), async (req, res) => {
+  try {
+    const user = req.user;
+    
+    // 创建验证码
+    const verificationCode = await VerificationCode.createCode(user.email, 'password_change');
+    
+    // 发送邮件
+    await emailService.sendPasswordChangeVerification(user.email, user.username, verificationCode.code);
+
+    res.json({
+      message: '验证码已发送到您的邮箱'
+    });
+
+  } catch (error) {
+    console.error('发送密码修改验证码错误:', error);
+    res.status(500).json({
+      error: '发送验证码失败'
+    });
+  }
+});
+
+// 修改密码（需要验证码）
 router.post('/change-password', authenticateToken, sensitiveOperationLimit(3), async (req, res) => {
   try {
-    const { currentPassword, newPassword } = req.body;
+    const { currentPassword, newPassword, verificationCode } = req.body;
 
-    if (!currentPassword || !newPassword) {
+    if (!currentPassword || !newPassword || !verificationCode) {
       return res.status(400).json({
-        error: '当前密码和新密码是必需的'
+        error: '当前密码、新密码和验证码都是必需的'
       });
     }
 
@@ -195,6 +280,15 @@ router.post('/change-password', authenticateToken, sensitiveOperationLimit(3), a
     if (!isCurrentPasswordValid) {
       return res.status(401).json({
         error: '当前密码不正确'
+      });
+    }
+
+    // 验证验证码
+    const codeVerification = await VerificationCode.verifyCode(req.user.email, verificationCode, 'password_change');
+    
+    if (!codeVerification.success) {
+      return res.status(400).json({
+        error: codeVerification.error
       });
     }
 
@@ -214,8 +308,8 @@ router.post('/change-password', authenticateToken, sensitiveOperationLimit(3), a
   }
 });
 
-// 请求密码重置（未来电子邮件实现的占位符）
-router.post('/forgot-password', sensitiveOperationLimit(3), async (req, res) => {
+// 发送密码重置验证码
+router.post('/send-reset-code', sensitiveOperationLimit(3), async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -234,19 +328,83 @@ router.post('/forgot-password', sensitiveOperationLimit(3), async (req, res) => 
 
     // 始终返回成功以防止电子邮件枚举
     res.json({
-      message: '如果存在使用该电子邮件的账户，密码重置链接已发送'
+      message: '如果存在使用该电子邮件的账户，验证码已发送'
     });
 
-    // TODO: 在这里实现电子邮件发送逻辑
     if (user) {
-      console.log(`用户请求密码重置: ${user.email}`);
-      // 生成重置令牌并发送电子邮件
+      try {
+        // 创建验证码
+        const verificationCode = await VerificationCode.createCode(email, 'password_reset');
+        
+        // 发送邮件
+        await emailService.sendPasswordResetVerification(email, user.username, verificationCode.code);
+        
+        console.log(`密码重置验证码已发送给: ${user.email}`);
+      } catch (emailError) {
+        console.error('发送密码重置邮件失败:', emailError);
+      }
     }
 
   } catch (error) {
-    console.error('忘记密码错误:', error);
+    console.error('发送密码重置验证码错误:', error);
     res.status(500).json({
       error: '处理密码重置请求失败'
+    });
+  }
+});
+
+// 重置密码（使用验证码）
+router.post('/reset-password', sensitiveOperationLimit(3), async (req, res) => {
+  try {
+    const { email, verificationCode, newPassword } = req.body;
+
+    if (!email || !verificationCode || !newPassword) {
+      return res.status(400).json({
+        error: '邮箱、验证码和新密码都是必需的'
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        error: '新密码必须至少6个字符'
+      });
+    }
+
+    // 验证验证码
+    const codeVerification = await VerificationCode.verifyCode(email, verificationCode, 'password_reset');
+    
+    if (!codeVerification.success) {
+      return res.status(400).json({
+        error: codeVerification.error
+      });
+    }
+
+    // 查找用户
+    const user = await User.findOne({ 
+      where: { 
+        email: email,
+        isActive: true 
+      } 
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        error: '用户不存在'
+      });
+    }
+
+    // 更新密码
+    user.password = newPassword;
+    await user.save();
+
+    res.json({
+      message: '密码重置成功'
+    });
+
+  } catch (error) {
+    console.error('重置密码错误:', error);
+    res.status(500).json({
+      error: '重置密码失败'
     });
   }
 });

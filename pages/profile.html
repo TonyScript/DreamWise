@@ -430,64 +430,98 @@
                         </div>
                     </div>
                     
-                    <!-- Password Section -->
+                    <!-- Bio Section -->
                     <div>
-                        <h2 class="text-xl font-semibold mb-6">Change Password</h2>
+                        <h2 class="text-xl font-semibold mb-6">About Me</h2>
                         <div class="space-y-4">
                             <div>
-                                <label for="currentPassword" class="block text-sm font-medium mb-2">Current Password</label>
-                                <input type="password" id="currentPassword" name="currentPassword" 
-                                       class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white"
-                                       placeholder="Enter your current password">
+                                <label for="bio" class="block text-sm font-medium mb-2">Bio</label>
+                                <textarea id="bio" name="bio" rows="4"
+                                         class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white resize-none"
+                                         placeholder="Tell us about yourself and your dream journey..."></textarea>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="newPassword" class="block text-sm font-medium mb-2">New Password</label>
-                                    <input type="password" id="newPassword" name="newPassword" 
-                                           class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white"
-                                           placeholder="Enter new password">
-                                </div>
-                                <div>
-                                    <label for="confirmPassword" class="block text-sm font-medium mb-2">Confirm Password</label>
-                                    <input type="password" id="confirmPassword" name="confirmPassword" 
-                                           class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white"
-                                           placeholder="Confirm new password">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Dream Preferences -->
-                    <div>
-                        <h2 class="text-xl font-semibold mb-6">Dream Preferences</h2>
-                        <div class="space-y-4">
                             <div>
-                                <label for="spiritualPerspective" class="block text-sm font-medium mb-2">Preferred Spiritual Perspective</label>
-                                <select id="spiritualPerspective" name="spiritualPerspective" 
+                                <label for="spiritualBackground" class="block text-sm font-medium mb-2">Spiritual Background</label>
+                                <select id="spiritualBackground" name="spiritualBackground" 
                                         class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white">
-                                    <option value="">Select a perspective</option>
-                                    <option value="universal">Universal</option>
+                                    <option value="">Select your spiritual background</option>
+                                    <option value="universal">Universal/Non-denominational</option>
                                     <option value="christian">Christian</option>
                                     <option value="islamic">Islamic</option>
                                     <option value="buddhist">Buddhist</option>
                                     <option value="hindu">Hindu</option>
                                     <option value="jewish">Jewish</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="flex items-center">
-                                    <input type="checkbox" id="emailNotifications" name="emailNotifications" 
-                                           class="mr-3 rounded bg-white/5 border-white/10 text-purple-500 focus:ring-purple-500">
-                                    <span>Receive email notifications for dream insights</span>
-                                </label>
+                                <label for="dreamingExperience" class="block text-sm font-medium mb-2">Dream Experience Level</label>
+                                <select id="dreamingExperience" name="dreamingExperience" 
+                                        class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white">
+                                    <option value="">Select your experience level</option>
+                                    <option value="beginner">Beginner - New to dream interpretation</option>
+                                    <option value="intermediate">Intermediate - Some experience with dreams</option>
+                                    <option value="advanced">Advanced - Experienced dream interpreter</option>
+                                    <option value="expert">Expert - Professional or spiritual guide</option>
+                                </select>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interests Section -->
+                    <div>
+                        <h2 class="text-xl font-semibold mb-6">Interests</h2>
+                        <div class="space-y-4">
                             <div>
-                                <label class="flex items-center">
-                                    <input type="checkbox" id="publicProfile" name="publicProfile" 
-                                           class="mr-3 rounded bg-white/5 border-white/10 text-purple-500 focus:ring-purple-500">
-                                    <span>Make my profile public in the community</span>
-                                </label>
+                                <label class="block text-sm font-medium mb-3">What aspects of dreams interest you most?</label>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    <label class="flex items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                                        <input type="checkbox" name="interests" value="symbolism" class="mr-2 text-purple-500">
+                                        <span class="text-sm">Symbolism</span>
+                                    </label>
+                                    <label class="flex items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                                        <input type="checkbox" name="interests" value="lucid_dreaming" class="mr-2 text-purple-500">
+                                        <span class="text-sm">Lucid Dreaming</span>
+                                    </label>
+                                    <label class="flex items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                                        <input type="checkbox" name="interests" value="nightmares" class="mr-2 text-purple-500">
+                                        <span class="text-sm">Nightmares</span>
+                                    </label>
+                                    <label class="flex items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                                        <input type="checkbox" name="interests" value="prophetic_dreams" class="mr-2 text-purple-500">
+                                        <span class="text-sm">Prophetic Dreams</span>
+                                    </label>
+                                    <label class="flex items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                                        <input type="checkbox" name="interests" value="healing_dreams" class="mr-2 text-purple-500">
+                                        <span class="text-sm">Healing Dreams</span>
+                                    </label>
+                                    <label class="flex items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                                        <input type="checkbox" name="interests" value="recurring_dreams" class="mr-2 text-purple-500">
+                                        <span class="text-sm">Recurring Dreams</span>
+                                    </label>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div>
+                        <h2 class="text-xl font-semibold mb-6">Account Settings</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <a href="preferences.html" class="flex items-center p-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-lg hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300">
+                                <i class="fas fa-cog text-blue-400 text-xl mr-4"></i>
+                                <div>
+                                    <h3 class="font-medium">Preferences</h3>
+                                    <p class="text-sm text-gray-400">Manage notifications, privacy & more</p>
+                                </div>
+                            </a>
+                            <a href="dream-journal.html" class="flex items-center p-4 bg-gradient-to-r from-green-500/20 to-teal-500/20 border border-green-500/30 rounded-lg hover:from-green-500/30 hover:to-teal-500/30 transition-all duration-300">
+                                <i class="fas fa-journal-whills text-green-400 text-xl mr-4"></i>
+                                <div>
+                                    <h3 class="font-medium">Dream Journal</h3>
+                                    <p class="text-sm text-gray-400">Record and analyze your dreams</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     
@@ -606,6 +640,16 @@
                         document.getElementById('displayName').value = user.profile?.displayName || '';
                         document.getElementById('username').value = user.username || '';
                         document.getElementById('email').value = user.email || '';
+                        document.getElementById('bio').value = user.profile?.bio || '';
+                        document.getElementById('spiritualBackground').value = user.profile?.spiritualBackground || '';
+                        document.getElementById('dreamingExperience').value = user.profile?.dreamingExperience || '';
+                        
+                        // 设置兴趣复选框
+                        const interests = user.profile?.interests || [];
+                        const interestCheckboxes = document.querySelectorAll('input[name="interests"]');
+                        interestCheckboxes.forEach(checkbox => {
+                            checkbox.checked = interests.includes(checkbox.value);
+                        });
                         
                         // 显示头像
                         if (user.profile?.avatar) {
@@ -667,11 +711,20 @@
                         throw new Error('新密码不匹配！');
                     }
                     
+                    // 获取兴趣数据
+                    const interests = [];
+                    const interestCheckboxes = document.querySelectorAll('input[name="interests"]:checked');
+                    interestCheckboxes.forEach(checkbox => {
+                        interests.push(checkbox.value);
+                    });
+                    
                     // 更新个人资料
                     const profileData = {
                         displayName: data.displayName,
-                        email: data.email,
-                        spiritualPerspective: data.spiritualPerspective
+                        bio: data.bio,
+                        spiritualBackground: data.spiritualBackground,
+                        dreamingExperience: data.dreamingExperience,
+                        interests: interests
                     };
                     
                     const profileResponse = await fetch(`${API_BASE_URL}/user/profile`, {
@@ -688,22 +741,7 @@
                         throw new Error(error.error || '更新资料失败');
                     }
                     
-                    // 更新偏好设置
-                    const preferencesData = {
-                        emailNotifications: data.emailNotifications === 'on',
-                        publicProfile: data.publicProfile === 'on'
-                    };
-                    
-                    const preferencesResponse = await fetch(`${API_BASE_URL}/user/preferences`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify(preferencesData)
-                    });
-                    
-                    if (!preferencesResponse.ok) {
+                    // 不再处理偏好设置，这些已移到preferences页面
                         const error = await preferencesResponse.json();
                         throw new Error(error.error || '更新偏好设置失败');
                     }

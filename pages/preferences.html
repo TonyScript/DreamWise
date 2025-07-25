@@ -7,6 +7,20 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'glass': 'rgba(255, 255, 255, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -20,28 +34,544 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
         }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 渐变文字效果 */
+        .gradient-text {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* 开关样式 */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        } 
+       
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* 选择框样式 */
+        .custom-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
     </style>
 </head>
 <body class="text-white">
-    <div class="container mx-auto px-6 py-12">
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-gray-900/80 border-b border-white/10 shadow-lg mx-4 mt-4 rounded-2xl">
+        <div class="container mx-auto px-8 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300">
+                        <i class="fas fa-moon text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold gradient-text tracking-wide">DreamWise</span>
+                </div>
+
+                <!-- Back Button -->
+                <a href="profile.html" class="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back to Profile
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-8 pt-32">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <h1 class="text-4xl font-bold mb-4">Preferences</h1>
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold mb-2">Preferences</h1>
                 <p class="text-gray-300">Customize your DreamWise experience</p>
             </div>
             
-            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
-                <div class="text-center py-12">
-                    <i class="fas fa-sliders-h text-6xl text-purple-400 mb-6"></i>
-                    <h2 class="text-2xl font-bold mb-4">User Preferences</h2>
-                    <p class="text-gray-300 mb-8">This page is under development. Please check back soon!</p>
-                    <a href="../index-new.html" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
-                        <i class="fas fa-arrow-left mr-2"></i>
-                        Back to Home
-                    </a>
+            <!-- Preferences Form -->
+            <div class="space-y-8">
+                <!-- Notification Settings -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-bell mr-3 text-purple-400"></i>
+                        Notification Settings
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium">Email Notifications</h3>
+                                <p class="text-sm text-gray-400">Receive email updates about your account</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="emailNotifications">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium">Community Updates</h3>
+                                <p class="text-sm text-gray-400">Get notified about community posts and comments</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="communityUpdates">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium">Dream Reminders</h3>
+                                <p class="text-sm text-gray-400">Daily reminders to record your dreams</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="dreamReminders">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-shield-alt mr-3 text-green-400"></i>
+                        Privacy Settings
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Profile Visibility</label>
+                            <select id="profileVisibility" class="custom-select w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white">
+                                <option value="public">Public - Anyone can see your profile</option>
+                                <option value="private">Private - Only you can see your profile</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Dream Journal Visibility</label>
+                            <select id="journalVisibility" class="custom-select w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white">
+                                <option value="private">Private - Only you can see your dreams</option>
+                                <option value="public">Public - Others can see your public dreams</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dream Analysis Preferences -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-brain mr-3 text-blue-400"></i>
+                        Dream Analysis Preferences
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Preferred Spiritual Perspective</label>
+                            <select id="spiritualPerspective" class="custom-select w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white">
+                                <option value="">Universal (All perspectives)</option>
+                                <option value="christian">Christian</option>
+                                <option value="islamic">Islamic</option>
+                                <option value="buddhist">Buddhist</option>
+                                <option value="hindu">Hindu</option>
+                                <option value="jewish">Jewish</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Dream Analysis Depth</label>
+                            <select id="analysisDepth" class="custom-select w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white">
+                                <option value="basic">Basic - Simple symbol meanings</option>
+                                <option value="detailed">Detailed - Comprehensive analysis</option>
+                                <option value="spiritual">Spiritual - Focus on spiritual meanings</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language & Region -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-globe mr-3 text-yellow-400"></i>
+                        Language & Region
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Language</label>
+                            <select id="language" class="custom-select w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white">
+                                <option value="en">English</option>
+                                <option value="zh">中文 (Chinese)</option>
+                                <option value="es">Español (Spanish)</option>
+                                <option value="fr">Français (French)</option>
+                                <option value="ar">العربية (Arabic)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Time Zone</label>
+                            <select id="timezone" class="custom-select w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white">
+                                <option value="auto">Auto-detect</option>
+                                <option value="UTC">UTC</option>
+                                <option value="America/New_York">Eastern Time (US)</option>
+                                <option value="America/Los_Angeles">Pacific Time (US)</option>
+                                <option value="Europe/London">London</option>
+                                <option value="Asia/Shanghai">Shanghai</option>
+                                <option value="Asia/Tokyo">Tokyo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Security -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-lock mr-3 text-red-400"></i>
+                        Account Security
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <button id="changePasswordBtn" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold rounded-lg transition-all duration-300">
+                            <i class="fas fa-key mr-2"></i>
+                            Change Password
+                        </button>
+                        
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <div>
+                                <h3 class="font-medium text-red-400">Danger Zone</h3>
+                                <p class="text-sm text-gray-400">Permanently delete your account and all data</p>
+                            </div>
+                            <button id="deleteAccountBtn" class="px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-600/30 rounded-lg transition-all duration-300">
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                    <button id="savePreferencesBtn" class="flex-1 py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-all duration-300">
+                        <i class="fas fa-save mr-2"></i>
+                        Save Preferences
+                    </button>
+                    <button id="resetPreferencesBtn" class="flex-1 py-3 px-6 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-all duration-300">
+                        <i class="fas fa-undo mr-2"></i>
+                        Reset to Default
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-2xl p-8 w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-6">Change Password</h3>
+            
+            <form id="changePasswordForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Current Password</label>
+                    <input type="password" id="currentPassword" class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">New Password</label>
+                    <input type="password" id="newPassword" class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" class="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white" required>
+                </div>
+                
+                <div id="verificationStep" class="hidden">
+                    <label class="block text-sm font-medium mb-2">Email Verification Code</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="verificationCode" class="flex-1 p-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white" placeholder="Enter 6-digit code">
+                        <button type="button" id="sendCodeBtn" class="px-4 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-all duration-300">
+                            Send Code
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 pt-4">
+                    <button type="submit" class="flex-1 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-all duration-300">
+                        Change Password
+                    </button>
+                    <button type="button" id="cancelChangePassword" class="flex-1 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-all duration-300">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="../assets/js/notifications.js"></script>
+    <script>
+        // API 配置
+        const API_BASE_URL = 'http://localhost:3000/api';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取认证令牌
+            const token = localStorage.getItem('dreamwise_token');
+            if (!token) {
+                alert('请先登录');
+                window.location.href = '../index-new.html';
+                return;
+            }
+            
+            // 加载用户偏好设置
+            loadUserPreferences();
+            
+            // 绑定事件监听器
+            bindEventListeners();
+        });
+        
+        // 加载用户偏好设置
+        async function loadUserPreferences() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/verify`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('dreamwise_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    const preferences = result.user.preferences || {};
+                    
+                    // 填充表单数据
+                    document.getElementById('emailNotifications').checked = preferences.emailNotifications !== false;
+                    document.getElementById('communityUpdates').checked = preferences.communityUpdates !== false;
+                    document.getElementById('dreamReminders').checked = preferences.dreamReminders === true;
+                    
+                    document.getElementById('profileVisibility').value = preferences.privacy?.profileVisibility || 'public';
+                    document.getElementById('journalVisibility').value = preferences.privacy?.journalVisibility || 'private';
+                    
+                    document.getElementById('spiritualPerspective').value = result.user.profile?.spiritualBackground || '';
+                    document.getElementById('analysisDepth').value = preferences.analysisDepth || 'basic';
+                    document.getElementById('language').value = preferences.language || 'en';
+                    document.getElementById('timezone').value = preferences.timezone || 'auto';
+                }
+            } catch (error) {
+                console.error('加载用户偏好设置失败:', error);
+                showNotification('加载偏好设置失败', 'error');
+            }
+        }
+        
+        // 绑定事件监听器
+        function bindEventListeners() {
+            // 保存偏好设置
+            document.getElementById('savePreferencesBtn').addEventListener('click', savePreferences);
+            
+            // 重置偏好设置
+            document.getElementById('resetPreferencesBtn').addEventListener('click', resetPreferences);
+            
+            // 修改密码
+            document.getElementById('changePasswordBtn').addEventListener('click', showChangePasswordModal);
+            document.getElementById('cancelChangePassword').addEventListener('click', hideChangePasswordModal);
+            document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
+            document.getElementById('sendCodeBtn').addEventListener('click', sendVerificationCode);
+            
+            // 删除账户
+            document.getElementById('deleteAccountBtn').addEventListener('click', confirmDeleteAccount);
+        }
+        
+        // 保存偏好设置
+        async function savePreferences() {
+            try {
+                const preferences = {
+                    emailNotifications: document.getElementById('emailNotifications').checked,
+                    communityUpdates: document.getElementById('communityUpdates').checked,
+                    dreamReminders: document.getElementById('dreamReminders').checked,
+                    privacy: {
+                        profileVisibility: document.getElementById('profileVisibility').value,
+                        journalVisibility: document.getElementById('journalVisibility').value
+                    },
+                    analysisDepth: document.getElementById('analysisDepth').value,
+                    language: document.getElementById('language').value,
+                    timezone: document.getElementById('timezone').value
+                };
+                
+                const response = await fetch(`${API_BASE_URL}/user/preferences`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('dreamwise_token')}`
+                    },
+                    body: JSON.stringify(preferences)
+                });
+                
+                if (response.ok) {
+                    showNotification('偏好设置保存成功！', 'success');
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error || '保存失败');
+                }
+            } catch (error) {
+                console.error('保存偏好设置错误:', error);
+                showNotification(error.message, 'error');
+            }
+        }
+        
+        // 重置偏好设置
+        function resetPreferences() {
+            if (confirm('确定要重置所有偏好设置为默认值吗？')) {
+                // 重置为默认值
+                document.getElementById('emailNotifications').checked = true;
+                document.getElementById('communityUpdates').checked = true;
+                document.getElementById('dreamReminders').checked = false;
+                document.getElementById('profileVisibility').value = 'public';
+                document.getElementById('journalVisibility').value = 'private';
+                document.getElementById('spiritualPerspective').value = '';
+                document.getElementById('analysisDepth').value = 'basic';
+                document.getElementById('language').value = 'en';
+                document.getElementById('timezone').value = 'auto';
+                
+                showNotification('偏好设置已重置为默认值', 'info');
+            }
+        }
+        
+        // 显示修改密码模态框
+        function showChangePasswordModal() {
+            document.getElementById('changePasswordModal').classList.remove('hidden');
+        }
+        
+        // 隐藏修改密码模态框
+        function hideChangePasswordModal() {
+            document.getElementById('changePasswordModal').classList.add('hidden');
+            document.getElementById('changePasswordForm').reset();
+            document.getElementById('verificationStep').classList.add('hidden');
+        }
+        
+        // 发送验证码
+        async function sendVerificationCode() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/send-change-password-code`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('dreamwise_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    document.getElementById('verificationStep').classList.remove('hidden');
+                    showNotification('验证码已发送到您的邮箱', 'success');
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error || '发送验证码失败');
+                }
+            } catch (error) {
+                console.error('发送验证码错误:', error);
+                showNotification(error.message, 'error');
+            }
+        }
+        
+        // 处理修改密码
+        async function handleChangePassword(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+            const verificationCode = document.getElementById('verificationCode').value;
+            
+            if (newPassword !== confirmNewPassword) {
+                showNotification('新密码和确认密码不匹配', 'error');
+                return;
+            }
+            
+            if (!verificationCode) {
+                showNotification('请先获取邮箱验证码', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/change-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('dreamwise_token')}`
+                    },
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword,
+                        verificationCode
+                    })
+                });
+                
+                if (response.ok) {
+                    showNotification('密码修改成功！', 'success');
+                    hideChangePasswordModal();
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error || '密码修改失败');
+                }
+            } catch (error) {
+                console.error('修改密码错误:', error);
+                showNotification(error.message, 'error');
+            }
+        }
+        
+        // 确认删除账户
+        function confirmDeleteAccount() {
+            if (confirm('警告：此操作将永久删除您的账户和所有数据，且无法恢复。确定要继续吗？')) {
+                if (confirm('请再次确认：您真的要删除账户吗？')) {
+                    // TODO: 实现删除账户功能
+                    showNotification('账户删除功能暂未开放', 'warning');
+                }
+            }
+        }
+    </script>
 </body>
 </html>

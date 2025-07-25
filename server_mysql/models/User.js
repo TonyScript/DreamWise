@@ -72,6 +72,10 @@ const User = sequelize.define('User', {
     type: DataTypes.BOOLEAN,
     defaultValue: true
   },
+  isEmailVerified: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
   role: {
     type: DataTypes.ENUM('user', 'moderator', 'admin'),
     defaultValue: 'user'
