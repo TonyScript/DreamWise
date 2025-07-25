@@ -712,7 +712,11 @@
             // 取消按钮
             document.getElementById('cancelBtn').addEventListener('click', () => {
                 if (confirm('确定要取消所有更改吗？')) {
-                    loadUserProfile();
+                    // 重新填充表单数据
+                    if (currentUser) {
+                        populateForm(currentUser);
+                        updateProfileProgress();
+                    }
                 }
             });
             
@@ -821,10 +825,22 @@
                     throw new Error(error.error || '更新资料失败');
                 }
                 
-                showNotification('资料更新成功！', 'success');
+                const result = await response.json();
                 
-                // 重新加载用户资料
-                await loadUserProfile();
+                // 更新当前用户数据
+                if (result.user) {
+                    currentUser = result.user;
+                    
+                    // 更新localStorage中的用户数据
+                    const storedUser = JSON.parse(localStorage.getItem('dreamwise_user') || '{}');
+                    storedUser.profile = result.user.profile;
+                    localStorage.setItem('dreamwise_user', JSON.stringify(storedUser));
+                    
+                    // 更新页面显示的用户信息（不重新加载表单）
+                    updateUserDisplayInfo(result.user);
+                }
+                
+                showNotification('资料更新成功！', 'success');
                 
             } catch (error) {
                 console.error('保存资料错误:', error);
@@ -882,6 +898,31 @@
                 avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Avatar" class="w-full h-full object-cover rounded-full">`;
             } else {
                 avatarContainer.innerHTML = '<i class="fas fa-user text-white text-sm"></i>';
+            }
+        }
+        
+        function updateUserDisplayInfo(userData) {
+            // 更新显示的用户信息（不影响表单）
+            document.getElementById('profileDisplayName').textContent = userData.profile?.displayName || userData.username;
+            document.getElementById('profileEmail').textContent = userData.email;
+            document.getElementById('userDisplayName').textContent = userData.profile?.displayName || userData.username;
+            
+            // 更新统计数据
+            if (userData.stats) {
+                updateStats(userData.stats);
+            }
+            
+            // 更新导航栏头像
+            updateNavigationAvatar(userData.profile?.avatar);
+            
+            // 更新邮箱验证状态
+            const emailStatus = document.getElementById('emailVerifiedStatus');
+            if (userData.isEmailVerified) {
+                emailStatus.innerHTML = '<i class="fas fa-check mr-1"></i>已验证';
+                emailStatus.className = 'px-3 py-1 rounded-full text-sm bg-green-500/20 text-green-400';
+            } else {
+                emailStatus.innerHTML = '<i class="fas fa-exclamation-triangle mr-1"></i>未验证';
+                emailStatus.className = 'px-3 py-1 rounded-full text-sm bg-yellow-500/20 text-yellow-400';
             }
         }
         

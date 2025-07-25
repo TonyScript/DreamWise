@@ -158,6 +158,7 @@ router.put('/profile', authenticateToken, validateProfileUpdate, async (req, res
     if (interests !== undefined) profile.interests = interests;
     
     user.profile = profile;
+    user.changed('profile', true);
     await user.save();
     
     res.json({
