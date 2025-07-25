@@ -303,7 +303,7 @@
                 <!-- User Menu -->
                 <div class="relative">
                     <button id="userMenuButton" class="flex items-center space-x-3 p-2 rounded-xl hover:bg-white/10 transition-all duration-300">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <div id="userAvatarContainer" class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden">
                             <i class="fas fa-user text-white text-sm"></i>
                         </div>
                         <span id="userDisplayName" class="hidden md:block font-medium">用户</span>
@@ -646,13 +646,19 @@
             
             // 头像
             if (userData.profile?.avatar) {
-                document.getElementById('avatarPreview').src = userData.profile.avatar;
+                const avatarUrl = userData.profile.avatar.startsWith('http') 
+                    ? userData.profile.avatar 
+                    : `http://localhost:3000${userData.profile.avatar}`;
+                document.getElementById('avatarPreview').src = avatarUrl;
             }
             
             // 用户信息显示
             document.getElementById('profileDisplayName').textContent = userData.profile?.displayName || userData.username;
             document.getElementById('profileEmail').textContent = userData.email;
             document.getElementById('userDisplayName').textContent = userData.profile?.displayName || userData.username;
+            
+            // 更新导航栏头像
+            updateNavigationAvatar(userData.profile?.avatar);
             
             // 邮箱验证状态
             const emailStatus = document.getElementById('emailVerifiedStatus');
@@ -757,7 +763,21 @@
                 }
                 
                 const result = await response.json();
-                document.getElementById('avatarPreview').src = result.avatarUrl;
+                const avatarUrl = `http://localhost:3000${result.avatar}`;
+                
+                // 更新页面中的头像显示
+                document.getElementById('avatarPreview').src = avatarUrl;
+                
+                // 更新导航栏中的头像
+                updateNavigationAvatar(result.avatar);
+                
+                // 更新localStorage中的用户数据
+                const userData = JSON.parse(localStorage.getItem('dreamwise_user') || '{}');
+                if (userData.profile) {
+                    userData.profile.avatar = result.avatar;
+                    localStorage.setItem('dreamwise_user', JSON.stringify(userData));
+                }
+                
                 showNotification('头像上传成功', 'success');
                 updateProfileProgress();
                 
@@ -847,6 +867,21 @@
                 setTimeout(() => {
                     window.location.href = '../index-new.html';
                 }, 1000);
+            }
+        }
+        
+        function updateNavigationAvatar(avatarPath) {
+            const avatarContainer = document.getElementById('userAvatarContainer');
+            if (!avatarContainer) return;
+            
+            if (avatarPath) {
+                const avatarUrl = avatarPath.startsWith('http') 
+                    ? avatarPath 
+                    : `http://localhost:3000${avatarPath}`;
+                
+                avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Avatar" class="w-full h-full object-cover rounded-full">`;
+            } else {
+                avatarContainer.innerHTML = '<i class="fas fa-user text-white text-sm"></i>';
             }
         }
         
