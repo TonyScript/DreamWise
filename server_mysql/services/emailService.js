@@ -2,8 +2,14 @@ const { Resend } = require('resend');
 
 class EmailService {
   constructor() {
-    this.resend = new Resend('re_GUybAXRV_DcNYEC5bM6weuumHumdPaAzR');
-    this.fromEmail = 'DreamWise <noreply@charitydoing.com>';
+    // 从环境变量获取API密钥
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      throw new Error('RESEND_API_KEY environment variable is required');
+    }
+    
+    this.resend = new Resend(apiKey);
+    this.fromEmail = process.env.FROM_EMAIL || 'DreamWise <noreply@charitydoing.com>';
   }
 
   // 生成6位数验证码
