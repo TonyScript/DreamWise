@@ -672,7 +672,10 @@ nav {
             const token = localStorage.getItem('dreamwise_token');
             const user = localStorage.getItem('dreamwise_user');
             
+            console.log('Checking authentication - token:', !!token, 'user:', !!user);
+            
             if (!token || !user) {
+                console.log('No token or user found');
                 return false;
             }
             
@@ -680,8 +683,11 @@ nav {
                 // 检查token是否过期
                 const payload = JSON.parse(atob(token.split('.')[1]));
                 const bufferTime = 5 * 60 * 1000; // 5分钟缓冲
-                return Date.now() < (payload.exp * 1000 - bufferTime);
+                const isValid = Date.now() < (payload.exp * 1000 - bufferTime);
+                console.log('Token validation result:', isValid);
+                return isValid;
             } catch (error) {
+                console.log('Token parsing error:', error);
                 return false;
             }
         }
@@ -1329,8 +1335,10 @@ nav {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('dreamDate').value = today;
             
-            // 更新按钮状态
-            updateAnalysisButton();
+            // 延迟更新按钮状态，确保auth.js已加载
+            setTimeout(function() {
+                updateAnalysisButton();
+            }, 100);
             
             // 监听登录状态变化
             document.addEventListener('userLoggedIn', updateAnalysisButton);
@@ -1340,6 +1348,16 @@ nav {
                     updateAnalysisButton();
                 }
             });
+            
+            // 定期检查按钮状态（防止初始化问题）
+            const checkButtonInterval = setInterval(function() {
+                updateAnalysisButton();
+            }, 1000);
+            
+            // 5秒后停止定期检查
+            setTimeout(function() {
+                clearInterval(checkButtonInterval);
+            }, 5000);
         });
         
         // 更新分析按钮状态
@@ -1348,9 +1366,15 @@ nav {
             const buttonText = document.getElementById('analysisButtonText');
             const buttonIcon = document.getElementById('analysisButtonIcon');
             
-            if (!button) return;
+            if (!button || !buttonText || !buttonIcon) {
+                console.log('Button elements not found, retrying...');
+                return;
+            }
             
-            if (isUserAuthenticated()) {
+            const isAuthenticated = isUserAuthenticated();
+            console.log('Updating button state, authenticated:', isAuthenticated);
+            
+            if (isAuthenticated) {
                 // 已登录状态
                 buttonText.textContent = 'Generate Analysis';
                 buttonIcon.className = 'fas fa-magic ml-2';
@@ -1361,6 +1385,7 @@ nav {
                 button.onmouseout = function() {
                     this.style.background = 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)';
                 };
+                console.log('Button updated to authenticated state');
             } else {
                 // 未登录状态
                 buttonText.textContent = 'Sign In to Generate Analysis';
@@ -1372,12 +1397,10 @@ nav {
                 button.onmouseout = function() {
                     this.style.background = 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)';
                 };
+                console.log('Button updated to unauthenticated state');
             }
         }
     </script>
-
-    <!-- Authentication System -->
-    <script src="../assets/js/auth.js"></script>
 
 <script>
 // 页面加载完成后移除初始隐藏
@@ -1387,4 +1410,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('loaded');
   }, 100);
 });
-</script></body></html>
+</script>
+
+    <!-- Authentication System - 移到页面底部但在其他脚本之前 -->
+    <script src="../assets/js/auth.js"></script>
+</body></html>
