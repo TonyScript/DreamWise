@@ -86,7 +86,7 @@ router.post('/register', sensitiveOperationLimit(3), validateUserRegistration, a
     // 再次检查用户是否已存在（防止竞态条件）
     const existingUser = await User.findOne({
       where: {
-        [User.sequelize.Op.or]: [
+        [Op.or]: [
           { email: email },
           { username: username }
         ]
@@ -122,7 +122,8 @@ router.post('/register', sensitiveOperationLimit(3), validateUserRegistration, a
   } catch (error) {
     console.error('注册错误:', error);
     res.status(500).json({
-      error: '注册失败'
+      error: '注册失败',
+      details: error.message
     });
   }
 });
