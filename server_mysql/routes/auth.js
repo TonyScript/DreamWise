@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 const { User, VerificationCode } = require('../models');
 const { authenticateToken, sensitiveOperationLimit } = require('../middleware/auth');
 const { validateUserRegistration, validateUserLogin } = require('../middleware/validation');
@@ -30,7 +31,7 @@ router.post('/send-registration-code', sensitiveOperationLimit(3), async (req, r
     // 检查用户是否已存在
     const existingUser = await User.findOne({
       where: {
-        [User.sequelize.Op.or]: [
+        [Op.or]: [
           { email: email },
           { username: username }
         ]
@@ -56,7 +57,8 @@ router.post('/send-registration-code', sensitiveOperationLimit(3), async (req, r
   } catch (error) {
     console.error('发送注册验证码错误:', error);
     res.status(500).json({
-      error: '发送验证码失败'
+      error: '发送验证码失败',
+      details: error.message
     });
   }
 });

@@ -149,7 +149,20 @@ class AuthManager {
         return Promise.resolve(demoData[endpoint] || {});
     }
 
-    // Register new user
+    // Send registration verification code
+    async sendRegistrationCode(email, username) {
+        try {
+            const response = await this.apiRequest('/auth/send-registration-code', {
+                method: 'POST',
+                body: JSON.stringify({ email, username })
+            });
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    // Register new user with verification code
     async register(userData) {
         try {
             const response = await this.apiRequest('/auth/register', {
@@ -440,10 +453,68 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (registerForm) {
+        const step1 = document.getElementById('registerStep1');
+        const step2 = document.getElementById('registerStep2');
+        const sendVerificationBtn = document.getElementById('sendVerificationBtn');
+        const backToStep1Btn = document.getElementById('backToStep1');
+        const resendCodeBtn = document.getElementById('resendCode');
+        
+        let registrationData = {};
+
+        // Step 1: Send verification code
+        if (sendVerificationBtn) {
+            sendVerificationBtn.addEventListener('click', async function() {
+                const originalText = sendVerificationBtn.textContent;
+                
+                try {
+                    sendVerificationBtn.textContent = 'Sending code...';
+                    sendVerificationBtn.disabled = true;
+
+                    const formData = new FormData(registerForm);
+                    const username = formData.get('username');
+                    const email = formData.get('email');
+                    const password = formData.get('password');
+                    const confirmPassword = formData.get('confirmPassword');
+
+                    // Validate form data
+                    if (!username || !email || !password || !confirmPassword) {
+                        throw new Error('Please fill in all fields');
+                    }
+
+                    if (password !== confirmPassword) {
+                        throw new Error('Passwords do not match');
+                    }
+
+                    if (password.length < 6) {
+                        throw new Error('Password must be at least 6 characters long');
+                    }
+
+                    // Store registration data for step 2
+                    registrationData = { username, email, password };
+
+                    // Send verification code
+                    await authManager.sendRegistrationCode(email, username);
+                    
+                    // Show step 2
+                    step1.classList.add('hidden');
+                    step2.classList.remove('hidden');
+                    
+                    showNotification('Verification code sent to your email!', 'success');
+                    
+                } catch (error) {
+                    showNotification(error.message, 'error');
+                } finally {
+                    sendVerificationBtn.textContent = originalText;
+                    sendVerificationBtn.disabled = false;
+                }
+            });
+        }
+
+        // Step 2: Complete registration
         registerForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const submitBtn = registerForm.querySelector('button[type="submit"]');
+            const submitBtn = document.getElementById('completeRegistration');
             const originalText = submitBtn.textContent;
             
             try {
@@ -451,20 +522,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = true;
 
                 const formData = new FormData(registerForm);
-                const userData = {
-                    username: formData.get('username'),
-                    email: formData.get('email'),
-                    password: formData.get('password')
-                };
+                const verificationCode = formData.get('verificationCode');
 
-                // Validate password confirmation
-                const confirmPassword = formData.get('confirmPassword');
-                if (userData.password !== confirmPassword) {
-                    throw new Error('Passwords do not match');
+                if (!verificationCode || verificationCode.length !== 6) {
+                    throw new Error('Please enter a valid 6-digit verification code');
                 }
+
+                // Complete registration with verification code
+                const userData = {
+                    ...registrationData,
+                    verificationCode
+                };
 
                 await authManager.register(userData);
                 authManager.hideModals();
+                
+                // Reset form
+                registerForm.reset();
+                step2.classList.add('hidden');
+                step1.classList.remove('hidden');
                 
                 // Show success message
                 showNotification('Account created successfully! Welcome to DreamWise!', 'success');
@@ -476,6 +552,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = false;
             }
         });
+
+        // Back to step 1
+        if (backToStep1Btn) {
+            backToStep1Btn.addEventListener('click', function() {
+                step2.classList.add('hidden');
+                step1.classList.remove('hidden');
+            });
+        }
+
+        // Resend verification code
+        if (resendCodeBtn) {
+            resendCodeBtn.addEventListener('click', async function() {
+                const originalText = resendCodeBtn.textContent;
+                
+                try {
+                    resendCodeBtn.textContent = 'Sending...';
+                    resendCodeBtn.disabled = true;
+
+                    await authManager.sendRegistrationCode(registrationData.email, registrationData.username);
+                    showNotification('Verification code resent!', 'success');
+                    
+                } catch (error) {
+                    showNotification(error.message, 'error');
+                } finally {
+                    resendCodeBtn.textContent = originalText;
+                    resendCodeBtn.disabled = false;
+                }
+            });
+        }
     }
 
     // Modal close handlers

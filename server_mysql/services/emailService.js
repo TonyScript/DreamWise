@@ -3,7 +3,7 @@ const { Resend } = require('resend');
 class EmailService {
   constructor() {
     this.resend = new Resend('re_GUybAXRV_DcNYEC5bM6weuumHumdPaAzR');
-    this.fromEmail = 'DreamWise <noreply@dreamwise.com>';
+    this.fromEmail = 'DreamWise <noreply@charitydoing.com>';
   }
 
   // 生成6位数验证码
