@@ -17,10 +17,10 @@ class DreamJournal {
         // Wait for auth manager to initialize
         await this.waitForAuth();
         
-        // Check authentication
+        // Check authentication with improved handling
         if (!authManager.isAuthenticated()) {
-            console.log('User not authenticated, redirecting...');
-            window.location.href = '../index-new.html';
+            console.log('User not authenticated, showing login prompt...');
+            this.showLoginRequired();
             return;
         }
 
@@ -33,6 +33,45 @@ class DreamJournal {
 
         // Setup event listeners
         this.setupEventListeners();
+    }
+    
+    // Show login required message instead of redirecting
+    showLoginRequired() {
+        const mainContent = document.querySelector('main');
+        if (mainContent) {
+            mainContent.innerHTML = `
+                <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+                    <div class="max-w-md w-full mx-4">
+                        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl text-center">
+                            <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-sign-in-alt text-white text-2xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-4">Sign In Required</h2>
+                            <p class="text-gray-300 mb-6">Please sign in to access your dream journal and start recording your dreams.</p>
+                            <div class="space-y-3">
+                                <button onclick="authManager.showLoginModal()" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                                    Sign In
+                                </button>
+                                <button onclick="authManager.showRegisterModal()" class="w-full px-6 py-3 border border-white/30 text-white hover:bg-white/10 font-medium rounded-xl transition-all duration-300">
+                                    Create Account
+                                </button>
+                                <a href="../index-new.html" class="block w-full px-6 py-3 text-gray-300 hover:text-white font-medium transition-all duration-300">
+                                    ← Back to Home
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Listen for successful login
+        document.addEventListener('userLoggedIn', () => {
+            console.log('User logged in, reloading page...');
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        });
     }
     
     // Wait for auth manager to be ready

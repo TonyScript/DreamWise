@@ -207,14 +207,23 @@ class AuthManager {
         }
     }
 
-    // Verify token validity
+    // Verify token validity with improved error handling
     async verifyToken() {
         try {
             const response = await this.apiRequest('/auth/verify');
             this.user = response.user;
             return response;
         } catch (error) {
-            this.clearAuthData();
+            console.warn('Token verification failed:', error.message);
+            
+            // Only clear auth data if it's a definitive authentication failure
+            // Don't clear on network errors or server unavailability
+            if (error.message.includes('Invalid token') || 
+                error.message.includes('Token expired') ||
+                error.message.includes('Unauthorized')) {
+                this.clearAuthData();
+            }
+            
             throw error;
         }
     }
@@ -239,7 +248,13 @@ class AuthManager {
         this.token = token;
         this.user = user;
         localStorage.setItem('dreamwise_token', token);
+        localStorage.setItem('dreamwise_user', JSON.stringify(user));
         this.updateUI();
+        
+        // 触发登录成功事件
+        document.dispatchEvent(new CustomEvent('userLoggedIn', {
+            detail: { user, token }
+        }));
     }
 
     // Clear authentication data
@@ -247,7 +262,11 @@ class AuthManager {
         this.token = null;
         this.user = null;
         localStorage.removeItem('dreamwise_token');
+        localStorage.removeItem('dreamwise_user');
         this.updateUI();
+        
+        // 触发登出事件
+        document.dispatchEvent(new CustomEvent('userLoggedOut'));
     }
 
     // Check if user is authenticated

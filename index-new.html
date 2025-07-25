@@ -1302,9 +1302,9 @@
                         <div class="feature-journal-title">Spiritual Insights</div>
                     </div>
                 </div>
-                <a href="pages/dream-journal.html" class="feature-link">
-                    <span>Open Your Journal</span>
-                    <i class="fas fa-arrow-right"></i>
+                <a href="pages/dream-journal.html" class="feature-link" id="dreamJournalLink">
+                    <span id="dreamJournalText">Open Your Journal</span>
+                    <i class="fas fa-arrow-right" id="dreamJournalIcon"></i>
                 </a>
             </div>
 
@@ -1360,9 +1360,9 @@
                         <span>Community Discussions</span>
                     </div>
                 </div>
-                <a href="pages/community.html" class="feature-link">
-                    <span>Explore Community</span>
-                    <i class="fas fa-arrow-right"></i>
+                <a href="pages/community.html" class="feature-link" id="communityLink">
+                    <span id="communityText">Explore Community</span>
+                    <i class="fas fa-arrow-right" id="communityIcon"></i>
                 </a>
             </div>
         </div>
@@ -1998,6 +1998,137 @@
     <!-- Scripts -->
     <script src="assets/js/notifications.js"></script>
     <script src="assets/js/auth.js"></script>
+    <script>
+        // 登录状态管理和页面内容更新
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatusAndUpdateUI();
+            setupProtectedLinks();
+        });
+
+        function checkAuthStatusAndUpdateUI() {
+            const token = localStorage.getItem('dreamwise_token');
+            const user = localStorage.getItem('dreamwise_user');
+            
+            // More robust authentication check
+            let isLoggedIn = false;
+            
+            if (token && user) {
+                try {
+                    // Check if token is not expired
+                    if (!isTokenExpired(token)) {
+                        // Verify user data is valid
+                        const userData = JSON.parse(user);
+                        if (userData && userData.id) {
+                            isLoggedIn = true;
+                        }
+                    }
+                } catch (error) {
+                    console.warn('Auth status check error:', error);
+                    // Don't immediately clear auth data, just treat as not logged in
+                }
+            }
+            
+            updateFeatureCards(isLoggedIn);
+            updateNavigationUI(isLoggedIn);
+        }
+
+        function isTokenExpired(token) {
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                // Add 5 minute buffer to avoid premature expiration
+                const bufferTime = 5 * 60 * 1000; // 5 minutes in milliseconds
+                return Date.now() >= (payload.exp * 1000 - bufferTime);
+            } catch (error) {
+                console.warn('Token parsing error:', error);
+                return true;
+            }
+        }
+
+        function updateFeatureCards(isLoggedIn) {
+            const dreamJournalLink = document.getElementById('dreamJournalLink');
+            const dreamJournalText = document.getElementById('dreamJournalText');
+            const dreamJournalIcon = document.getElementById('dreamJournalIcon');
+            
+            const communityLink = document.getElementById('communityLink');
+            const communityText = document.getElementById('communityText');
+            const communityIcon = document.getElementById('communityIcon');
+
+            if (isLoggedIn) {
+                // 已登录状态 - 显示正常链接
+                dreamJournalLink.href = 'pages/dream-journal.html';
+                dreamJournalText.textContent = 'Open Your Journal';
+                dreamJournalIcon.className = 'fas fa-arrow-right';
+                dreamJournalLink.classList.remove('login-required');
+                dreamJournalLink.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                
+                communityLink.href = 'pages/community.html';
+                communityText.textContent = 'Explore Community';
+                communityIcon.className = 'fas fa-arrow-right';
+                communityLink.classList.remove('login-required');
+                communityLink.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            } else {
+                // 未登录状态 - 显示友好的登录提示
+                dreamJournalLink.href = '#';
+                dreamJournalText.textContent = 'Sign In to Access';
+                dreamJournalIcon.className = 'fas fa-sign-in-alt';
+                dreamJournalLink.classList.add('login-required');
+                dreamJournalLink.style.background = 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)';
+                
+                communityLink.href = '#';
+                communityText.textContent = 'Sign In to Join';
+                communityIcon.className = 'fas fa-sign-in-alt';
+                communityLink.classList.add('login-required');
+                communityLink.style.background = 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)';
+            }
+        }
+
+        function updateNavigationUI(isLoggedIn) {
+            // 更新导航栏的用户状态显示
+            // 这里可以添加更多的UI更新逻辑
+        }
+
+        function setupProtectedLinks() {
+            // 为需要登录的链接添加点击事件处理
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.login-required')) {
+                    e.preventDefault();
+                    
+                    // 显示登录提示
+                    showLoginPrompt();
+                }
+            });
+        }
+
+        function showLoginPrompt() {
+            // 显示登录模态框
+            if (typeof authManager !== 'undefined') {
+                authManager.showLoginModal();
+            } else {
+                // 备用方案：显示通知
+                if (typeof showNotification !== 'undefined') {
+                    showNotification('Please sign in to access this feature', 'info');
+                } else {
+                    alert('Please sign in to access this feature');
+                }
+            }
+        }
+
+        // 监听登录状态变化
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'dreamwise_token') {
+                checkAuthStatusAndUpdateUI();
+            }
+        });
+
+        // 监听自定义登录事件
+        document.addEventListener('userLoggedIn', function() {
+            checkAuthStatusAndUpdateUI();
+        });
+
+        document.addEventListener('userLoggedOut', function() {
+            checkAuthStatusAndUpdateUI();
+        });
+    </script>
     <script src="assets/js/main.min.js" defer></script>
     <script src="assets/js/components.js" defer></script>
     
