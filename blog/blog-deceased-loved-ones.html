@@ -331,7 +331,7 @@
         // 加载footer
         async function loadFooter() {
             try {
-                const response = await fetch('../assets/components/footer.html');
+                const response = await fetch('assets/components/footer.html');
                 const footerHTML = await response.text();
                 document.getElementById('footer-container').innerHTML = footerHTML;
             } catch (error) {
