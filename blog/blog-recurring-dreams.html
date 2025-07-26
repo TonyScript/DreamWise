@@ -47,7 +47,7 @@
     <meta property="article:section" content="Dream Analysis">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -76,9 +76,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/main.min.css">
-    <link rel="preload" href="assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="assets/css/image-optimization.css"></noscript>
+    <link rel="stylesheet" href="../assets/css/main.min.css">
+    <link rel="preload" href="../assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="../assets/css/image-optimization.css"></noscript>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #ffffff;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -99,9 +131,9 @@
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index-new.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Home</a>
-                    <a href="browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Browse A-Z</a>
-                    <a href="categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Categories</a>
+                    <a href="../index-new.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Home</a>
+                    <a href="../browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Browse A-Z</a>
+                    <a href="../categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Categories</a>
                     <a href="insights.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Daily Insights</a>
                 </div>
                 
@@ -114,9 +146,9 @@
             <!-- Mobile Navigation Menu -->
             <div class="mobile-menu hidden md:hidden mt-4 pt-4 border-t border-white/20">
                 <div class="flex flex-col space-y-3">
-                    <a href="index-new.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Home</a>
-                    <a href="browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Browse A-Z</a>
-                    <a href="categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Categories</a>
+                    <a href="../index-new.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Home</a>
+                    <a href="../browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Browse A-Z</a>
+                    <a href="../categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Categories</a>
                     <a href="insights.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Daily Insights</a>
                 </div>
             </div>
@@ -145,7 +177,7 @@
                 </div>
                 
                 <div class="flex justify-between items-center">
-                    <a href="dream-blog.html" class="text-purple-300 hover:text-purple-200 transition-colors duration-300">
+                    <a href="../dream-blog.html" class="text-purple-300 hover:text-purple-200 transition-colors duration-300">
                         <i class="fas fa-arrow-left mr-2"></i> Back to Blog
                     </a>
                     
@@ -265,12 +297,12 @@
                     <h3 class="text-2xl font-bold mb-6">Related Articles</h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <a href="blog/blog-water-dreams.html" class="glass-card hover-scale p-4 group">
+                        <a href="blog-water-dreams.html" class="glass-card hover-scale p-4 group">
                             <h4 class="font-semibold mb-2 group-hover:text-purple-300 transition-colors duration-300">Water Dreams Across Different Cultures</h4>
                             <p class="text-sm text-gray-400">Explore how water symbols in dreams are interpreted across various spiritual traditions.</p>
                         </a>
                         
-                        <a href="blog/blog-nightmares.html" class="glass-card hover-scale p-4 group">
+                        <a href="blog-nightmares.html" class="glass-card hover-scale p-4 group">
                             <h4 class="font-semibold mb-2 group-hover:text-purple-300 transition-colors duration-300">Nightmares: Transforming Fear into Wisdom</h4>
                             <p class="text-sm text-gray-400">Learn how to work with frightening dreams to uncover their transformative potential.</p>
                         </a>
@@ -284,7 +316,23 @@
     <div id="footer-container"></div>
 
     <!-- JavaScript -->
-    <script src="assets/js/main.min.js" defer></script>
-    <script src="assets/js/components.js" defer></script>
+    <script src="../assets/js/main.min.js" defer></script>
+    <script src="../assets/js/components.js" defer></script>
+
+    <script>
+        // 加载footer
+        async function loadFooter() {
+            try {
+                const response = await fetch('../assets/components/footer.html');
+                const footerHTML = await response.text();
+                document.getElementById('footer-container').innerHTML = footerHTML;
+            } catch (error) {
+                console.error('Failed to load footer:', error);
+            }
+        }
+        
+        // 页面加载完成后加载footer
+        document.addEventListener('DOMContentLoaded', loadFooter);
+    </script>
 </body>
 </html>

@@ -36,7 +36,7 @@
     <meta property="og:url" content="https://dreamwise.charitydoing.com/blog-nightmares.html">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -62,9 +62,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/main.min.css">
-    <link rel="preload" href="assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="assets/css/image-optimization.css"></noscript>
+    <link rel="stylesheet" href="../assets/css/main.min.css">
+    <link rel="preload" href="../assets/css/image-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="../assets/css/image-optimization.css"></noscript>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #ffffff;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -85,10 +117,10 @@
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index-new.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Home</a>
-                    <a href="browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Browse A-Z</a>
-                    <a href="categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Categories</a>
-                    <a href="dream-blog.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Blog</a>
+                    <a href="../index-new.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Home</a>
+                    <a href="../browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Browse A-Z</a>
+                    <a href="../categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Categories</a>
+                    <a href="../dream-blog.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium">Blog</a>
                 </div>
                 
                 <!-- Mobile Menu Button -->
@@ -100,10 +132,10 @@
             <!-- Mobile Navigation Menu -->
             <div class="mobile-menu hidden md:hidden mt-4 pt-4 border-t border-white/20">
                 <div class="flex flex-col space-y-3">
-                    <a href="index-new.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Home</a>
-                    <a href="browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Browse A-Z</a>
-                    <a href="categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Categories</a>
-                    <a href="dream-blog.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Blog</a>
+                    <a href="../index-new.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Home</a>
+                    <a href="../browse.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Browse A-Z</a>
+                    <a href="../categories.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Categories</a>
+                    <a href="../dream-blog.html" class="text-white hover:text-purple-300 transition-colors duration-300 font-medium py-2">Blog</a>
                 </div>
             </div>
         </div>
@@ -254,7 +286,7 @@
                                 </a>
                             </div>
                         </div>
-                        <a href="dream-blog.html" class="flex items-center text-purple-400 hover:text-purple-300 transition-colors duration-300">
+                        <a href="../dream-blog.html" class="flex items-center text-purple-400 hover:text-purple-300 transition-colors duration-300">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Back to Blog
                         </a>
@@ -268,7 +300,23 @@
     <div id="footer-container"></div>
 
     <!-- JavaScript -->
-    <script src="assets/js/main.min.js" defer></script>
-    <script src="assets/js/components.js" defer></script>
+    <script src="../assets/js/main.min.js" defer></script>
+    <script src="../assets/js/components.js" defer></script>
+
+    <script>
+        // 加载footer
+        async function loadFooter() {
+            try {
+                const response = await fetch('../assets/components/footer.html');
+                const footerHTML = await response.text();
+                document.getElementById('footer-container').innerHTML = footerHTML;
+            } catch (error) {
+                console.error('Failed to load footer:', error);
+            }
+        }
+        
+        // 页面加载完成后加载footer
+        document.addEventListener('DOMContentLoaded', loadFooter);
+    </script>
 </body>
 </html>
