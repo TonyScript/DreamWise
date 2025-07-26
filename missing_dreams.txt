@@ -1,2 +1,0 @@
-B: book, bottle, box, bread, bridge, butterfly
-H: hands

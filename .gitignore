@@ -106,4 +106,6 @@ test-report.json
 
 # 保留必要的JavaScript文件
 !service-worker.js
-!tailwind.config.js
+!tailwind.config.js# Arc
+hived files
+archived/
